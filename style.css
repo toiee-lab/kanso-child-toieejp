@@ -30,12 +30,18 @@ height: 35px;
 height:55px;
 }
 
-
-.main-content-lib h2 {
+.the_content h2{
     color: #444;
     font-weight: bold;
     border-bottom: 1px solid #444;
     margin-top: 5rem;
+}
+
+.main-content-lib h2.main-subtitle{
+	color: #999;
+	font-weight: normal;
+	font-size: 1.8rem;
+	margin-top: -1rem;
 }
 
 .main-content-lib h3 {
