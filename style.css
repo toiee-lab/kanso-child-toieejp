@@ -1,0 +1,74 @@
+/*
+ Theme Name:   KANSO Child for toiee.jp
+ Theme URI:    https://kansowp.toiee.jp/
+ Description:  KANSO Theme の toiee.jp 用に修正したもの
+ Author:       toiee Lab
+ Author URI:   https://toiee.jp/
+ Template:     kanso-general-master
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
+ Text Domain:  kanso general child
+*/
+
+.custom-logo {
+height: 35px;
+}
+
+/*
+#kns-header-text h1 {
+			color: #ffffff;
+}
+
+#kns-header-text h2 {
+    color: #ffffff;
+}
+*/
+
+.uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle {
+height:55px;
+}
+
+
+.main-content-lib h2 {
+    color: #444;
+    font-weight: bold;
+    border-bottom: 1px solid #444;
+    margin-top: 5rem;
+}
+
+.main-content-lib h3 {
+    font-weight: bold;
+    padding-left: 0.5rem;
+    border-left: 4px solid #444;
+}
+
+.main-content-lib img {
+    border: 1px solid #666;
+    margin: 1rem auto;
+}
+
+.main-content-lib blockquote{
+    font-size: 1rem;
+    border-left: 2px solid #666;
+    color: #666;
+    padding: 0.5rem 0 0.5rem 1rem;
+    
+}
+
+.main-content-lib table {
+    width: 100%;
+    border: 1px solid #eee;
+    border-collapse: collapse;
+}
+
+.main-content-lib table thead {
+    background-color: #e5e5e5;
+}
+
+.main-content-lib table th,
+.main-content-lib table td {
+    border: 1px solid #ddd;
+    padding: 0.2rem 0.5em;
+}
