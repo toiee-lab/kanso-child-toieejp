@@ -5,6 +5,40 @@ function theme_enqueue_styles() {
 	wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array('parent-style') );
 }
 
+function kns_get_template() {
+	
+	if( is_page_template( 'page-sidebar-lib.php' ) ){
+		return 'sidebar';
+	}
+	
+	if( is_page_template( 'page-sidebar.php' ) ){
+		return 'sidebar';
+	}
+	
+	if( is_page_template( 'page-content.php' ) ){
+		return 'content';
+	}
+	
+	//デフォルトの場合
+	
+	if( is_front_page() ){
+		return 'content';   //指定がなければ、コンテンツのみを採用する
+	}
+	
+	if( is_home() ){
+		return 'content';   //投稿ページはサイドバーはないので、コンテンツレイアウトとして設定(headerで必要)
+	}
+	
+	// デフォルトレイアウト値を戻す
+	$options = get_option('kns_options');
+	if( isset( $options['kns_default_layout'] ) && ($options['kns_default_layout'] == 'sidebar') ){
+		return 'sidebar';
+	}
+	else{
+		return 'content';
+	}
+}
+
 // といリブ用のサイドバーウィジェットを用意する
 add_action( 'widgets_init', function(){
 	register_sidebar( array(
@@ -49,7 +83,7 @@ class Toc_Shortcode {
 			'id' => '',
 			'class' => 'toc',
 			'title' => '目次',
-			'toggle' => true,
+			'toggle' => false,
 			'opentext' => '開く',
 			'closetext' => '閉じる',
 			'close' => false,
