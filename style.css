@@ -86,8 +86,13 @@ height:55px;
 ul.toc-list {
 	padding-left: 0;   
 }
-ul.toc-list > li a{
-   color: #888;
+ul.toc-list > li a {
+    color: #888;
+    text-decoration: none;
+}
+ul.toc-list > li a:hover {
+    color : rgb(0, 112, 201);
+    text-decoration: none;
 }
 ul.toc-list > li > a{
  	color: #444;   
