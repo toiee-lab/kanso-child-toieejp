@@ -20,7 +20,8 @@ get_header(); ?>
 		<div uk-grid class="uk-grid-match uk-flex-center">
 			<!-- sidebar -->
 			<div class="uk-width-auto">
-				<div class="main-content-lib main-content-sidebar uk-container uk-container-auto">		
+				<div class="main-content-lib main-content-sidebar uk-container uk-container-auto">
+
 					<?php
 					while ( have_posts() ) : the_post();
 		
@@ -33,8 +34,7 @@ get_header(); ?>
 		
 					endwhile; // End of the loop.
 					?>
-					
-					
+
 				</div><!-- .main-content -->
 			</div>
 			<div id="content-sidebar" class="uk-visible@m uk-flex-first">
