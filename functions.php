@@ -2,8 +2,18 @@
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function theme_enqueue_styles() {
 	wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' , array('uikit') );
-	wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array('parent-style') );
+//	wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array('uikit') );
 }
+
+add_action( 'wp_enqueue_scripts', function(){
+	
+	$names = array('kanso-general-style', 'base-style-css');
+	array_map(function($name){
+		if ( wp_style_is( $name ) ) {
+	        wp_dequeue_style( $name );
+	    }		
+	}, $names);
+} ,11);
 
 function kns_get_template() {
 	
