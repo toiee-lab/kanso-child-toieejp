@@ -20,6 +20,29 @@
 	<?php wp_head(); ?>
 </head>
 
+
+
+
+<script>
+  HS.beacon.config({
+    color: '#cacaca',
+    translation: {
+      searchLabel: 'En que podemos ayudarte?',
+      searchErrorLabel: 'Lo sentimos, hubo un error con tu busqueda'
+    },
+    topics: [
+      { val: 'need-help', label: 'Need help with the product' },
+      { val: 'bug', label: 'I think I found a bug'}
+    ],
+    attachment: true,
+    instructions:'This is instructional text that goes above the form.'
+  });
+</script>
+
+
+
+
+
 <body <?php body_class(); ?>>
     <div class="uk-offcanvas-content">
 			<?php 
