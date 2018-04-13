@@ -25,7 +25,24 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
-<p><?php printf( __( "Hi there. Your recent order on %s has been completed. Your order details are shown below for your reference:", 'woocommerce' ), get_option( 'blogname' ) ); ?></p>
+<h2>お申し込みが、完了しました</h2><br />
+今後、「といリブ」の教材を、ドンドン追加していきます。<br />
+ご意見・ご要望がある場合は、お気軽にdesk@toiee.jpまでご連絡ください。<br />
+<br />
+それでは、といリブをお楽しみに下さい。<br />
+<br />
+toiee Labスタッフ一同<br />
+<br />
+<h2>アクセス方法</h2>
+<ol>
+ <li><a href="https://toiee.jp/my-account/" >ここをクリック</a></li>
+ <li> お申し込み時に、「toieelabアカウント登録のお知らせ」というタイトルでお送りしている「ユーザー名」と「パスワード」でログイン</li>
+ <li><a href="https://toiee.jp/project/toieelib/about-toiee-lib/" >「といリブとは？」をクリック</a>して、使い方を学ぶ</li>
+ <li>好きな教材にアクセスし、さっそく学ぶ</li>
+ </ol>
+<br />
+<h2>お申し込み内容</h2><br />
+<br />
 
 <?php
 
