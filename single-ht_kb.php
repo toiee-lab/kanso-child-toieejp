@@ -16,7 +16,6 @@
 get_header(); ?>
 
 		<div uk-grid class="uk-grid-match uk-flex-center">
-			<!-- sidebar -->
 			<div class="uk-width-auto">
 				<div class="main-content-kb main-content-sidebar uk-container uk-container-auto">
 
@@ -28,6 +27,7 @@ get_header(); ?>
 					
 				</div><!-- .main-content -->
 			</div>
+			<!-- sidebar -->
 			<div id="content-sidebar" class="uk-visible@m uk-flex-first">
 				<nav>
 					<aside id="secondary" class="widget-area uk-padding-left">
