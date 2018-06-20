@@ -369,6 +369,3 @@ add_action('admin_bar_menu', function($wp_admin_bar){
 }, 201);
 
 
-// Learndash のための改良
-require( dirname( __FILE__ ).'/func-learndash.php'  );
-
