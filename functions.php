@@ -369,3 +369,138 @@ add_action('admin_bar_menu', function($wp_admin_bar){
 }, 201);
 
 
+// といてらイベントテーブル出力
+add_shortcode('toiee_event', function ( $atts, $content = null ) {
+	
+    extract( shortcode_atts( array(
+        'class' => 'uk-table uk-table-striped',
+    ), $atts ) );
+
+	// データの解析、配列にする    
+    $events = array();
+	$tmparr = explode( "===" , wp_strip_all_tags($content) );
+	foreach($tmparr as $dat){
+		
+		preg_match_all("/(.*?):(.*)/", $dat, $matches);
+		
+		$evt = array();		
+		foreach($matches[1] as $i => $v)
+		{
+			$evt[ trim($v) ] = trim( $matches[2][$i] );
+		}
+		$events[] = $evt;
+	}
+	
+	$table = 
+'<table class="uk-table uk-table-striped">
+    <thead>
+        <tr>
+            <th>日時</th>
+            <th>内容</th>
+            <th>ファシリテーター</th>
+            <th>詳細</th>
+        </tr>
+    </thead>
+    <tbody>
+';
+
+	foreach( $events as $e )
+	{
+		$s_tag = ''; $e_tag = ''; $expire = false;
+
+		//日付をチェックし、打ち消し線を設置
+		$e_time = strtotime( $e[ 'date' ] );
+		if( $e_time < ( time() - 24*60*60 ) ){
+			$s_tag = '<del class="uk-text-muted">';
+			$e_tag = '</del>';
+			$url = '終了しました';
+		}
+		else{
+			$s_tag = '';
+			$e_tag = '';
+			$url = '<a href="'.$e['url'].'" class="uk-button uk-button-primary uk-button-small" target="_blank">詳細</a>';
+		}
+		
+		$week = ['日', '月', '火', '水', '木', '金', '土'];
+		$w = $week[ date('w', $e_time) ];
+		$date = date( "Y年n月j日($w)", $e_time );
+		
+		$table .= "
+        <tr>
+        	<td>{$s_tag}{$date}<br>{$e['time']}{$e_tag}</td>
+        	<td>{$s_tag}{$e['title']}{$e_tag}</td>
+        	<td>{$s_tag}{$e['lft']}{$e_tag}</td>
+        	<td>{$url}</td>
+        </tr>
+";
+		
+	}
+	
+	$table .= 
+'	</tbody>
+</table>';
+
+	    
+    return $table;
+});
+
+
+// といリブイベント一覧
+add_shortcode('toiee_lib_list', function ( $atts, $content = null ) {
+	
+    extract( shortcode_atts( array(
+        'class' => 'uk-table uk-table-striped',
+    ), $atts ) );
+	// データの解析、配列にする    
+    $data = array();
+	$tmparr = explode( "===" , wp_strip_all_tags($content) );
+	foreach($tmparr as $dat){
+		
+		preg_match_all("/(.*?):(.*)/", $dat, $matches);
+		
+		$d = array();		
+		foreach($matches[1] as $i => $v)
+		{
+			$d[ trim($v) ] = trim( $matches[2][$i] );
+		}
+		$data[] = $d;
+	}
+	
+	$table = 
+'<p class="uk-text-right" style="font-size:0.7rem;">※ <span uk-icon="icon: calendar;"></span>進行表、 <span uk-icon="icon: file-edit;"></span>受講者資料</p>
+<table class="uk-table uk-table-striped uk-table-middle">
+    <thead>
+        <tr>
+            <th>タイトル</th>
+            <th>ver</th>
+            <th>内容</th>
+            <th><span uk-icon="icon: calendar;"></span></th>
+            <th><span uk-icon="icon: file-edit;"></span></th>
+        </tr>
+    </thead>
+    <tbody>
+';
+	foreach( $data as $d )
+	{
+		$lft_text = preg_match('/^https:/', $d['lft']) ? "<a href=\"{$d['lft']}\" download=\"lft-text.pdf\" target=\"_blank\" class=\"\" uk-icon=\"icon: download\"></a>" : "--";
+		
+		$table .= "
+        <tr>
+        	<td style=\"font-size:0.8rem;\"><a href='{$d['url']}'>{$d['title']}</a></td>
+        	<td style=\"font-size:0.8rem;\">{$d['ver']}</td>
+        	<td style=\"font-size:0.8rem;\">{$d['desc']}</td>
+        	<td><span style=\"font-size:0.8rem;\">{$lft_text}</span></td>
+        	<td><a href=\"{$d['user']}\" download=\"materials.pdf\" target=\"_blank\" class=\"\" uk-icon=\"icon: download\"></a></td>
+        </tr>
+";
+		
+	}
+	
+	$table .= 
+'	</tbody>
+</table>
+';
+	    
+    return $table;
+});
+
