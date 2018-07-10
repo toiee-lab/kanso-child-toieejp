@@ -85,8 +85,6 @@ function kns_get_template() {
 }
 
 
-
-
 // heroic knowledge base setting
 require_once( 'functions/kb_settings.php' );
 

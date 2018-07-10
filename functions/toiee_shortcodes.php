@@ -5,7 +5,7 @@
  *
  */
 
-// といてらイベントテーブル出力
+//! といてらイベントテーブル出力
 add_shortcode('toiee_event', function ( $atts, $content = null ) {
 	
     extract( shortcode_atts( array(
@@ -81,12 +81,37 @@ add_shortcode('toiee_event', function ( $atts, $content = null ) {
 });
 
 
-// といリブイベント一覧
+//! といリブ　教材一覧
 add_shortcode('toiee_lib_list', function ( $atts, $content = null ) {
 	
     extract( shortcode_atts( array(
-        'class' => 'uk-table uk-table-striped',
+        'class'  => 'uk-table uk-table-striped',
+		'id'     => '',
+		'sub_id' => '',
+		'mem_id' => '',
+		'wcr_id' => '',
+		'lp_url' => 'https://toiee.jp/lp/toieelib-teacher-plan/',
+
     ), $atts ) );
+    
+    // アクセス制限パラメタを整理
+	// 複数のidが指定されていることを想定
+	$product_ids = explode(',', $id);
+	$sub_ids = explode(',', $sub_id);
+	$mem_ids = explode(',', $mem_id);
+
+	// WC Restrict Post type からデータを取り出して、$product_ids, $sub_ids, $mem_ids に加える
+	if( $wcr_id != '' && is_numeric($wcr_id) ){
+		$wcr_dat  = get_post_meta($wcr_id, 'wcr_param', true);
+		$wcr_arr = unserialize( $wcr_dat );
+		
+		$tmp_arr = array( 'product_ids', 'sub_ids', 'mem_ids' );
+		foreach($tmp_arr as $v){
+			$$v = array_merge($$v, $wcr_arr['wcr_'.$v] );
+		}
+	}
+
+    
 	// データの解析、配列にする    
     $data = array();
 	$tmparr = explode( "===" , wp_strip_all_tags($content) );
@@ -102,7 +127,63 @@ add_shortcode('toiee_lib_list', function ( $atts, $content = null ) {
 		$data[] = $d;
 	}
 	
-	$table = 
+	
+	// アクセスのチェック
+	global $wcr_content;
+	$access = $wcr_content->has_access($product_ids, $sub_ids, $mem_ids);
+
+	// もしなかったら、鍵アイコンにして、クリックすると申し込みのモーダルが表示される
+	// error message がある場合、モーダルウィンドウを表示する
+	ob_start();
+		wc_print_notices();
+		$wc_notices = ob_get_contents();
+	ob_end_clean();
+	
+	if( $wc_notices != ''){
+		$js = <<<EOD
+<script>			
+el = document.getElementById('toieelib-list-modal');
+UIkit.modal(el).show();
+</script>
+EOD;
+	}
+	else{
+		$js = '';
+	}
+	
+	// ログイン画面生成
+	if( ! is_user_logged_in( ) ) {
+		ob_start();
+			echo $wc_notices;
+			woocommerce_login_form( array('redirect'=> get_permalink()) );
+			echo $js;
+			$login_form = ob_get_contents();
+		ob_end_clean();		
+	
+		$modal_window = <<<EOD
+<div id="toieelib-list-modal" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+	    <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">会員ログインが必要です</h2>
+        {$login_form}
+    </div>
+</div>	
+EOD;
+	}
+	else {
+		$modal_window = <<<EOD
+<div id="toieelib-list-modal" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+	    <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">お申し込みが必要です</h2>
+        <p><a href="{$lp_url}">資料のダウンロードには、「といリブ」のお申し込みが必要です。<br>詳しくは、こちら</a></p>
+    </div>
+</div>
+EOD;
+	}
+	
+	
+	$table =  
 '<p class="uk-text-right" style="font-size:0.7rem;">※ <span uk-icon="icon: calendar;"></span>進行表、 <span uk-icon="icon: file-edit;"></span>受講者資料</p>
 <table class="uk-table uk-table-striped uk-table-middle">
     <thead>
@@ -118,18 +199,26 @@ add_shortcode('toiee_lib_list', function ( $atts, $content = null ) {
 ';
 	foreach( $data as $d )
 	{
+		
+		$page = preg_match('/^http/', $d['url']) ?  "<a href='{$d['url']}'>{$d['title']}</a>" : $d['title'].'(ビデオなし)';
+		
 		$lft_text = preg_match('/^https:/', $d['lft']) ? "<a href=\"{$d['lft']}\" download=\"lft-text.pdf\" target=\"_blank\" class=\"\" uk-icon=\"icon: download\"></a>" : "--";
+		$user_text = "<a href=\"{$d['user']}\" download=\"materials.pdf\" target=\"_blank\" class=\"\" uk-icon=\"icon: download\"></a>";
+		
+		if( $access == false) {
+			$lft_text = '<a href="" uk-icon="icon: lock" uk-toggle="target: #toieelib-list-modal"></a>';
+			$user_text = '<a href="" uk-icon="icon: lock" uk-toggle="target: #toieelib-list-modal"></a>';
+		}
 		
 		$table .= "
         <tr>
-        	<td style=\"font-size:0.8rem;\"><a href='{$d['url']}'>{$d['title']}</a></td>
+        	<td style=\"font-size:0.8rem;\">{$page}</td>
         	<td style=\"font-size:0.8rem;\">{$d['ver']}</td>
         	<td style=\"font-size:0.8rem;\">{$d['desc']}</td>
-        	<td><span style=\"font-size:0.8rem;\">{$lft_text}</span></td>
-        	<td><a href=\"{$d['user']}\" download=\"materials.pdf\" target=\"_blank\" class=\"\" uk-icon=\"icon: download\"></a></td>
+        	<td style=\"font-size:0.8rem;\">{$lft_text}</td>
+        	<td style=\"font-size:0.8rem;\">{$user_text}</td>
         </tr>
 ";
-		
 	}
 	
 	$table .= 
@@ -137,7 +226,7 @@ add_shortcode('toiee_lib_list', function ( $atts, $content = null ) {
 </table>
 ';
 	    
-    return $table;
+    return $table . $modal_window;
 });
 
 
