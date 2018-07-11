@@ -48,7 +48,10 @@ get_header(); ?>
 					<div class="uk-width-expand@m">
 				<?php
 
-					the_archive_title( '<h1 class="uk-heading-primaryr">', '</h1>' );
+					//the_archive_title( '<h1 class="uk-heading-primaryr">', '</h1>' );
+					$series_title = get_option( 'ss_podcasting_data_title_' . $series_id, '' );
+					echo '<h1 class="uk-h2">'.$series_title.'</h2>';
+
 					the_archive_description( '<p>', '</p>' );
 					echo $pcast_info;
 					
