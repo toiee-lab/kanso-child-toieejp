@@ -404,3 +404,13 @@ class Toc_Shortcode {
 
 new Toc_Shortcode();
 
+
+/* user_login_check */
+add_shortcode('toiee_user_logined', function ( $atts, $content = null ) {
+
+	if ( is_user_logged_in() ) {
+		return  do_shortcode( $content );
+	}
+
+	return '';
+});

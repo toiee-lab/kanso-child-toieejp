@@ -5,14 +5,15 @@
 add_action( 'wp_enqueue_scripts', function(){
 
 	wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' , array('uikit') );
-//	wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array('uikit') );
+	wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array('parent-style') );
 	
-	$names = array('kanso-general-style', 'base-style-css');
+	$names = array('kanso-general-style', 'base-style');
 	array_map(function($name){
 		if ( wp_style_is( $name ) ) {
 	        wp_dequeue_style( $name );
 	    }		
 	}, $names);
+
 } ,11);
 
 //メニューの項目をログイン状態とログインしていない状態でコントロールする（CSSでコントールできるように）

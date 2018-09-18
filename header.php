@@ -66,6 +66,7 @@
 									// - page-sidebar.php が指定してある場合は非表示
 									// - デフォルトレイアウトでサイドバーが指定されている
 									// サイドバーが設定してある場合
+									$uk_visible = '';
 									if ( kns_get_template() == 'sidebar' ) {
 										$uk_visible = 'uk-hidden@m';
 									}
