@@ -24,13 +24,27 @@ get_header(); ?>
 					$series_id    = $series->term_id;
 					$series_url   = get_term_link( $series );
 					$series_image = get_option( 'ss_podcasting_data_image_' . $series_id, 'no-image' );
+					$series_material = get_field( 'series_material', $series );
 					
 					// 制限ありのpodcastなのかフラグ
 					$series_allow = true;
-					$restrict_pass  = get_option( 'ss_podcasting_wc_restrict_ssp_' . $series_id, false );  // デフォルトは fals				
-					if( $restrict_pass == 'restrict_enable' ) {
-						$ret = $wcr_ssp->get_access_and_product_url('', '', $series_id);
+					
+					//! いずれ、このソースコードは修正だ（データを入れ替えられたら消す）
+					$restrict_pass  = get_option( 'ss_podcasting_wc_restrict_ssp_' . $series_id, false );  // デフォルトは false
+
+					//新しい方の設定（ term の場合は、term object を渡す必要がある）
+					$wcr_content_ssp  = get_field( 'series_limit',  $series );
+					
+					if( $restrict_pass == 'restrict_enable' || $wcr_content_ssp ) {
+						
+						if( $wc_restrict_ssp == 'restrict_enable' ) {
+							$ret = $wcr_ssp->get_access_and_product_url_old( '', '', $series_id );
+						}
+						else {
+							$ret = $wcr_ssp->get_access_and_product_url( '', '', $series_id );
+						}
 						$restrict_pass = $ret['access'];
+						
 					}
 					
 					// - - - - - - 
@@ -45,15 +59,13 @@ get_header(); ?>
 					<div class="uk-width-medium@m">
 						<img src="<?php echo $series_image; ?>">
 					</div>
-					<div class="uk-width-expand@m">
+					<div class="uk-width-expand@m series-header">
 				<?php
 
-					//the_archive_title( '<h1 class="uk-heading-primaryr">', '</h1>' );
-					$series_title = get_option( 'ss_podcasting_data_title_' . $series_id, '' );
-					echo '<h1 class="uk-h2">'.$series_title.'</h2>';
-
+					the_archive_title( '<h1 class="uk-heading-primaryr">', '</h1>' );
 					the_archive_description( '<p>', '</p>' );
 					echo $pcast_info;
+					echo $series_material;
 					
 				?>
 					</div>
@@ -136,8 +148,7 @@ get_header(); ?>
 						
 					?>
 					<div>
-						<p><a href="#" uk-toggle="target: #desc<?php the_id(  );?>">説明を表示する</a></p>
-						<div id="desc<?php the_id(  );?>" hidden>
+						<div id="desc<?php the_id(  );?>" >
 					<?php
 						the_content( );
 					?>

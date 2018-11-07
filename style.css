@@ -189,3 +189,32 @@ list-style: none;
 .uk-pagination > li > span.current {
     color: #333;
 }
+
+/* slide header */
+.kns-msg-h2{
+	font-size: 5vh;
+	margin-left: 2em;
+	margin-right: 2em;
+}
+.kns-msg-p{
+	
+}
+
+div.series-header ul {
+	display:table;
+	table-layout:fixed;
+}
+
+div.series-header ul li {
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center;
+    padding-right: 2em;
+    list-style-type: none!important;
+}
+
+div.series-header ul li:before {
+  font-family: "";
+  content: "»";/*アイコン種類*/
+  left : 1.5em; /*左端からのアイコンまで*/
+}

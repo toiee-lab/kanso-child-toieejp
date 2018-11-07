@@ -71,7 +71,7 @@
 										$uk_visible = 'uk-hidden@m';
 									}
 								?>
-			                    <ul class="uk-navbar-nav <?php echo $uk_visible; ?>">
+			                    <ul class="uk-navbar-nav <?php echo $uk_visible; ?>"  data-debug="<?php echo $_SERVER['HTTP_USER_AGENT']; ?>">
 			                        <li><a href="#sidebar" uk-toggle><span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Menu</span></a></li>
 			                    </ul>			                    
 			                </div>
@@ -80,9 +80,21 @@
 		        </nav>
 		    </div>
    			<?php 
-				if( is_front_page() ) { // トップページだけ、ナビをヘッダー画像の上にのせる
+				if( is_front_page() ):  // トップページだけ、ナビをヘッダー画像の上にのせる
+					
+					$slide_header_path = get_stylesheet_directory().'/template-parts/slide-header.php';
+					$ua = mb_strtolower($_SERVER['HTTP_USER_AGENT']);  //すべて小文字にしてユーザーエージェントを取得
+					if (strpos($ua,'msie') !== false || strpos($ua,'trident') !== false) {
+						$is_ie = true;
+					}
+					
+					if(	file_exists( $slide_header_path ) && !$is_ie ){
+						require( $slide_header_path );
+					}
+					else
+					{
 			?>
-		<div id="kns-head" class="uk-background-cover uk-background-center-center">	
+		<div id="kns-head" class="uk-background-cover uk-background-center-center">
 		    <div id="kns-header" class="uk-<?php echo $kns_header_text_color_cls; ?>" style="">
 			    <div id="kns-header-text" class="uk-padding-small">
 				    <h1 id="kanso_general_options_htitle"><?php echo get_option( 'kanso_general_options_htitle' ); ?></h1>
@@ -90,5 +102,6 @@
 			    </div>
 		    </div>
 		</div><!-- #kns-head -->
-
-		    <?php } ?>
+		    <?php 
+			    	}
+			    endif; ?>

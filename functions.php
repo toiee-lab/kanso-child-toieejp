@@ -102,3 +102,17 @@ require_once( 'functions/toiee_shortcodes.php' );
 
 // woocommerce の動作変更
 require_once( 'functions/woocommerce_settings.php' );
+
+
+if(!function_exists('_log')){
+	function _log($message, $prefix = '') {
+		$prefix = ( $prefix == '' ) ? '' : $prefix."\n";
+		if (WP_DEBUG === true) {
+			if (is_array($message) || is_object($message)) {
+				error_log($prefix . print_r($message, true));
+			} else {
+				error_log($prefix . $message);
+			}
+		}
+	}
+}

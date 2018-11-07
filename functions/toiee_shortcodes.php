@@ -191,8 +191,8 @@ EOD;
             <th>タイトル</th>
             <th>ver</th>
             <th>内容</th>
-            <th><span uk-icon="icon: calendar;"></span></th>
-            <th><span uk-icon="icon: file-edit;"></span></th>
+            <th style="width:1rem;"><span uk-icon="icon: calendar;"></span></th>
+            <th style="width:1rem;"><span uk-icon="icon: file-edit;"></span></th>
         </tr>
     </thead>
     <tbody>
