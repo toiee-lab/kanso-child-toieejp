@@ -4,6 +4,115 @@
  * toiee.jp 専用のショートコード
  *
  */
+ 
+ //! Podcastの一覧を出力する
+ // [toiee_list_series] で、ポケてらを検索して表示
+ // [toiee_list_series search="^耳デミー"] で、耳デミーを検索して表示
+ // 一応、num="3" とかで適当にします
+ add_shortcode( 'toiee_list_series', function ( $atts, $content = null ) {
+	 
+	extract( 
+		shortcode_atts (
+			array(
+				'search' => '^ポケてら',
+				'num' => 4
+			),
+			$atts
+		)
+	);
+	 
+	$terms = get_terms( 'series', array( 'hide_empty=0' ) );
+	
+	if( is_wp_error( $terms ) ){
+		return 'this is error : '. print_r($terms , true);
+	}
+	
+	//マッチするものだけ残す
+	$terms = array_filter( $terms, function( $term ) use( $search ) { return preg_match( "/{$search}/", $term->name ); }  );
+	
+	$terms_a = array();
+	$content = '<div class="uk-grid-small uk-child-width-1-'.$num.'@s uk-flex-left uk-text-center" uk-grid>'."\n";
+	foreach( $terms as $k=>$term ){
+		
+		$name = $term->name;
+		$plink = get_term_link( $term->term_id, 'series' );
+		$series_image = get_option( 'ss_podcasting_data_image_' . $term->term_id, 'no-image' );
+		$terms_a[ ] = array(
+			'name' => $name,
+			'link' => $plink,
+			'img'  => $series_image,
+		);
+		
+		$content .= '<div><a href="'.$plink.'" title="'.$name.'"><img src="'.$series_image.'" alt="'.$name.'"></a></div>'."\n";
+		
+	}
+	$content .= '</div>';
+	
+	return  $content;
+	 
+ } );
+ 
+ 
+ //! 商品一覧画像を出力する
+ // [toiee_list_product cat="耳デミー"] で「耳デミー」の一覧を出す
+ // [toiee_list_product cat="ポケてら"] で「ポケてら」の一覧を出す
+ add_shortcode( 'toiee_list_product', function ( $atts, $content = null ) {
+	extract( 
+		shortcode_atts (
+			array(
+				'cat' => '耳デミー',
+				'num' => 4
+			),
+			$atts
+		)
+	);	
+	
+	$products = array();
+	
+	$$term = get_term_by('name', $cat, 'product_cat' );
+	
+	$args = array(
+		'post_type' => 'product',
+		'orderby'   => 'title',
+		'tax_query' => array(
+			array(
+				'taxonomy'  => 'product_cat',
+				'field'     => 'id',
+				'terms'     => $$term->term_id
+			),
+		),
+		'posts_per_page' => -1,
+		'post_status' => 'publish'
+	);
+	$featured_query = new WP_Query( $args );
+	
+	$content = '<div class="uk-grid-small uk-child-width-1-'.$num.'@s uk-flex-left uk-text-center" uk-grid>'."\n";	
+	while ($featured_query->have_posts()) :
+		$featured_query->the_post();
+		$product = get_product( $featured_query->post->ID );
+		// By doing this, we will be able to fetch all information related to single WooCommerce Product
+		
+		$name = $product->get_name();
+		$img  = get_the_post_thumbnail_url( $product->get_id(), 'full' );
+		$url  = get_permalink( $product->get_id() );
+		
+		$products[] = array(
+			'name' => $name,
+			'img' => $img,
+			'url' => $url,
+			
+		);
+		
+		$content .= '<div><a href="'.$url.'" title="'.$name.'"><img src="'.$img.'" alt="'.$name.'"></a></div>'."\n";
+		
+	endwhile;
+	wp_reset_query();
+	$content .= '</div>';
+	
+	return $content;
+	 
+ } );
+ 
 
 //! といてらイベントテーブル出力
 add_shortcode('toiee_event', function ( $atts, $content = null ) {
