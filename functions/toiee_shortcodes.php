@@ -43,7 +43,7 @@
 			'img'  => $series_image,
 		);
 		
-		$content .= '<div><a href="'.$plink.'" title="'.$name.'"><img src="'.$series_image.'" alt="'.$name.'"></a></div>'."\n";
+		$content .= '<div><a href="'.$plink.'" title="'.$name.'" class="uk-display-block uk-box-shadow-small"><img src="'.$series_image.'" alt="'.$name.'"></a></div>'."\n";
 		
 	}
 	$content .= '</div>';
@@ -103,7 +103,7 @@
 			
 		);
 		
-		$content .= '<div><a href="'.$url.'" title="'.$name.'"><img src="'.$img.'" alt="'.$name.'"></a></div>'."\n";
+		$content .= '<div><a href="'.$url.'" title="'.$name.'"><img src="'.$img.'" alt="'.$name.'" class="uk-display-block uk-box-shadow-small"></a></div>'."\n";
 		
 	endwhile;
 	wp_reset_query();
