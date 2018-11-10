@@ -124,7 +124,8 @@
 				
 				$content .= "<h4>{$e->post_title}</h4>\n"
 						. do_shortcode( $shortcode )
-						. apply_filters( 'the_content', $e->post_content );
+//						. apply_filters( 'the_content', $e->post_content );
+						. $e->post_content;
 			
 				break;
 				
