@@ -101,7 +101,7 @@ require_once( 'functions/toiee_shortcodes.php' );
 
 
 // woocommerce の動作変更
-require_once( 'functions/woocommerce_settings.php' );
+//require_once( 'functions/woocommerce_settings.php' );
 
 
 if(!function_exists('_log')){
