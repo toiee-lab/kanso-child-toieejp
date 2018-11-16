@@ -35,8 +35,19 @@ add_action('admin_bar_menu', function($wp_admin_bar){
 	$wp_admin_bar->remove_menu( 'updates' );
 	$wp_admin_bar->remove_menu( 'view' );
 	$wp_admin_bar->remove_menu( 'new-content' );
-	$wp_admin_bar->remove_menu( 'my-account' );
+//	$wp_admin_bar->remove_menu( 'my-account' );
 }, 201);
+
+add_action( 'admin_menu', function(){ 
+	if( ! is_super_admin() ){
+		remove_menu_page( 'edit.php?post_type=podcast' );
+		remove_menu_page( 'edit.php?post_type=gift_card' );
+		remove_menu_page( 'edit.php?post_type=woocustomemails' );
+		remove_menu_page( 'post_type=yith-wccos-ostatus' );
+		remove_menu_page( 'edit.php?post_type=yith-wccos-ostatus' );
+		
+	}
+} );
 
 //テキストウィジェットでショートコードを使用する（目次のショートコードが使えるように）
 add_filter('widget_text', 'do_shortcode');
