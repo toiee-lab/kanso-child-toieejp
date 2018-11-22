@@ -87,6 +87,9 @@
 					if (strpos($ua,'msie') !== false || strpos($ua,'trident') !== false) {
 						$is_ie = true;
 					}
+					else{
+					    $is_ie = false;
+                    }
 					
 					if(	file_exists( $slide_header_path ) && !$is_ie ){
 						require( $slide_header_path );
