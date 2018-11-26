@@ -28,23 +28,13 @@ get_header(); ?>
 					
 					// 制限ありのpodcastなのかフラグ
 					$series_allow = true;
-					
-					//! いずれ、このソースコードは修正だ（データを入れ替えられたら消す）
-					$restrict_pass  = get_option( 'ss_podcasting_wc_restrict_ssp_' . $series_id, false );  // デフォルトは false
 
 					//新しい方の設定（ term の場合は、term object を渡す必要がある）
 					$wcr_content_ssp  = get_field( 'series_limit',  $series );
 					
-					if( $restrict_pass == 'restrict_enable' || $wcr_content_ssp ) {
-						
-						if( $wc_restrict_ssp == 'restrict_enable' ) {
-							$ret = $wcr_ssp->get_access_and_product_url_old( '', '', $series_id );
-						}
-						else {
-							$ret = $wcr_ssp->get_access_and_product_url( '', '', $series_id );
-						}
+					if( $wcr_content_ssp ) {
+					    $ret = $wcr_ssp->get_access_and_product_url( '', '', $series_id );
 						$restrict_pass = $ret['access'];
-						
 					}
 					
 					// - - - - - - 
