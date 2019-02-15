@@ -12,8 +12,8 @@
 	
 				    <div class="uk-width-1-2@s">
 				        <?php dynamic_sidebar('footer-left'); ?>
-				    </div class="uk-width-1-4@s">
-				    <div>
+				    </div>
+				    <div class="uk-width-1-4@s">
 	   			        <?php dynamic_sidebar('footer-center'); ?>
 				    </div>
 				    <div class="uk-width-1-4@s">
