@@ -97,10 +97,16 @@ get_header(); ?>
 						// get type (audio or video)
 		                $episode_type = $ss_podcasting->get_episode_type( get_the_ID() );
 		                if ( $episode_type == 'audio' ) {
-							$shortcode = '[audio src="'.$enclosure.'" /]';
+							$html_player = do_shortcode( '[audio src="'.$enclosure.'" /]' );
 						}
 						else {
-							$shortcode = '[video src="'.$audio_file.'" /]';
+						    if( preg_match('|https://player.vimeo.com/external/([0-9]+)|', $audio_file, $matches) ) {
+						        $vid = $matches[1];
+						        $html_player = '<iframe src="https://player.vimeo.com/video/'.$vid.'" width="640" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+                            }
+                            else{
+	                            $html_player = do_shortcode( '[video src="'.$audio_file.'" /]' );
+                            }
 						}
 						
 						$episode_restrict = get_post_meta( get_the_ID(), 'wcr_ssp_episode_restrict', 'disable' );
@@ -109,7 +115,7 @@ get_header(); ?>
 						?>
 
 					<div class="uk-margin-medium-top uk-margin-small-bottom">
-		                <?php echo do_shortcode( $shortcode ); ?>
+		                <?php echo $html_player; ?>
 					</div>					
 						
 						<?php	
