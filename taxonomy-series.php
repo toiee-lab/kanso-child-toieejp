@@ -102,7 +102,8 @@ get_header(); ?>
 						else {
 						    if( preg_match('|https://player.vimeo.com/external/([0-9]+)|', $audio_file, $matches) ) {
 						        $vid = $matches[1];
-						        $html_player = '<iframe src="https://player.vimeo.com/video/'.$vid.'" width="640" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+						        //$html_player = '<iframe src="https://player.vimeo.com/video/'.$vid.'" width="640" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+                                $html_player = '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/'.$vid.'?title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>';
                             }
                             else{
 	                            $html_player = do_shortcode( '[video src="'.$audio_file.'" /]' );
