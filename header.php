@@ -16,7 +16,7 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="http://gmpg.org/xfn/11">
-
+    <?php if( is_tax('scrum') || get_post_type() == 'scrum_post' ){ echo '<meta name="robots" content="noindex" />'; } ?>
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
