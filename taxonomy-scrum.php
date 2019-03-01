@@ -196,8 +196,13 @@ get_header();
 	            ));
 	            ?>
 
-                <p><a href="<?php echo admin_url( '/edit.php?scrum='.$scrum->slug.'&post_type=scrum_post&post_status=draft' ) ?>">下書き一覧はこちら</a>。<a href="<?php echo $scrum_url;?>rss">記事のRSSフィード</a></p>
-
+                <p><a href="<?php echo admin_url( '/edit.php?scrum='.$scrum->slug.'&post_type=scrum_post&post_status=draft' ) ?>" target="_blank">下書き一覧はこちら</a>。<a href="<?php echo $scrum_url;?>rss">記事のRSSフィード</a></p>
+                
+                <h3>Podcastの投稿</h3>
+                <ul>
+	                <li><a href="https://toiee.jp/toiee-admin/post-podcast/?wpf25655_21=<?php echo $scrum_fields['updates_news_podcast']; ?>" target="_blank">お知らせPodcastを投稿する</a></li>
+	                <li><a href="https://toiee.jp/toiee-admin/post-podcast/?wpf25655_21=<?php echo $scrum_fields['updates_archive_podcast']; ?>" target="_blank">アーカイブPodcastを投稿する</a></li>
+                </ul>
             </li>
             <?php endif; ?>
         </ul>
