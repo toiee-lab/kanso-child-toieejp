@@ -40,19 +40,21 @@
 		        <nav class="uk-navbar-container">
 		            <div class="uk-container uk-container-expand">
 		                <div uk-navbar>
-			                <div class="uk-navbar-left">
-				                <?php
-					                if ( has_custom_logo() ) {
-										$_logo_html = get_custom_logo();
-										echo $_logo_html;
-									}
-									else {
-										echo '<a href="'.get_bloginfo('url').'" class="uk-link-reset uk-text-large uk-margin-left ">'.get_bloginfo( 'name', 'display' ).'</a>';
-									}
-								?>
-			                </div>
+                            <div class="uk-navbar-left uk-visible@m">
+                                <a href="https://toiee.jp/" class="custom-logo-link" rel="home" itemprop="url">
+                                    <img src="https://toiee.jp/wp-content/uploads/2018/03/toiee-lab-logo-1.svg" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
+                                </a>
+                            </div>
+                            <div class="uk-navbar-left uk-hidden@m" style="margin-left:0">
+                                <a href="https://toiee.jp/" class="custom-logo-link" rel="home" itemprop="url">
+                                    <img src="https://toiee.jp/wp-content/uploads/2019/03/toiee-logo.png" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
+                                </a>
+                            </div>
 			                <div class="uk-navbar-right">
           						<?php
+                                    /*
+                                     * レスポンシブで消えるナビ
+                                     */
 									wp_nav_menu( array(
 										'theme_location' => 'menu-1',
 										'menu_id'        => 'primary-menu',
@@ -60,8 +62,23 @@
 										'container'      => false,
 									) );
 								?>
+                                <ul class="uk-navbar-nav">
+	                                <?php
+	                                /*
+									 * ログイン、ログアウトで切り替える
+									 */
+	                                if( is_user_logged_in() ):
+                                    ?>
+                                        <li><a href="<?php echo get_permalink( wc_get_page_id( 'myaccount' )); ?>my-library/">マイアカウント</a></li>
+                                    <?php else: ?>
+                                        <?php echo get_popup_login_form(); ?>
+                                        <li><a href="#" uk-toggle="target: #modal_login_form">ログイン</a></li>
+                                    <?php endif; ?>
+                                </ul>
 								<?php
-									
+									/*
+									 * 固定で表示するメニュー
+									 */
 									// ハンバーガーメニューの表示、非表示
 									// - page-sidebar.php が指定してある場合は非表示
 									// - デフォルトレイアウトでサイドバーが指定されている
