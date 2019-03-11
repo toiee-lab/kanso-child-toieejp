@@ -28,8 +28,6 @@ get_header(); ?>
 					
 					// 制限ありのpodcastなのかフラグ
 					$series_allow = true;
-
-					//新しい方の設定（ term の場合は、term object を渡す必要がある）
 					$wcr_content_ssp  = get_field( 'series_limit',  $series );
 					
 					if( $wcr_content_ssp ) {
@@ -82,6 +80,7 @@ get_header(); ?>
 					endif;
 				?>
 				<div class="">
+                    
 					<?php
 						
 						
@@ -117,9 +116,9 @@ get_header(); ?>
 
 					<div class="uk-margin-medium-top uk-margin-small-bottom">
 		                <?php echo $html_player; ?>
-					</div>					
-						
-						<?php	
+					</div>
+
+						<?php
 						}
 						else{
 							// 非表示にする
@@ -137,12 +136,11 @@ get_header(); ?>
 									'id'            => $series_id,
 									'template_name' => 'on_episode_video',
 									'label_trial'   => '',
-									'label_offer_trial' => '',									
+									'label_offer_trial' => '',
 									'redirect_url'  => $series_url
 									));
 							}
 						}
-						
 					?>
 					<div>
 						<div id="desc<?php the_id(  );?>" >
