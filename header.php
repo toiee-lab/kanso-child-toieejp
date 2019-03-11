@@ -41,12 +41,12 @@
 		            <div class="uk-container uk-container-expand">
 		                <div uk-navbar>
                             <div class="uk-navbar-left uk-visible@m">
-                                <a href="https://toiee.jp/" class="custom-logo-link" rel="home" itemprop="url">
+                                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link" rel="home" itemprop="url">
                                     <img src="https://toiee.jp/wp-content/uploads/2018/03/toiee-lab-logo-1.svg" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
                                 </a>
                             </div>
                             <div class="uk-navbar-left uk-hidden@m" style="margin-left:0">
-                                <a href="https://toiee.jp/" class="custom-logo-link" rel="home" itemprop="url">
+                                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link" rel="home" itemprop="url">
                                     <img src="https://toiee.jp/wp-content/uploads/2019/03/toiee-logo.png" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
                                 </a>
                             </div>
