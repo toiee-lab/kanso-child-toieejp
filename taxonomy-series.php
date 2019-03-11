@@ -27,7 +27,6 @@ get_header(); ?>
 					$series_material = get_field( 'series_material', $series );
 					
 					// 制限ありのpodcastなのかフラグ
-					$series_allow = true;
 					$wcr_content_ssp  = get_field( 'series_limit',  $series );
 					
 					if( $wcr_content_ssp ) {
