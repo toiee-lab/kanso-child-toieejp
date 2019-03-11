@@ -127,3 +127,36 @@ if(!function_exists('_log')){
 		}
 	}
 }
+
+
+// 検索結果のラベルを変更する
+function kanso_get_post_label(){
+
+	$post_type = get_post_type();
+	switch ( $post_type ) {
+		case 'podcast':
+			$rets         = wp_get_post_terms( get_the_ID(), 'series');
+			$series       = $rets[0];
+			$post_label = $series->name != '' ? $series->name : 'ポッドキャスト';
+			break;
+
+		case 'page':
+			$post_label = 'ページ';
+			break;
+
+		case 'post':
+			$post_label = 'ブログ';
+			break;
+
+		case 'scrum_post':
+			$terms = wp_get_post_terms( get_the_ID(), 'scrum' );
+			$scrum = $terms[0];
+			$post_label = 'スクラム : '.$scrum->name;
+			break;
+
+		default:
+			$post_label = esc_html( get_post_type_object(get_post_type())->label );
+	}
+
+	return $post_label;
+}
