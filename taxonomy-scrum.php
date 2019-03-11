@@ -58,17 +58,42 @@ get_header();
                 // scrum_post を取得
                 $updates = array();
                 /* Start the Loop */
-                while ( have_posts() ) : the_post();
-                    $p = get_post();
-                    $updates[ $p->ID ] = array(
-                        'ID'        => $p->ID,
-                        'post_date'   => $p->post_date,
-                        'post_title'  => $p->post_title,
-                        'post_type'   => 'scrum_post',
-                        'permalink'   => get_the_permalink(),
-                        'time'      => strtotime($p->post_date)
-                    );
-                endwhile;
+//                while ( have_posts() ) : the_post();
+//                    $p = get_post();
+//                    $updates[ $p->ID ] = array(
+//                        'ID'        => $p->ID,
+//                        'post_date'   => $p->post_date,
+//                        'post_title'  => $p->post_title,
+//                        'post_type'   => 'scrum_post',
+//                        'permalink'   => get_the_permalink(),
+//                        'time'      => strtotime($p->post_date)
+//                    );
+//                endwhile;
+
+	            $tmp_posts = get_posts(array(
+			            'post_type'         => 'scrum_post',
+			            'posts_per_page'    => 20,
+			            'tax_query'         => array(
+				            array(
+					            'taxonomy' => 'scrum',
+					            'field' => 'term_id',
+					            'terms' => $scrum_id,
+				            )
+			            ),
+		            )
+	            );
+	            foreach( $tmp_posts as $p ) {
+		            $updates[ $p->ID ] = array(
+			            'ID'        => $p->ID,
+			            'post_date' => $p->post_date,
+			            'post_title'=> $p->post_title,
+			            'post_type' => 'scrum_post',
+			            'permalink' => get_permalink( $p->ID ),
+			            'time'      => strtotime($p->post_date)
+		            );
+	            }
+
+
 
                 // お知らせ用podcastを取得 $scrum_fields['updates_news_podcast']
                 $update_podcast_id = $scrum_fields['updates_news_podcast'];
