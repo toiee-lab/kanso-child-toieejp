@@ -80,7 +80,7 @@ get_header(); ?>
 					endif;
 				?>
 				<div class="">
-                    
+
 					<?php
 						
 						
@@ -112,13 +112,11 @@ get_header(); ?>
 						$episode_restrict = get_post_meta( get_the_ID(), 'wcr_ssp_episode_restrict', 'disable' );
 						if( $restrict_pass || ($episode_restrict != 'enable' ) ){
 							// 表示
-						?>
-
-					<div class="uk-margin-medium-top uk-margin-small-bottom">
-		                <?php echo $html_player; ?>
+                            echo <<<EOD
+                    <div class="uk-margin-medium-top uk-margin-small-bottom">
+		                {$html_player}
 					</div>
-
-						<?php
+EOD;
 						}
 						else{
 							// 非表示にする
