@@ -56,7 +56,7 @@ get_header(); ?>
 				</div><!-- .entry-meta -->
 			
 				<?php
-            
+
 				// get audio file
 				$audio_file = $ss_podcasting->get_enclosure( get_the_ID() );
 				if ( get_option( 'permalink_structure' ) ) {
