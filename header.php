@@ -63,6 +63,7 @@
 									) );
 								?>
                                 <ul class="uk-navbar-nav">
+                                    <li><a href="<?php echo esc_url( home_url( '/' ) );?>?s="><span uk-icon="search"></span></a></li>
 	                                <?php
 	                                /*
 									 * ログイン、ログアウトで切り替える
