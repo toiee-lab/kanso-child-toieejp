@@ -8,12 +8,17 @@
 
 $post_id = get_the_ID();
 $terms = wp_get_post_terms( $post_id, 'scrum' );
-$scrum = $terms[0];
-$scrum_fields = get_fields( $scrum );
-$scrum_url   = get_term_link( $scrum );
 
-$header_color = $scrum_fields['title_color'];
-$header_bg_img = $scrum_fields['scrum_headerbg']['url'];
+if( count( $terms ) ) {
+	$scrum = $terms[0];
+	$scrum_fields = get_fields( $scrum );
+	$scrum_url   = get_term_link( $scrum );
+	$header_color = $scrum_fields['title_color'];
+	$header_bg_img = $scrum_fields['scrum_headerbg']['url'];
+}
+else {
+	wp_die( '必ず、スクラムを指定してくださ（カテゴリ）。' );
+}
 
 get_header(); ?>
 	<header>
