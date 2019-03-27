@@ -11,31 +11,31 @@ get_header(); ?>
 	<div class="uk-container uk-container-small uk-background-default main-content-lib">
 
 		<?php
-		while ( have_posts() ) : the_post();
-		
+		while ( have_posts() ) :
+			the_post();
+
 			$the_id = get_the_ID();
-			
-			$terms = get_the_terms( $the_id , 'ld_course_category' );
-			if( isset( $terms[0] ) ){
+
+			$terms = get_the_terms( $the_id, 'ld_course_category' );
+			if ( isset( $terms[0] ) ) {
 				$cat_name = $terms[0]->name;
-			}
-			else{
+			} else {
 				$cat_name = '';
 			}
-			
+
 			$bc_cat = '';
-						
-			if( ! is_null( $terms )){
+
+			if ( ! is_null( $terms ) ) {
 				$term_link = get_term_link( $terms[0]->slug, 'ld_course_category' );
-				$bc_cat = <<<EOD
+				$bc_cat    = <<<EOD
 					<li class="bc-divider">&gt;</li>
 					<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
 					<a href="{$term_link}" itemprop="item"><span itemprop="name">{$cat_name}</span><meta itemprop="position" content="3"></a>
 					</li>				
 EOD;
-			}			
+			}
 
-		?>
+			?>
 			<div class="kns-breadcrumb">
 				<ul itemscope="" itemtype="http://schema.org/BreadcrumbList">
 					<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
@@ -49,25 +49,27 @@ EOD;
 				</ul>
 			</div>
 		
-			<?php the_title('<h1>', '</h1>'); ?>
-			<h2 class="main-subtitle"><?php echo get_post_meta( $the_id, 'kns_lead', true );?></h2>
+			<?php the_title( '<h1>', '</h1>' ); ?>
+			<h2 class="main-subtitle"><?php echo get_post_meta( $the_id, 'kns_lead', true ); ?></h2>
 			
 			<?php the_content(); ?>
 			
 			
 			<hr class="uk-divider-small uk-text-center">
-		<?php
-			the_post_navigation(array(
-			    'prev_text'           => '&lt; PREVIOUS',
-			    'next_text'           => 'NEXT &gt;',
-			    'screen_reader_text'  => 'Navigation',
-			));
+			<?php
+			the_post_navigation(
+				array(
+					'prev_text'          => '&lt; PREVIOUS',
+					'next_text'          => 'NEXT &gt;',
+					'screen_reader_text' => 'Navigation',
+				)
+			);
 
 			// If comments are open or we have at least one comment, load up the comment template.
 			if ( comments_open() || get_comments_number() ) :
-			?>
+				?>
 			<hr class="uk-margin-large">
-			<?php
+				<?php
 				comments_template();
 			endif;
 

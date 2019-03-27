@@ -1,37 +1,42 @@
 <?php
-	
+
 /**
  * toiee.jp 専用のショートコード
- *
  */
- 
 
- 
 
-//! といてらイベントテーブル出力
-add_shortcode('toiee_event', function ( $atts, $content = null ) {
-	
-    extract( shortcode_atts( array(
-        'class' => 'uk-table uk-table-striped',
-    ), $atts ) );
 
-	// データの解析、配列にする    
-    $events = array();
-	$tmparr = explode( "===" , wp_strip_all_tags($content) );
-	foreach($tmparr as $dat){
-		
-		preg_match_all("/(.*?):(.*)/", $dat, $matches);
-		
-		$evt = array();		
-		foreach($matches[1] as $i => $v)
-		{
-			$evt[ trim($v) ] = trim( $matches[2][$i] );
+
+// ! といてらイベントテーブル出力
+add_shortcode(
+	'toiee_event',
+	function ( $atts, $content = null ) {
+
+		extract(
+			shortcode_atts(
+				array(
+					'class' => 'uk-table uk-table-striped',
+				),
+				$atts
+			)
+		);
+
+		// データの解析、配列にする
+		$events = array();
+		$tmparr = explode( '===', wp_strip_all_tags( $content ) );
+		foreach ( $tmparr as $dat ) {
+
+			preg_match_all( '/(.*?):(.*)/', $dat, $matches );
+
+			$evt = array();
+			foreach ( $matches[1] as $i => $v ) {
+				$evt[ trim( $v ) ] = trim( $matches[2][ $i ] );
+			}
+			$events[] = $evt;
 		}
-		$events[] = $evt;
-	}
-	
-	$table = 
-'<table class="uk-table uk-table-striped">
+
+		$table =
+		'<table class="uk-table uk-table-striped">
     <thead>
         <tr>
             <th>日時</th>
@@ -43,28 +48,28 @@ add_shortcode('toiee_event', function ( $atts, $content = null ) {
     <tbody>
 ';
 
-	foreach( $events as $e )
-	{
-		$s_tag = ''; $e_tag = ''; $expire = false;
+		foreach ( $events as $e ) {
+			$s_tag  = '';
+			$e_tag  = '';
+			$expire = false;
 
-		//日付をチェックし、打ち消し線を設置
-		$e_time = strtotime( $e[ 'date' ] );
-		if( $e_time < ( time() - 24*60*60 ) ){
-			$s_tag = '<del class="uk-text-muted">';
-			$e_tag = '</del>';
-			$url = '終了しました';
-		}
-		else{
-			$s_tag = '';
-			$e_tag = '';
-			$url = '<a href="'.$e['url'].'" class="uk-button uk-button-primary uk-button-small" target="_blank">詳細</a>';
-		}
-		
-		$week = ['日', '月', '火', '水', '木', '金', '土'];
-		$w = $week[ date('w', $e_time) ];
-		$date = date( "Y年n月j日($w)", $e_time );
-		
-		$table .= "
+			// 日付をチェックし、打ち消し線を設置
+			$e_time = strtotime( $e['date'] );
+			if ( $e_time < ( time() - 24 * 60 * 60 ) ) {
+				$s_tag = '<del class="uk-text-muted">';
+				$e_tag = '</del>';
+				$url   = '終了しました';
+			} else {
+				$s_tag = '';
+				$e_tag = '';
+				$url   = '<a href="' . $e['url'] . '" class="uk-button uk-button-primary uk-button-small" target="_blank">詳細</a>';
+			}
+
+			$week = [ '日', '月', '火', '水', '木', '金', '土' ];
+			$w    = $week[ date( 'w', $e_time ) ];
+			$date = date( "Y年n月j日($w)", $e_time );
+
+			$table .= "
         <tr>
         	<td>{$s_tag}{$date}<br>{$e['time']}{$e_tag}</td>
         	<td>{$s_tag}{$e['title']}{$e_tag}</td>
@@ -72,23 +77,23 @@ add_shortcode('toiee_event', function ( $atts, $content = null ) {
         	<td>{$url}</td>
         </tr>
 ";
-		
-	}
-	
-	$table .= 
-'	</tbody>
+
+		}
+
+		$table .=
+		'   </tbody>
 </table>';
 
-	    
-    return $table;
-});
+		return $table;
+	}
+);
 
 
 
 class Toc_Shortcode {
 
 	private $add_script = false;
-	private $atts = array();
+	private $atts       = array();
 
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -97,7 +102,7 @@ class Toc_Shortcode {
 	}
 
 	function enqueue_scripts() {
-		if ( !wp_script_is( 'jquery', 'done' ) ) {
+		if ( ! wp_script_is( 'jquery', 'done' ) ) {
 			wp_enqueue_script( 'jquery' );
 		}
 	}
@@ -105,40 +110,48 @@ class Toc_Shortcode {
 	public function shortcode_content( $atts ) {
 		global $post;
 
-		if ( ! isset( $post ) )
+		if ( ! isset( $post ) ) {
 			return '';
+		}
 
-		$this->atts = shortcode_atts( array(
-			'id' => '',
-			'class' => 'toc',
-			'title' => '目次',
-			'toggle' => false,
-			'opentext' => '開く',
-			'closetext' => '閉じる',
-			'close' => false,
-			'showcount' => 2,
-			'depth' => 2,
-			'toplevel' => 1,
-			'targetclass' => 'the_content',
-			'offset' => '',
-			'duration' => 'normal'
-		), $atts );
+		$this->atts = shortcode_atts(
+			array(
+				'id'          => '',
+				'class'       => 'toc',
+				'title'       => '目次',
+				'toggle'      => false,
+				'opentext'    => '開く',
+				'closetext'   => '閉じる',
+				'close'       => false,
+				'showcount'   => 2,
+				'depth'       => 2,
+				'toplevel'    => 1,
+				'targetclass' => 'the_content',
+				'offset'      => '',
+				'duration'    => 'normal',
+			),
+			$atts
+		);
 
 		$this->atts['toggle'] = ( false !== $this->atts['toggle'] && 'false' !== $this->atts['toggle'] ) ? true : false;
-		$this->atts['close'] = ( false !== $this->atts['close'] && 'false' !== $this->atts['close'] ) ? true : false;
+		$this->atts['close']  = ( false !== $this->atts['close'] && 'false' !== $this->atts['close'] ) ? true : false;
 
 		$content = $post->post_content;
 
 		$headers = array();
 		preg_match_all( '/<([hH][1-6]).*?>(.*?)<\/[hH][1-6].*?>/u', $content, $headers );
-		$header_count = count( $headers[0] );
-		$counter = 0;
-		$counters = array( 0, 0, 0, 0, 0, 0 );
+		$header_count  = count( $headers[0] );
+		$counter       = 0;
+		$counters      = array( 0, 0, 0, 0, 0, 0 );
 		$current_depth = 0;
-		$prev_depth = 0;
-		$top_level = intval( $this->atts['toplevel'] );
-		if ( $top_level < 1 ) $top_level = 1;
-		if ( $top_level > 6 ) $top_level = 6;
+		$prev_depth    = 0;
+		$top_level     = intval( $this->atts['toplevel'] );
+		if ( $top_level < 1 ) {
+			$top_level = 1;
+		}
+		if ( $top_level > 6 ) {
+			$top_level = 6;
+		}
 		$this->atts['toplevel'] = $top_level;
 
 		// 表示する階層数
@@ -147,13 +160,25 @@ class Toc_Shortcode {
 		$toc_list = '';
 		for ( $i = 0; $i < $header_count; $i++ ) {
 			$depth = 0;
-			switch ( strtolower( $headers[1][$i] ) ) {
-				case 'h1': $depth = 1 - $top_level + 1; break;
-				case 'h2': $depth = 2 - $top_level + 1; break;
-				case 'h3': $depth = 3 - $top_level + 1; break;
-				case 'h4': $depth = 4 - $top_level + 1; break;
-				case 'h5': $depth = 5 - $top_level + 1; break;
-				case 'h6': $depth = 6 - $top_level + 1; break;
+			switch ( strtolower( $headers[1][ $i ] ) ) {
+				case 'h1':
+					$depth = 1 - $top_level + 1;
+					break;
+				case 'h2':
+					$depth = 2 - $top_level + 1;
+					break;
+				case 'h3':
+					$depth = 3 - $top_level + 1;
+					break;
+				case 'h4':
+					$depth = 4 - $top_level + 1;
+					break;
+				case 'h5':
+					$depth = 5 - $top_level + 1;
+					break;
+				case 'h6':
+					$depth = 6 - $top_level + 1;
+					break;
 			}
 			if ( $depth >= 1 && $depth <= $max_depth ) {
 				if ( $current_depth == $depth ) {
@@ -162,24 +187,24 @@ class Toc_Shortcode {
 				while ( $current_depth > $depth ) {
 					$toc_list .= '</li></ul>';
 					$current_depth--;
-					$counters[$current_depth] = 0;
+					$counters[ $current_depth ] = 0;
 				}
 				if ( $current_depth != $prev_depth ) {
 					$toc_list .= '</li>';
 				}
 				if ( $current_depth < $depth ) {
-					$class = $current_depth == 0 ? ' class="toc-list"' : '';
-					$style = $current_depth == 0 && $this->atts['close'] ? ' style="display: none;"' : '';
+					$class     = $current_depth == 0 ? ' class="toc-list"' : '';
+					$style     = $current_depth == 0 && $this->atts['close'] ? ' style="display: none;"' : '';
 					$toc_list .= "<ul{$class}{$style}>";
 					$current_depth++;
 				}
-				$counters[$current_depth - 1]++;
+				$counters[ $current_depth - 1 ]++;
 				$number = $counters[0];
 				for ( $j = 1; $j < $current_depth; $j++ ) {
-					$number .= '.' . $counters[$j];
+					$number .= '.' . $counters[ $j ];
 				}
 				$counter++;
-				$toc_list .= '<li><a href="#toc' . ($i + 1) . '"><span class="contentstable-number">' . $number . '</span> ' . $headers[2][$i] . '</a>';
+				$toc_list  .= '<li><a href="#toc' . ( $i + 1 ) . '"><span class="contentstable-number">' . $number . '</span> ' . $headers[2][ $i ] . '</a>';
 				$prev_depth = $depth;
 			}
 		}
@@ -207,46 +232,46 @@ class Toc_Shortcode {
 	}
 
 	public function add_script() {
-		if ( !$this->add_script ) {
+		if ( ! $this->add_script ) {
 			return false;
 		}
 
-		$class = $this->atts['class'];
-		$offset = is_numeric( $this->atts['offset'] ) ? (int)$this->atts['offset'] : - 1;
-		$duration = is_numeric( $this->atts['duration'] ) ? (int)$this->atts['duration'] : '"' . $this->atts['duration'] . '"';
+		$class       = $this->atts['class'];
+		$offset      = is_numeric( $this->atts['offset'] ) ? (int) $this->atts['offset'] : - 1;
+		$duration    = is_numeric( $this->atts['duration'] ) ? (int) $this->atts['duration'] : '"' . $this->atts['duration'] . '"';
 		$targetclass = trim( $this->atts['targetclass'] );
 		if ( $targetclass == '' ) {
 			$targetclass = get_post_type();
 		}
 		$targetclass = ".$targetclass :header";
-		$opentext = $this->atts['opentext'];
-		$closetext = $this->atts['closetext'];
+		$opentext    = $this->atts['opentext'];
+		$closetext   = $this->atts['closetext'];
 		?>
 <script type="text/javascript">
 (function ($) {
   var offset = <?php echo $offset; ?>;
   var idCounter = 0;
   $("<?php echo $targetclass; ?>").each(function () {
-    idCounter++;
-    this.id = "toc" + idCounter;
+	idCounter++;
+	this.id = "toc" + idCounter;
   });
   $(".<?php echo $class; ?> a[href^='#']").click(function () {
-    var href = $(this).attr("href");
-    var target = $(href === "#" || href === "" ? "html" : href);
-    var h = (offset === -1 ? $("#wpadminbar").height() + $(".navbar-fixed-top").height() : offset);
-    var position = target.offset().top - h - 4;
-    $("html, body").animate({scrollTop: position}, <?php echo $duration; ?>, "swing");
-    return false;
+	var href = $(this).attr("href");
+	var target = $(href === "#" || href === "" ? "html" : href);
+	var h = (offset === -1 ? $("#wpadminbar").height() + $(".navbar-fixed-top").height() : offset);
+	var position = target.offset().top - h - 4;
+	$("html, body").animate({scrollTop: position}, <?php echo $duration; ?>, "swing");
+	return false;
   });
   $(".toc-toggle a").click(function () {
-    var tocList = $(this).parents(".<?php echo $class; ?>").children(".toc-list");
-    if (tocList.is(":hidden")) {
-      tocList.show();
-      $(this).text("<?php echo $closetext; ?>");
-    } else {
-      tocList.hide();
-      $(this).text("<?php echo $opentext; ?>");
-    }
+	var tocList = $(this).parents(".<?php echo $class; ?>").children(".toc-list");
+	if (tocList.is(":hidden")) {
+	  tocList.show();
+	  $(this).text("<?php echo $closetext; ?>");
+	} else {
+	  tocList.hide();
+	  $(this).text("<?php echo $opentext; ?>");
+	}
   });
 })(jQuery);
 </script>
@@ -259,11 +284,14 @@ new Toc_Shortcode();
 
 
 /* user_login_check */
-add_shortcode('toiee_user_logined', function ( $atts, $content = null ) {
+add_shortcode(
+	'toiee_user_logined',
+	function ( $atts, $content = null ) {
 
-	if ( is_user_logged_in() ) {
-		return  do_shortcode( $content );
+		if ( is_user_logged_in() ) {
+			return do_shortcode( $content );
+		}
+
+		return '';
 	}
-
-	return '';
-});
+);
