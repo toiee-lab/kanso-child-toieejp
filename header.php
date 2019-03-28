@@ -27,14 +27,15 @@ if ( is_front_page() ) :
 			<nav class="uk-navbar-container">
 				<div class="uk-container uk-container-expand">
 					<div uk-navbar>
-						<div class="uk-navbar-left">
-							<?php
-							if ( has_custom_logo() ) {
-								the_custom_logo();
-							} else {
-								echo '<a href="' . esc_html( get_bloginfo( 'url' ) ) . '" class="uk-navbar-item uk-logo">' . esc_html( get_bloginfo( 'name', 'display' ) ) . '</a>';
-							}
-							?>
+						<div class="uk-navbar-left uk-visible@m">
+							<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link" rel="home" itemprop="url">
+								<img src="https://toiee.jp/wp-content/uploads/2018/03/toiee-lab-logo-1.svg" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
+							</a>
+						</div>
+						<div class="uk-navbar-left uk-hidden@m" style="margin-left:0">
+							<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link" rel="home" itemprop="url">
+								<img src="https://toiee.jp/wp-content/uploads/2019/03/toiee-logo.png" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
+							</a>
 						</div>
 						<div class="uk-navbar-right">
 							<?php
@@ -48,6 +49,20 @@ if ( is_front_page() ) :
 								)
 							);
 							?>
+							<ul class="uk-navbar-nav">
+								<li><a href="<?php echo esc_url( home_url( '/' ) );?>?s="><span uk-icon="search"></span></a></li>
+								<?php
+								/*
+								 * ログイン、ログアウトで切り替える
+								 */
+								if( is_user_logged_in() ):
+									?>
+									<li><a href="<?php echo get_permalink( wc_get_page_id( 'myaccount' )); ?>my-library/">マイアカウント</a></li>
+								<?php else: ?>
+									<?php echo get_popup_login_form(); ?>
+									<li><a href="#" uk-toggle="target: #modal_login_form">ログイン</a></li>
+								<?php endif; ?>
+							</ul>
 							<?php
 							if ( kns_get_template() === 'sidebar' ) {
 								$uk_hidden        = 'uk-hidden@m';
@@ -82,15 +97,18 @@ else :
 		<nav class="uk-navbar-container">
 			<div class="uk-container uk-container-expand">
 				<div uk-navbar>
-					<div class="uk-navbar-left">
-						<?php
-						if ( has_custom_logo() ) {
-							the_custom_logo();
-						} else {
-							echo '<a href="' . esc_html( get_bloginfo( 'url' ) ) . '" class="uk-navbar-item uk-logo">' . esc_html( get_bloginfo( 'name', 'display' ) ) . '</a>';
-						}
-						?>
+					<!-- ロゴ（レスポンシブに対応） -->
+					<div class="uk-navbar-left uk-visible@m">
+						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link" rel="home" itemprop="url">
+							<img src="https://toiee.jp/wp-content/uploads/2018/03/toiee-lab-logo-1.svg" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
+						</a>
 					</div>
+					<div class="uk-navbar-left uk-hidden@m" style="margin-left:0">
+						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link" rel="home" itemprop="url">
+							<img src="https://toiee.jp/wp-content/uploads/2019/03/toiee-logo.png" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
+						</a>
+					</div>
+					<!-- ナビの右側 -->
 					<div class="uk-navbar-right">
 						<?php
 						wp_nav_menu(
@@ -103,6 +121,20 @@ else :
 							)
 						);
 						?>
+						<ul class="uk-navbar-nav">
+							<li><a href="<?php echo esc_url( home_url( '/' ) );?>?s="><span uk-icon="search"></span></a></li>
+							<?php
+							/*
+							 * ログイン、ログアウトで切り替える
+							 */
+							if( is_user_logged_in() ):
+								?>
+								<li><a href="<?php echo get_permalink( wc_get_page_id( 'myaccount' )); ?>my-library/">マイアカウント</a></li>
+							<?php else: ?>
+								<?php echo get_popup_login_form(); ?>
+								<li><a href="#" uk-toggle="target: #modal_login_form">ログイン</a></li>
+							<?php endif; ?>
+						</ul>
 						<?php
 						if ( kns_get_template() === 'sidebar' ) {
 							$uk_hidden        = 'uk-hidden@m';
