@@ -1,40 +1,34 @@
 /*
- Theme Name:   KANSO Child for toiee.jp
- Theme URI:    https://kansowp.toiee.jp/
- Description:  KANSO Theme の toiee.jp 用に修正したもの
- Author:       toiee Lab
- Author URI:   https://toiee.jp/
- Template:     kanso-general-master
- Version:      1.6.1
- License:      GNU General Public License v2 or later
- License URI:  http://www.gnu.org/licenses/gpl-2.0.html
- Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
- Text Domain:  kanso general child
+Theme Name:   KANSO Child for toiee.jp
+Theme URI:    https://kansowp.toiee.jp/
+Description:  KANSO Theme の toiee.jp 用に修正したもの
+Author:       toiee Lab
+Author URI:   https://toiee.jp/
+Template:     kanso-general-master
+Version:      1.6.1
+License:      GNU General Public License v2 or later
+License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
+Text Domain:  kanso general child
 */
 
 .custom-logo {
-height: 35px;
+	height: 35px;
 }
 
-/*
-#kns-header-text h1 {
-			color: #ffffff;
+#footer {
+	background: linear-gradient(270deg, #0f0f0f, #0f0f0f, #1b1b1b);
 }
-
-#kns-header-text h2 {
-    color: #ffffff;
-}
-*/
 
 .uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle {
-height:55px;
+	height:55px;
 }
 
 .main-content-lib .the_content h2{
-    color: #444;
-    font-weight: bold;
-    border-bottom: 1px solid #444;
-    margin-top: 5rem;
+	color: #444;
+	font-weight: bold;
+	border-bottom: 1px solid #444;
+	margin-top: 5rem;
 }
 
 .main-content-lib h2.main-subtitle{
@@ -45,89 +39,89 @@ height:55px;
 }
 
 .main-content-lib h3 {
-    font-weight: bold;
-    padding-left: 0.5rem;
-    border-left: 4px solid #444;
+	font-weight: bold;
+	padding-left: 0.5rem;
+	border-left: 4px solid #444;
 }
 
 .main-content-lib img {
-    border: 1px solid #666;
-    margin: 1rem auto;
+	border: 1px solid #666;
+	margin: 1rem auto;
 }
 
 .main-content-lib blockquote{
-    font-size: 1rem;
-    border-left: 2px solid #666;
-    color: #666;
-    padding: 0.5rem 0 0.5rem 1rem;
-    
+	font-size: 1rem;
+	border-left: 2px solid #666;
+	color: #666;
+	padding: 0.5rem 0 0.5rem 1rem;
+
 }
 
 .main-content-lib table {
-    width: 100%;
-    border: 1px solid #eee;
-    border-collapse: collapse;
+	width: 100%;
+	border: 1px solid #eee;
+	border-collapse: collapse;
 }
 
 .main-content-lib table thead {
-    background-color: #e5e5e5;
+	background-color: #e5e5e5;
 }
 
 .main-content-lib table th,
 .main-content-lib table td {
-    border: 1px solid #ddd;
-    padding: 0.2rem 0.5em;
+	border: 1px solid #ddd;
+	padding: 0.2rem 0.5em;
 }
 
 .contentstable-number {
-	display: none;	
+	display: none;
 }
 
 ul.toc-list {
-	padding-left: 0;   
+	padding-left: 0;
 }
 ul.toc-list > li a {
-    color: #888;
-    text-decoration: none;
+	color: #888;
+	text-decoration: none;
 }
 ul.toc-list > li a:hover {
-    color : rgb(0, 112, 201);
-    text-decoration: none;
+	color : rgb(0, 112, 201);
+	text-decoration: none;
 }
 ul.toc-list > li > a{
- 	color: #444;   
-    border-bottom: 1px solid #444;
-    display: block;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
+	color: #444;
+	border-bottom: 1px solid #444;
+	display: block;
+	margin-top: 1rem;
+	margin-bottom: 0.5rem;
 }
 ul.toc-list > li > ul {
-	padding-left: 0;   
+	padding-left: 0;
 }
 p.toc-title{
 	font-size: 1.2rem;
-    color: #333;
-    font-weight: bold;
+	color: #333;
+	font-weight: bold;
 }
 .for-lft {
 	display: none;
 }
 .main-content-lib h4 {
-    border-bottom: 1px solid ;
+	border-bottom: 1px solid ;
 }
 
 .video {
-  position: relative;
-  height: 0;
-  padding: 30px 0 56.25%;
-  overflow: hidden;
+	position: relative;
+	height: 0;
+	padding: 30px 0 56.25%;
+	overflow: hidden;
 }
 .video iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 
@@ -141,10 +135,10 @@ p.toc-title{
 }
 
 .woocommerce-account .woocommerce-MyAccount-navigation ul li {
-float: left;
-width: 100%;
-padding: 0;
-list-style: none;
+	float: left;
+	width: 100%;
+	padding: 0;
+	list-style: none;
 }
 
 .woocommerce-account .woocommerce-MyAccount-navigation ul li a {
@@ -157,21 +151,20 @@ list-style: none;
 	font-weight: 700;
 	line-height: 1;
 	text-decoration: none;
-	letter-spacing: 0.7px;
 	text-transform: uppercase;
 	box-sizing: border-box;
 }
 
 .woocommerce-account .woocommerce-MyAccount-navigation ul {
-    padding-left: 0px;
+	padding-left: 0;
 }
 
 .woocommerce-account .woocommerce-MyAccount-navigation ul > li:last-child a {
-    margin-bottom: -1px;
+	margin-bottom: -1px;
 }
 
 .woocommerce-account .woocommerce-MyAccount-navigation ul > li {
-    margin-bottom: 0em;
+	margin-bottom: 0;
 }
 
 .woocommerce-account .woocommerce-MyAccount-content {
@@ -187,7 +180,7 @@ list-style: none;
 
 /* pagenation */
 .uk-pagination > li > span.current {
-    color: #333;
+	color: #333;
 }
 
 /* slide header */
@@ -197,7 +190,7 @@ list-style: none;
 	margin-right: 2em;
 }
 .kns-msg-p{
-	
+
 }
 
 div.series-header ul {
@@ -206,15 +199,45 @@ div.series-header ul {
 }
 
 div.series-header ul li {
-    display:table-cell;
-    vertical-align:middle;
-    text-align:center;
-    padding-right: 2em;
-    list-style-type: none!important;
+	display:table-cell;
+	vertical-align:middle;
+	text-align:center;
+	padding-right: 2em;
+	list-style-type: none!important;
 }
 
 div.series-header ul li:before {
-  font-family: "";
-  content: "»";/*アイコン種類*/
-  left : 1.5em; /*左端からのアイコンまで*/
+	content: "»";/*アイコン種類*/
+	left : 1.5em; /*左端からのアイコンまで*/
+}
+
+/* magazine */
+.sidebar .mag-post-title {
+	font-size: 2.2rem;
+	border-bottom: 2px solid black;
+}
+.sidebar .mag-nav-title {
+	font-size: 12px;
+	line-height: 20px;
+	color : #333;
+}
+.sidebar .mag-nav-list {
+	min-height: 4rem;
+}
+.sidebar .mag-nav-list > a >  div {
+	max-height: 4rem;
+	overflow-y: hidden;
+}
+.sidebar .mag-nav-list .mag-thumbnail {
+	width:60px;
+	height:60px;
+}
+.footer-nav .mag-nav-list .mag-thumbnail {
+	width:150px;
+	height:100px;
+}
+
+a.nav-item-active {
+	font-weight: bold;
+	color: black;
 }
