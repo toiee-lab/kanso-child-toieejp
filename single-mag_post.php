@@ -29,8 +29,11 @@ if ( count( $terms ) ) {
 get_header();
 
 
-require locate_template( 'template-parts/magazine.php' );
-
+if ( 'close' === $mag['status'] ) {
+	require locate_template( 'template-parts/magazine_close.php' );
+} else {
+	require locate_template( 'template-parts/magazine.php' );
+}
 
 get_sidebar();
 get_footer();
