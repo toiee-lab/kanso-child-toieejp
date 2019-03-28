@@ -17,17 +17,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<?php wp_head(); ?>
-	<?php
-	if ( is_tax( 'magazine' ) || 'magazine_post' === get_post_type() ) {
-		?>
-		<style id="magazine">
-			.header-bg {
-				background-color: yellow;
-			}
-		</style>
-		<?php
-	}
-	?>
 </head>
 <body <?php body_class(); ?>>
 <?php
