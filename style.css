@@ -5,7 +5,7 @@ Description:  KANSO Theme の toiee.jp 用に修正したもの
 Author:       toiee Lab
 Author URI:   https://toiee.jp/
 Template:     kanso-general-master
-Version:      1.7
+Version:      2.0
 License:      GNU General Public License v2 or later
 License URI:  http://www.gnu.org/licenses/gpl-2.0.html
 Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
@@ -244,4 +244,74 @@ h1.mag-post-title {
 a.nav-item-active {
 	font-weight: bold;
 	color: black;
+}
+
+/* ポケてらのための設定 */
+.pkt-header {
+	background: linear-gradient( #0d84e3, white);
+	padding-bottom: 200px;
+}
+.pkt-overlap {
+	margin-top: -200px;
+}
+@media only screen and ( min-width: 940px ) {
+	.pkt-content {
+		width: 800px;
+	}
+}
+
+.pkt-description {
+	max-width:600px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+/* 耳デミーのための設定 */
+.mdy-header {
+	background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0), rgba(255,255,255,1)), url('images/bg_mdy.png');
+	background-size: cover;
+	padding-bottom: 400px;
+}
+.mdy-tagline {
+	color : black;
+	text-shadow:0px 0px 4px #ffffff;
+}
+.mdy-overlap {
+	margin-top: -400px;
+}
+@media only screen and ( min-width: 940px ) {
+	.mdy-content {
+		width: 800px;
+	}
+}
+
+.mdy-description {
+	max-width:600px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+/* ナレッジのための設定 */
+.tkb-header {
+	background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0), rgba(255,255,255,1)), url('images/bg_kb.png');
+	background-size: cover;
+	padding-bottom: 400px;
+}
+.tkb-tagline {
+	color : black;
+	text-shadow:0px 0px 4px #ffffff;
+}
+.tkb-overlap {
+	margin-top: -400px;
+}
+@media only screen and ( min-width: 940px ) {
+	.tkb-content {
+		width: 800px;
+	}
+}
+
+.tkb-description {
+	max-width:600px;
+	margin-left:auto;
+	margin-right:auto;
 }
