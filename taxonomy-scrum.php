@@ -59,8 +59,11 @@ get_header();
 				<?php echo $scrum_fields['updates_body']; ?>
 				<?php
 
-				/* scrum_post を取得 */
-				$updates = array();
+				/* scrum_post、podcast (pre_get_posts で調整済み) を取得 */
+				$updates            = array();
+				$archive_podcast_id = $scrum_fields['updates_archive_podcast'];
+				$news_podcast_id    = $scrum_fields['updates_news_podcast'];
+
 				/*
 				 * Start the Loop
 				 */
@@ -68,112 +71,26 @@ get_header();
 					the_post();
 					$p = get_post();
 
+					$terms = wp_get_post_terms( $p->ID, 'series' );
+					if ( count( $terms ) ) {
+						if ( $archive_podcast_id === $terms[0]->term_id ) {
+							$ptype = 'podcast_archive';
+						} else {
+							$ptype = 'podcast_news';
+						}
+					} else { /* scrum_post と仮定する */
+						$ptype = 'scrum_post';
+					}
+
 					$updates[ $p->ID ] = array(
 						'ID'         => $p->ID,
 						'post_date'  => $p->post_date,
 						'post_title' => $p->post_title,
-						'post_type'  => 'scrum_post',
+						'post_type'  => $ptype,
 						'permalink'  => get_the_permalink(),
 						'time'       => strtotime( $p->post_date ),
 					);
 				endwhile;
-
-				/*
-				var_dump( have_posts() );
-
-				$tmp_posts = get_posts(
-					array(
-						'post_type'      => 'scrum_post',
-						'posts_per_page' => 20,
-						'tax_query'      => array(
-							array(
-								'taxonomy' => 'scrum',
-								'field'    => 'term_id',
-								'terms'    => $scrum_id,
-							),
-						),
-					)
-				);
-				foreach ( $tmp_posts as $p ) {
-					$updates[ $p->ID ] = array(
-						'ID'         => $p->ID,
-						'post_date'  => $p->post_date,
-						'post_title' => $p->post_title,
-						'post_type'  => 'scrum_post',
-						'permalink'  => get_permalink( $p->ID ),
-						'time'       => strtotime( $p->post_date ),
-					);
-				}
-				*/
-
-
-				// お知らせ用podcastを取得 $scrum_fields['updates_news_podcast']
-				$update_podcast_id = $scrum_fields['updates_news_podcast'];
-				$tmp_posts         = get_posts(
-					array(
-						'post_type'      => 'podcast',
-						'posts_per_page' => 20,
-						'tax_query'      => array(
-							array(
-								'taxonomy' => 'series',
-								'field'    => 'term_id',
-								'terms'    => $update_podcast_id,
-							),
-						),
-					)
-				);
-
-				$permalink = get_term_link( $update_podcast_id );
-				foreach ( $tmp_posts as $p ) {
-					$updates[ $p->ID ] = array(
-						'ID'         => $p->ID,
-						'post_date'  => $p->post_date,
-						'post_title' => $p->post_title,
-						'post_type'  => 'podcast_news',
-						'permalink'  => $permalink,
-						'time'       => strtotime( $p->post_date ),
-					);
-				}
-
-				// アーカイブ用podcastを取得 $scrum_fields['updates_archive_podcast']
-				$update_podcast_id = $scrum_fields['updates_archive_podcast'];
-				$tmp_posts         = get_posts(
-					array(
-						'post_type'      => 'podcast',
-						'posts_per_page' => 20,
-						'tax_query'      => array(
-							array(
-								'taxonomy' => 'series',
-								'field'    => 'term_id',
-								'terms'    => $update_podcast_id,
-							),
-						),
-					)
-				);
-
-				$permalink = get_term_link( $update_podcast_id );
-				foreach ( $tmp_posts as $p ) {
-					$updates[ $p->ID ] = array(
-						'ID'         => $p->ID,
-						'post_date'  => $p->post_date,
-						'post_title' => $p->post_title,
-						'post_type'  => 'podcast_archive',
-						'permalink'  => $permalink,
-						'time'       => strtotime( $p->post_date ),
-					);
-				}
-
-				// 日付で並び替えて、ラベルを付けて出力する
-				usort(
-					$updates,
-					function( $a, $b ) {
-						if ( $a['time'] == $b['time'] ) {
-							return 0;
-						}
-						return ( $a['time'] < $b['time'] ) ? 1 : -1;
-					}
-				);
-
 				?>
 				<ul class="uk-list uk-list-divider">
 					<?php
