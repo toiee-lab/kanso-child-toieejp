@@ -248,11 +248,16 @@ a.nav-item-active {
 
 /* ポケてらのための設定 */
 .pkt-header {
-	background: linear-gradient( #0d84e3, white);
-	padding-bottom: 200px;
+	background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3), rgba(255,255,255,1)), url('images/bg_pkt.png');
+	background-size: cover;
+	padding-bottom: 400px;
+}
+.pkt-tagline {
+	color : black;
+	text-shadow:0px 0px 4px #ffffff;
 }
 .pkt-overlap {
-	margin-top: -200px;
+	margin-top: -400px;
 }
 @media only screen and ( min-width: 940px ) {
 	.pkt-content {
@@ -268,7 +273,7 @@ a.nav-item-active {
 
 /* 耳デミーのための設定 */
 .mdy-header {
-	background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0), rgba(255,255,255,1)), url('images/bg_mdy.png');
+	background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3), rgba(255,255,255,1)), url('images/bg_mdy.png');
 	background-size: cover;
 	padding-bottom: 400px;
 }
@@ -293,7 +298,7 @@ a.nav-item-active {
 
 /* ナレッジのための設定 */
 .tkb-header {
-	background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0), rgba(255,255,255,1)), url('images/bg_kb.png');
+	background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3), rgba(255,255,255,1)), url('images/bg_kb.png');
 	background-size: cover;
 	padding-bottom: 400px;
 }
