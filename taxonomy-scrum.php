@@ -16,7 +16,7 @@ $scrum_fields = get_fields( $scrum );
 $header_color  = $scrum_fields['title_color'];
 $header_bg_img = $scrum_fields['scrum_headerbg']['url'];
 
-$tab_active                                    = array(
+$tab_active = array(
 	'getting_start' => '',
 	'updates'       => '',
 	'materials'     => '',
@@ -59,21 +59,28 @@ get_header();
 				<?php echo $scrum_fields['updates_body']; ?>
 				<?php
 
-				// scrum_post を取得
+				/* scrum_post を取得 */
 				$updates = array();
 				/*
-				 Start the Loop */
-				// while ( have_posts() ) : the_post();
-				// $p = get_post();
-				// $updates[ $p->ID ] = array(
-				// 'ID'        => $p->ID,
-				// 'post_date'   => $p->post_date,
-				// 'post_title'  => $p->post_title,
-				// 'post_type'   => 'scrum_post',
-				// 'permalink'   => get_the_permalink(),
-				// 'time'      => strtotime($p->post_date)
-				// );
-				// endwhile;
+				 * Start the Loop
+				 */
+				while ( have_posts() ) :
+					the_post();
+					$p = get_post();
+
+					$updates[ $p->ID ] = array(
+						'ID'         => $p->ID,
+						'post_date'  => $p->post_date,
+						'post_title' => $p->post_title,
+						'post_type'  => 'scrum_post',
+						'permalink'  => get_the_permalink(),
+						'time'       => strtotime( $p->post_date ),
+					);
+				endwhile;
+
+				/*
+				var_dump( have_posts() );
+
 				$tmp_posts = get_posts(
 					array(
 						'post_type'      => 'scrum_post',
@@ -97,7 +104,7 @@ get_header();
 						'time'       => strtotime( $p->post_date ),
 					);
 				}
-
+				*/
 
 
 				// お知らせ用podcastを取得 $scrum_fields['updates_news_podcast']

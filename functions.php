@@ -188,14 +188,37 @@ function kanso_get_post_label() {
 }
 
 /* 検索の制御 */
-function toiee_search_filter( $query ) {
-	if ( ! $query->is_admin && $query->is_search ) {
-
-		/* remove series podcast */
-		$s_ids = array( '189' );
-
-		$query->set( 'post__not_in', array( 10, 14, 16, 32, 148 ) );
+function exclude_search_podcasts( $query ) {
+	if ( is_admin() || is_super_admin() || ! $query->is_main_query() ) {
+		return;
 	}
-	return $query;
+
+	if ( $query->is_search() ) {
+		$query->set(
+			'tax_query',
+			array(
+				array(
+					'taxonomy' => 'series',
+					'field'    => 'term_id',
+					'terms'    => array( 129, 199, 217, 271, 272 ),
+					'operator' => 'NOT IN',
+				),
+			)
+		);
+
+		$args = array(
+			'public'              => true,
+			'_builtin'            => false,
+			'exclude_from_search' => false,
+		);
+		$post_types = get_post_types( $args, 'names', 'and' );
+
+		$key = array_search( 'scrum_post', $post_types );
+		if ( false !== $key ) {
+			unset( $post_types[ $key ] );
+		}
+		$query->set( 'post_type', $post_types );
+	}
 }
-add_filter( 'pre_get_posts', 'toiee_search_filter' );
+add_filter( 'pre_get_posts', 'exclude_search_podcasts' );
+
