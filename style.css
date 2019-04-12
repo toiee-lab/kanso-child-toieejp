@@ -271,6 +271,18 @@ a.nav-item-active {
 	margin-right:auto;
 }
 
+.pkt-report-meta ul > li {
+	font-size: 0.8rem;
+	line-height: 1rem;
+}
+
+.pkt-feedbak li,
+.pkt-feedbak li > p {
+	font-size: 0.8rem;
+	line-height: 1rem;
+}
+
+
 /* 耳デミーのための設定 */
 .mdy-header {
 	background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3), rgba(255,255,255,1)), url('images/bg_mdy.png');
