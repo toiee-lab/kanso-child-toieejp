@@ -18,7 +18,7 @@ $pkt['description'] = $pkt_obj->description;
 $user_logged_in = is_user_logged_in();
 
 $can_edit = false;
-if ( $user_logged_in || current_user_can( 'edit_posts' ) ) {
+if ( current_user_can( 'edit_posts' ) ) {
 	acf_form_head();
 	wp_deregister_style( 'wp-admin' );
 	$can_edit = true;
