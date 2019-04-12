@@ -104,7 +104,7 @@ get_header();
 						<button class="uk-button uk-button-default uk-margin-small-right uk-align-right" type="button" uk-toggle="target: #modal-post">投稿する</button>
 						<div id="modal-post" uk-modal>
 							<div class="uk-modal-dialog uk-modal-body">
-								<h2 class="uk-modal-title">Headline</h2>
+								<h2 class="uk-modal-title">教材を追加する</h2>
 								<?php acf_form( $setting ); ?>
 							</div>
 						</div>
@@ -342,11 +342,34 @@ get_header();
 						</li>
 						<li>
 							<!-- ================= 開催報告 & フィードバック =================== -->
+							<?php
+							if ( $can_edit ) {
+								$setting = array(
+									'post_id'            => 'new_post',
+									'post_title'         => true,
+									'new_post'           => array(
+										'post_type'   => 'pkt_report',
+										'post_status' => 'draft',
+									),
+									'fields'             => array( 'hoge' ),
+									'submit_value'       => '開催レポートを追加',
+									'return'             => admin_url( '/post.php?post=%post_id%&action=edit' ),
+									'html_submit_button' => '<input type="submit" class="uk-button uk-button-secondary" value="%s" />',
+									'html_after_fields'  => '<input type="hidden" name="acf[pocketera]" value="' . $pkt['id'] . '"/>',
+								);
+								?>
+								<button class="uk-button uk-button-default uk-margin-small-right uk-align-right" type="button" uk-toggle="target: #modal-post-report">開催レポート、フィードバックフォームを作る</button>
+								<div id="modal-post-report" uk-modal>
+									<div class="uk-modal-dialog uk-modal-body">
+										<h2 class="uk-modal-title">開催レポート作成</h2>
+										<?php acf_form( $setting ); ?>
+									</div>
+								</div>
+								<?php
+							}
+							?>
 							<h2>開催レポート一覧</h2>
 							<?php
-
-							// get_post_meta( $report_id, 'feedback_num', true ); でフィードバック数が取得できる
-							//
 							$tmp_posts = get_posts(
 								array(
 									'post_type'      => 'pkt_report',
