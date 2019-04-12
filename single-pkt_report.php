@@ -77,7 +77,7 @@ get_header(); ?>
 					<li>タイトル : <?php the_title( '', '' ); ?></li>
 					<li>記載日時 : <?php the_date(); ?></li>
 					<li>記載者 : <?php the_author(); ?></li>
-					<li>フィードバック用URL : <a href="<?php echo esc_url( $feedbak_url ); ?>">このリンクを参加者に配布してください</a></li>
+					<li>フィードバック用URL : <a href="<?php echo esc_url( $feedbak_url ); ?>" target="_blank">このリンクを参加者に配布してください</a></li>
 				</ul>
 			</div>
 			<ul class="uk-child-width-expand" uk-tab>
@@ -86,7 +86,9 @@ get_header(); ?>
 			</ul>
 			<ul class="uk-switcher uk-margin uk-margin-bottom">
 				<li>
+					<a href="<?php echo esc_url( admin_url( 'post.php?post=' . get_the_ID() . '&action=edit' ) ) ?>" class="uk-button uk-button-default uk-margin-small-right uk-align-right">編集する</a>
 					<?php
+
 							the_content();
 					?>
 				</li>

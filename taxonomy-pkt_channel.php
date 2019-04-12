@@ -48,6 +48,9 @@ if ( $user_logged_in ) {
 	$button_href_feed = $button_href_app;
 }
 
+/*
+ *
+ */
 
 get_header();
 
