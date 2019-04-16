@@ -12,20 +12,39 @@ get_header(); ?>
 
 		<?php
 		if ( have_posts() ) :
+
+			global $ss_podcasting;
+			global $wcr_content;
+			global $wcr_ssp;
+
+			$series          = get_queried_object();
+			$series_id       = $series->term_id;
+			$series_url      = get_term_link( $series );
+			$series_image    = get_option( 'ss_podcasting_data_image_' . $series_id, 'no-image' );
+			$series_material = get_field( 'series_material', $series );
+
+			if ( get_term_meta( $series_id, 'pcast_moving', true) ) {
+				$moving_to_web = get_term_meta( $series_id, 'pcast_moving_to_web', true);
+
+				if ( ! is_super_admin() ) {
+					?>
+					<script>
+						location.href = '<?php echo esc_url( $moving_to_web ); ?>';
+					</script>
+					<?php
+				}
+				?>
+			<div uk-alert class="uk-alert uk-alert-warning">
+				<h3>重要なお知らせ</h3>
+				<p>このPodcastチャンネルは移動しました。 <a href="<?php echo esc_url($moving_to_web); ?>"><?php echo esc_url($moving_to_web); ?></a></p>
+			</div>
+				<?php
+			}
 			?>
 
 			<header class="page-header uk-margin-medium-bottom">
 				<div uk-grid>
 				<?php
-					global $ss_podcasting;
-					global $wcr_content;
-					global $wcr_ssp;
-
-					$series          = get_queried_object();
-					$series_id       = $series->term_id;
-					$series_url      = get_term_link( $series );
-					$series_image    = get_option( 'ss_podcasting_data_image_' . $series_id, 'no-image' );
-					$series_material = get_field( 'series_material', $series );
 
 					// 制限ありのpodcastなのかフラグ
 					$wcr_content_ssp = get_field( 'series_limit', $series );

@@ -25,6 +25,22 @@ get_header(); ?>
 			while ( have_posts() ) :
 				the_post();
 
+				$pcast_moving_to = get_post_meta( get_the_ID(), 'pcast_moving_to', true );
+				if ( filter_var( $pcast_moving_to, FILTER_VALIDATE_URL ) ) {
+					?>
+					<div uk-alert class="uk-alert uk-alert-warning">
+						<h1>お知らせ</h1>
+						<p>この投稿は、<a href="<?php echo esc_url( $pcast_moving_to ); ?>"><?php echo esc_url( $pcast_moving_to ); ?></a>に移動しました。</p>
+					</div>
+					<?php
+					if ( ! is_super_admin() ) {
+						?>
+						<script>
+							location.href = "<?php echo esc_url( $pcast_moving_to ); ?>";
+						</script>
+						<?php
+					}
+				}
 				// 原則 1つのseriesに登録することを想定している
 				$rets         = wp_get_post_terms( get_the_ID(), 'series' );
 				$series       = $rets[0];
@@ -39,6 +55,7 @@ get_header(); ?>
 				$series_id       = $series->term_id;
 				$wcr_content_ssp = get_field( 'series_limit', $series );
 
+				$restrict_pass = false;
 				if ( $wcr_content_ssp ) {
 					$ret           = $wcr_ssp->get_access_and_product_url( '', '', $series_id );
 					$restrict_pass = $ret['access'];
