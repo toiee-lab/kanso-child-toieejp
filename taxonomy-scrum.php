@@ -23,6 +23,14 @@ $tab_active = array(
 );
 $tab_active[ $scrum_fields['first_tag_type'] ] = 'class="uk-active"';
 
+$user_logged_in = is_user_logged_in();
+$can_edit       = false;
+if ( current_user_can( 'edit_posts' ) ) {
+	acf_form_head();
+	wp_deregister_style( 'wp-admin' );
+	$can_edit = true;
+}
+
 acf_form_head();
 get_header();
 ?>
@@ -44,7 +52,7 @@ get_header();
 			<li <?php echo $tab_active['getting_start']; ?>><a href="#">はじめての方へ</a></li>
 			<li <?php echo $tab_active['updates']; ?>><a href="#">お知らせ一覧</a></li>
 			<li <?php echo $tab_active['materials']; ?>><a href="#">教材一覧</a></li>
-			<?php if ( current_user_can( 'edit_published_posts' ) ) : ?>
+			<?php if ( $can_edit ) : ?>
 			<li><a href="#">管理者</a></li>
 			<?php endif; ?>
 		</ul>
@@ -59,7 +67,7 @@ get_header();
 				<?php echo $scrum_fields['updates_body']; ?>
 				<?php
 
-				/* scrum_post、podcast (pre_get_posts で調整済み) を取得 */
+				/* scrum_post、scrum_episode (pre_get_posts で調整済み) を取得 */
 				$updates            = array();
 				$archive_podcast_id = $scrum_fields['updates_archive_podcast'];
 				$news_podcast_id    = $scrum_fields['updates_news_podcast'];
@@ -71,7 +79,7 @@ get_header();
 					the_post();
 					$p = get_post();
 
-					$terms = wp_get_post_terms( $p->ID, 'series' );
+					$terms = wp_get_post_terms( $p->ID, 'scrum_channel' );
 					if ( count( $terms ) ) {
 						if ( $archive_podcast_id === $terms[0]->term_id ) {
 							$ptype = 'podcast_archive';
@@ -124,51 +132,87 @@ get_header();
 			<!-- 教材一覧 -->
 			<li>
 				<?php echo $scrum_fields['materials-body']; ?>
-				<h3>Featured (注目)</h3>
+				<h3>スクラムPodcast</h3>
 				<?php
 				$arr = array( $scrum_fields['updates_news_podcast'], $scrum_fields['updates_archive_podcast'] );
 
-				echo w4t_podcast_grid_display( array_merge( $arr, $scrum_fields['materials_featured'] ) );
+				echo w4t_podcast_grid_display( $arr, 'scrum_channel' );
 				?>
 
 				<h3>耳デミー（ながら時間で聴き流して、インプット）</h3>
-				<?php echo w4t_podcast_grid_display( $scrum_fields['materials_mimidemy'] ); ?>
+				<?php echo w4t_podcast_grid_display( $scrum_fields['materials_mimidemy'], 'mdy_channel' ); ?>
 
 				<h3>ポケてら（ワークショップ教材で、体験から学ぶ）</h3>
-				<?php echo w4t_podcast_grid_display( $scrum_fields['materials_pocketera'] ); ?>
+				<?php echo w4t_podcast_grid_display( $scrum_fields['materials_pocketera'], 'pkt_channel' ); ?>
 			</li>
 			<!-- 管理者用 -->
-			<?php if ( current_user_can( 'edit_published_posts' ) ) : ?>
+			<?php if ( $can_edit ) : ?>
 			<li>
-				<?php echo $scrum_fields['admin-body']; ?>
-
-				<hr>
-
-				<h3>記事の投稿</h3>
-				<p>タイトルを入れてボタンを押してください。すぐに記事作成画面が開きます。</p>
-				<?php
-				acf_form(
-					array(
-						'post_id'            => 'new_post',
-						'post_title'         => true,
-						'new_post'           => array(
-							'post_type'   => 'scrum_post',
-							'post_status' => 'draft',
-							'tax_input'   => array( 'scrum' => $scrum_id ),
-						),
-						'submit_value'       => '下書き保存',
-						'return'             => admin_url( '/post.php?post=%post_id%&action=edit' ),
-						'html_submit_button' => '<input type="submit" class="uk-button uk-button-secondary" value="%s" />',
-					)
-				);
-				?>
-
-				<p><a href="<?php echo admin_url( '/edit.php?scrum=' . $scrum->slug . '&post_type=scrum_post&post_status=draft' ); ?>" target="_blank">下書き一覧はこちら</a>。<a href="<?php echo $scrum_url; ?>rss">記事のRSSフィード</a></p>
-				
-				<h3>Podcastの投稿</h3>
-				<ul>
-					<li><a href="https://toiee.jp/toiee-admin/post-podcast/?wpf25655_21=<?php echo $scrum_fields['updates_news_podcast']; ?>" target="_blank">お知らせPodcastを投稿する</a></li>
-					<li><a href="https://toiee.jp/toiee-admin/post-podcast/?wpf25655_21=<?php echo $scrum_fields['updates_archive_podcast']; ?>" target="_blank">アーカイブPodcastを投稿する</a></li>
+				<ul uk-tab>
+					<li><a href="#">メインPodcast投稿</a></li>
+					<li><a href="#">アーカイブPodcast投稿</a></li>
+					<li><a href="#">ブログ投稿</a></li>
+				</ul>
+				<ul class="uk-switcher uk-margin uk-margin-bottom">
+					<li>
+						<h3>メインPodcastに投稿する</h3>
+						<p>エピソードを「即」公開します</p>
+						<?php
+						$setting = array(
+							'post_id'            => 'new_post',
+							'post_title'         => true,
+							'post_content'       => true,
+							'new_post'           => array(
+								'post_type'   => 'scrum_episode',
+								'post_status' => 'publish',
+								'tax_input'   => array( 'scrum_channel' => $news_podcast_id ),
+							),
+							'submit_value'       => 'エピソードを「メインPodcast」に追加（公開）',
+							'return'             => admin_url( '/post.php?post=%post_id%&action=edit' ),
+							'html_submit_button' => '<input type="submit" class="uk-button uk-button-secondary" value="%s" />',
+						);
+						acf_form( $setting );
+						?>
+					</li>
+					<li>
+						<h3>アーカイブPodcastに投稿する</h3>
+						<p>エピソードを「即」公開します</p>
+						<?php
+						$setting = array(
+							'post_id'            => 'new_post',
+							'post_title'         => true,
+							'post_content'       => true,
+							'new_post'           => array(
+								'post_type'   => 'scrum_episode',
+								'post_status' => 'publish',
+								'tax_input'   => array( 'scrum_channel' => $archive_podcast_id ),
+							),
+							'submit_value'       => 'エピソードを「アーカイブPodcast」に追加（公開）',
+							'return'             => admin_url( '/post.php?post=%post_id%&action=edit' ),
+							'html_submit_button' => '<input type="submit" class="uk-button uk-button-secondary" value="%s" />',
+						);
+						acf_form( $setting );
+						?>
+					</li>
+					<li>
+						<h3>ブログ投稿</h3>
+						<p>下書き保存し、編集ページに移動します。管理画面（Gutenberg）で編集し、公開してください。</p>
+						<?php
+						$setting = array(
+							'post_id'            => 'new_post',
+							'post_title'         => true,
+							'new_post'           => array(
+								'post_type'   => 'scrum_post',
+								'post_status' => 'draft',
+								'tax_input'   => array( 'scrum' => $scrum_id ),
+							),
+							'submit_value'       => 'エピソードを追加（下書き保存）',
+							'return'             => admin_url( '/post.php?post=%post_id%&action=edit' ),
+							'html_submit_button' => '<input type="submit" class="uk-button uk-button-secondary" value="%s" />',
+						);
+						acf_form( $setting );
+						?>
+					</li>
 				</ul>
 			</li>
 			<?php endif; ?>
