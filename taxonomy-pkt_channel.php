@@ -93,15 +93,14 @@ get_header();
 							'post_id'            => 'new_post',
 							'post_title'         => true,
 							'new_post'           => array(
-								'post_type'   => 'mmdmy_episode',
+								'post_type'   => 'pkt_episode',
 								'post_status' => 'draft',
-								'tax_input'   => array( 'mmdmy' => $pkt['id'] ),
+								'tax_input'   => array( 'pkt_channel' => $pkt['id'] ),
 							),
 							'fields'             => array( 'hoge' ),
 							'submit_value'       => 'エピソードを追加（下書き保存）',
 							'return'             => admin_url( '/post.php?post=%post_id%&action=edit' ),
 							'html_submit_button' => '<input type="submit" class="uk-button uk-button-secondary" value="%s" />',
-							'html_after_fields'  => '<input type="hidden" name="acf[mimidemy]" value="' . $pkt['id'] . '"/>',
 						);
 						?>
 						<button class="uk-button uk-button-default uk-margin-small-right uk-align-right" type="button" uk-toggle="target: #modal-post">投稿する</button>

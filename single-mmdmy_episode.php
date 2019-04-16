@@ -8,7 +8,7 @@
  */
 
 $p_id  = get_the_ID();
-$terms = wp_get_post_terms( $p_id, 'mmdmy' );
+$terms = wp_get_post_terms( $p_id, 'mdy_channel' );
 
 if ( count( $terms ) ) {
 	$mdy          = get_fields( $terms[0] );
@@ -81,13 +81,13 @@ get_header(); ?>
 				<hr class="uk-divider-small uk-text-center">
 				<?php if ( 'serial' === $mdy['episode_type'] ) : ?>
 				<ul class="uk-pagination">
-					<li><a href="#"><?php previous_post_link( '%link', 'Previous', true, ' ', 'mmdmy' ); ?></li>
-					<li class="uk-margin-auto-left"><?php next_post_link( '%link', 'Next', true, ' ', 'mmdmy' ); ?></li>
+					<li><a href="#"><?php previous_post_link( '%link', 'Previous', true, ' ', 'mdy_channel' ); ?></li>
+					<li class="uk-margin-auto-left"><?php next_post_link( '%link', 'Next', true, ' ', 'mdy_channel' ); ?></li>
 				</ul>
 				<?php else : ?>
 				<ul class="uk-pagination">
-					<li class="uk-margin-auto-left"><?php next_post_link( '%link', 'Previous', true, ' ', 'mmdmy' ); ?></li>
-					<li><a href="#"><?php previous_post_link( '%link', 'Next', true, ' ', 'mmdmy' ); ?></li>
+					<li class="uk-margin-auto-left"><?php next_post_link( '%link', 'Previous', true, ' ', 'mdy_channel' ); ?></li>
+					<li><a href="#"><?php previous_post_link( '%link', 'Next', true, ' ', 'mdy_channel' ); ?></li>
 				</ul>
 				<?php endif; ?>
 				<?php

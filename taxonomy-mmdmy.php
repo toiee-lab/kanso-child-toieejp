@@ -88,9 +88,9 @@ get_header();
 							'post_id'            => 'new_post',
 							'post_title'         => true,
 							'new_post'           => array(
-								'post_type'   => 'mmdmy_episode',
+								'post_type'   => 'mdy_episode',
 								'post_status' => 'draft',
-								'tax_input'   => array( 'mmdmy' => $mdy['id'] ),
+								'tax_input'   => array( 'mdy_channel' => $mdy['id'] ),
 							),
 							'fields'             => array( 'hoge' ),
 							'submit_value'       => 'エピソードを追加（下書き保存）',

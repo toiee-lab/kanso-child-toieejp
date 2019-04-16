@@ -40,7 +40,7 @@ get_header(); ?>
 				$relation = [
 					'mimidemy'  => [
 						'title' => '関連する耳デミー',
-						'tax'   => 'mmdmy',
+						'tax'   => 'mdy_channel',
 					],
 					'pocketera' => [
 						'title' => '関連するポケてら',
