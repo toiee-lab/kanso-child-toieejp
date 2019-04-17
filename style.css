@@ -332,3 +332,7 @@ a.nav-item-active {
 	margin-left:auto;
 	margin-right:auto;
 }
+
+.main-content-middle {
+	max-width: 900px;
+}

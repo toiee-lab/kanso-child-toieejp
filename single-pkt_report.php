@@ -7,10 +7,11 @@
  * @package kanso-general
  */
 
+acf_form_head();
+wp_deregister_style( 'wp-admin' );
+
 $can_edit = false;
 if ( current_user_can( 'edit_posts' ) ) {
-	acf_form_head();
-	wp_deregister_style( 'wp-admin' );
 	$can_edit = true;
 }
 
@@ -30,7 +31,7 @@ get_header(); ?>
 		</div>
 	</header>
 	<div class="pkt-overlap">
-		<div class="uk-container uk-container-small uk-background-default main-content">
+		<div class="uk-container uk-background-default main-content-middle">
 			<?php
 			while ( have_posts() ) :
 				the_post();
@@ -78,6 +79,14 @@ get_header(); ?>
 					<li>記載日時 : <?php the_date(); ?></li>
 					<li>記載者 : <?php the_author(); ?></li>
 					<li>フィードバック用URL : <a href="<?php echo esc_url( $feedbak_url ); ?>" target="_blank">このリンクを参加者に配布してください</a></li>
+				</ul>
+				<ul>
+					<li><b>ヒント</b>
+						<ul>
+							<li>このページをブックマークする、自分宛にメールする、Slackで自分宛に送る、Todoに登録しておくと良いです</li>
+							<li>開催前に「期待する結果」を書いて、開催後に「振り返り」を記入してください。</li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 			<ul class="uk-child-width-expand" uk-tab>
