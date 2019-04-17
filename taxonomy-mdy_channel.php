@@ -134,6 +134,7 @@ get_header();
 					if ( count( $tmp_posts ) ) {
 						/* 最初のものだけ表示 */
 						$p = array_pop( $tmp_posts );
+						toiee_get_edit_button( $p );
 						echo apply_filters( 'the_content', $p->post_content ); // the_content filter を通す
 
 						foreach ( $tmp_posts as $p ) {
