@@ -70,8 +70,8 @@ get_header();
 					<h1 class="uk-h2 uk-margin-remove-bottom"><?php echo esc_html( $pkt['title'] ); ?></h1>
 					<p class="uk-text-muted uk-margin-remove-top"><?php echo esc_html( $pkt['subtitle'] ); ?></p>
 					<p>
-						<a <?php echo $button_href_app; ?> class="uk-button uk-button-default uk-box-shadow-small" style="text-transform:none;">iPhone、iPad、スマホ</a>
-						<a <?php echo $button_href_feed; ?> class="uk-button uk-button-default uk-box-shadow-small" style="text-transform:none;">その他(フィードURL)</a>
+						<a <?php echo $button_href_app; ?> class="uk-button uk-button-default uk-box-shadow-small" style="text-transform:none;">Podcast登録</a>
+						<a <?php echo $button_href_feed; ?> class="uk-button uk-button-text" style="text-transform:none;" onclick="copyToClipboard()">フィードURL</a>
 					</p>
 				</div>
 			</div>
@@ -80,9 +80,9 @@ get_header();
 			</div>
 			<ul class="uk-child-width-expand" uk-tab>
 				<li class="uk-active"><a href="#">教材</a></li>
-				<li class=""><a href="#">受講資料</a></li>
-				<li class=""><a href="#">関連ナレッジ</a></li>
-				<li class=""><a href="#">ファシリテーター</a></li>
+				<li class=""><a href="#"><span class="uk-visible@s">受講資料</span><span class="uk-hidden@s">資料</span></a></li>
+				<li class=""><a href="#"><span class="uk-visible@s">関連ナレッジ</span><span class="uk-hidden@s">関連</span></a></li>
+				<li class=""><a href="#"><span class="uk-visible@s">ファシリテーター</span><span class="uk-hidden@s">LFT</span></a></li>
 			</ul>
 			<ul class="uk-switcher uk-margin uk-margin-bottom">
 				<!-- ================= 教材 =================== -->

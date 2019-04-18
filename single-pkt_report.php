@@ -31,45 +31,54 @@ get_header(); ?>
 		</div>
 	</header>
 	<div class="pkt-overlap">
-		<div class="uk-container uk-background-default main-content-middle">
+		<?php
+		while ( have_posts() ) :
+			the_post();
+
+			$pkt_ch_id   = get_field( 'pocketera' );
+			$pkt         = get_term_by( 'id', $pkt_ch_id, 'pkt_channel' );
+			$feedbak_url = trailingslashit( get_permalink() ) . '?pktftoken=' . md5( get_the_id() );
+			$img         = get_field( 'image', $pkt );
+
+			/* =========== アンケートフォームを表示 ============== */
+			if ( $feedback_mode ) {
+				?>
+		<div class="uk-container uk-background-default main-content">
+			<section class="uk-section">
+				<div class="uk-margin-bottom uk-grid" uk-grid="">
+					<div class="uk-width-auto uk-first-column"><img src="<?php echo esc_url( $img ); ?>" width="100" height="100"></div>
+					<div class="uk-width-expand">
+						<h1 class="uk-h2 uk-margin-remove-bottom"><?php echo esc_html( $pkt->name ); ?></h1>
+						<p class="uk-text-lead">フィードバックアンケート</p>
+					</div>
+				</div>
+				<?php
+				$groups = acf_get_field_groups( array( 'post_type' => 'pkt_feedback' ) );
+
+				acf_form(
+					array(
+						'post_id'              => 'new_post',
+						'new_post'             => array(
+							'post_type'   => 'pkt_feedback',
+							'post_status' => 'publish',
+						),
+						'field_groups'         => array( 'group_5cb014460eb0a' ),
+						'html_submit_button'   => '<input type="submit" class="uk-button uk-button-secondary" value="%s" />',
+						'html_after_fields'    => '<input type="hidden" name="acf[pkt_report]" value="' . get_the_id() . '"/>',
+						'submit_value'         => '送信する',
+						'html_updated_message' => '<div class="uk-alert-success" uk-alert><p>アンケートありがとうございました。</p></div>',
+					)
+				);
+				?>
+			</section>
+		</div>
 			<?php
-			while ( have_posts() ) :
-				the_post();
-
-				$pkt_ch_id   = get_field( 'pocketera' );
-				$pkt         = get_term_by( 'id', $pkt_ch_id, 'pkt_channel' );
-				$feedbak_url = trailingslashit( get_permalink() ) . '?pktftoken=' . md5( get_the_id() );
-
-				/* =========== アンケートフォームを表示 ============== */
-				if ( $feedback_mode ) {
-					?>
-				<section class="uk-section">
-					<h1><?php echo esc_html( $pkt->name ); ?> フィードバックアンケート</h1>
-					<?php
-					$groups = acf_get_field_groups( array( 'post_type' => 'pkt_feedback' ) );
-
-					acf_form(
-						array(
-							'post_id'              => 'new_post',
-							'new_post'             => array(
-								'post_type'   => 'pkt_feedback',
-								'post_status' => 'publish',
-							),
-							'field_groups'         => array( 'group_5cb014460eb0a' ),
-							'html_submit_button'   => '<input type="submit" class="uk-button uk-button-secondary" value="%s" />',
-							'html_after_fields'    => '<input type="hidden" name="acf[pkt_report]" value="' . get_the_id() . '"/>',
-							'submit_value'         => '送信する',
-							'html_updated_message' => '<div class="uk-alert-success" uk-alert><p>アンケートありがとうございました。</p></div>',
-						)
-					);
-					?>
-				</section>
-					<?php
-					/* =========== LFTが閲覧できる ============== */
-				} elseif ( $can_edit ) {
+			/* =========== LFTが閲覧できる ============== */
+		} elseif ( $can_edit ) {
 
 
-					?>
+		?>
+		<div class="uk-container uk-background-default main-content-middle">
 			<h1 class="uk-h2 uk-margin-top">ポケてら <a
 						href="<?php echo get_term_link( $pkt ); ?>"><?php echo esc_html( $pkt->name ); ?></a><br>開催レポート
 			</h1>
