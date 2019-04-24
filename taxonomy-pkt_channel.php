@@ -262,13 +262,9 @@ get_header();
 						/* 最初のものだけ表示 */
 						$p = array_pop( $tmp_posts );
 
-						if ( $can_edit ) :
-							?>
-							<a href="<?php echo esc_url( admin_url( 'post.php?post=' . $p->ID . '&action=edit' ) ) ?>" class="uk-button uk-button-default uk-margin-small-right uk-align-right">編集する</a>
-							<?php
-						endif;
-
 						echo apply_filters( 'the_content', $p->post_content ); // the_content filter を通す
+
+						toiee_get_edit_button();
 
 						foreach ( $tmp_posts as $p ) {
 							echo $p->post_title; // TODO 過去のレジュメがあったら表示する
