@@ -125,6 +125,9 @@ get_header();
 							$updates
 						)
 					);
+
+					echo kanso_get_post_navigation();
+
 					?>
 				</ul>
 

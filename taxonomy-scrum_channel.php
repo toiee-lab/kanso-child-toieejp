@@ -150,6 +150,8 @@ get_header();
 				the_post();
 				require locate_template( 'template-parts/player.php' );
 			endwhile;
+
+			echo kanso_get_post_navigation();
 			?>
 
 	</div>
