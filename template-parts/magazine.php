@@ -93,7 +93,7 @@ $side_nav_content = str_replace( 'nav-item-' . $current_post_id, 'nav-item-activ
 				<main class="uk-margin-top">
 					<?php if ( '' !== trim( $mag['header'] ) ) : ?>
 					<div class="uk-padding-small mag-notice-header uk-hidden@m">
-						<?php echo "hoge" . $mag['header']; ?>
+						<?php echo $mag['header']; ?>
 					</div>
 					<?php endif; ?>
 					<div uk-alert class="uk-hidden@m">
