@@ -40,6 +40,8 @@ get_header(); ?>
 			$feedbak_url = trailingslashit( get_permalink() ) . '?pktftoken=' . md5( get_the_id() );
 			$img         = get_field( 'image', $pkt );
 
+			$status = get_post_status();
+
 			/* =========== アンケートフォームを表示 ============== */
 			if ( $feedback_mode ) {
 				?>
@@ -87,7 +89,11 @@ get_header(); ?>
 					<li>タイトル : <?php the_title( '', '' ); ?></li>
 					<li>記載日時 : <?php the_date(); ?></li>
 					<li>記載者 : <?php the_author(); ?></li>
-					<li>フィードバック用URL : <a href="<?php echo esc_url( $feedbak_url ); ?>" target="_blank">このリンクを参加者に配布してください</a></li>
+					<?php if ( $status === 'publish' ) : ?>
+						<li>フィードバック用URL : <a href="<?php echo esc_url( $feedbak_url ); ?>" target="_blank">このリンクを参加者に配布してください</a></li>
+					<?php else : ?>
+						<li>フィードバック用URL : <b>この開催報告ページは「公開されていません」。先ずは、公開してください。</b></li>
+					<?php endif; ?>
 				</ul>
 				<ul>
 					<li><b>ヒント</b>

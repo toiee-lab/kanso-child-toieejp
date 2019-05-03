@@ -354,6 +354,7 @@ get_header();
 									'return'             => admin_url( '/post.php?post=%post_id%&action=edit' ),
 									'html_submit_button' => '<input type="submit" class="uk-button uk-button-secondary" value="%s" />',
 									'html_after_fields'  => '<input type="hidden" name="acf[pocketera]" value="' . $pkt['id'] . '"/>',
+									'html_before_fields' => '<div class="uk-alert-primary" uk-alert><p>期待する結果、プロセス・姿勢、前提を記入し「必ず、公開」を行ってから、参加者にフィードバック用のURLを配布してください。</p></div>',
 								);
 								?>
 								<button class="uk-button uk-button-default uk-margin-small-right uk-align-right" type="button" uk-toggle="target: #modal-post-report">開催レポート、フィードバックフォームを作る</button>

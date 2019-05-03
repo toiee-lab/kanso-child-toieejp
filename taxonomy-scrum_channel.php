@@ -111,8 +111,8 @@ get_header();
 				<h1 class="uk-h2 uk-margin-remove-bottom"><?php echo esc_html( $scrum_ch['title'] ); ?></h1>
 				<p class="uk-text-muted uk-margin-remove-top"><?php echo esc_html( $scrum_ch['subtitle'] ); ?></p>
 				<p>
-					<a <?php echo $button_href_app; ?> class="uk-button uk-button-default uk-box-shadow-small" style="text-transform:none;">iPhone、iPad、スマホ</a>
-					<a <?php echo $button_href_feed; ?> class="uk-button uk-button-default uk-box-shadow-small" style="text-transform:none;">その他(フィードURL)</a>
+					<a <?php echo $button_href_app; ?> class="uk-button uk-button-default uk-box-shadow-small" style="text-transform:none;">Podcast App</a>
+					<a <?php echo $button_href_feed; ?> class="uk-button uk-button-text" style="text-transform:none;">その他(フィードURL)</a>
 				</p>
 			</div>
 		</div>
