@@ -100,6 +100,12 @@ get_header(); ?>
 				the_episode_player( $src, $media );
 			} else {
 				$restrict = get_field( 'restrict' );
+				if ( $restrict === true ) {
+					$restrict = 'restrict';
+				} else if ( $restrict === false ) {
+					$restrict = 'open';
+				}
+
 				switch ( $restrict ) {
 					case 'open':
 						the_episode_player( $src, $media );
