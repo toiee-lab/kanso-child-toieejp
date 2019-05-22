@@ -48,12 +48,12 @@ get_header();
 
 	<div class="uk-container uk-container-small uk-background-default uk-margin-medium-top">
 
-		<ul uk-tab>
-			<li <?php echo $tab_active['getting_start']; ?>><a href="#">はじめての方へ</a></li>
-			<li <?php echo $tab_active['updates']; ?>><a href="#">お知らせ一覧</a></li>
-			<li <?php echo $tab_active['materials']; ?>><a href="#">教材一覧</a></li>
+		<ul id="main-tab" uk-tab>
+			<li <?php echo $tab_active['getting_start']; ?>><a href="#" onclick="location.hash='getting_start'">はじめての方へ</a></li>
+			<li <?php echo $tab_active['updates']; ?>><a href="#" onclick="location.hash='updates'">お知らせ一覧</a></li>
+			<li <?php echo $tab_active['materials']; ?>><a href="#" onclick="location.hash='materials'">教材一覧</a></li>
 			<?php if ( $can_edit ) : ?>
-			<li><a href="#">管理者</a></li>
+			<li><a href="#" onclick="location.hash='admin'">管理者</a></li>
 			<?php endif; ?>
 		</ul>
 
@@ -140,13 +140,28 @@ get_header();
 				$arr = array( $scrum_fields['updates_news_podcast'], $scrum_fields['updates_archive_podcast'] );
 
 				echo w4t_podcast_grid_display( $arr, 'scrum_channel' );
-				?>
 
+				if ( is_array( $scrum_fields['materials_tlm'] ) && count( $scrum_fields['materials_tlm'] ) ) {
+					?>
+				<h3>スクラム教材</h3>
+					<?php
+					echo w4t_podcast_grid_display( $scrum_fields['materials_tlm'], 'tlm' );
+				}
+
+				if ( is_array( $scrum_fields['materials_mimidemy'] ) && count( $scrum_fields['materials_mimidemy'] ) ) {
+					?>
 				<h3>耳デミー（ながら時間で聴き流して、インプット）</h3>
-				<?php echo w4t_podcast_grid_display( $scrum_fields['materials_mimidemy'], 'mdy_channel' ); ?>
+					<?php
+					echo w4t_podcast_grid_display( $scrum_fields['materials_mimidemy'], 'mdy_channel' );
+				}
 
-				<h3>ポケてら（ワークショップ教材で、体験から学ぶ）</h3>
-				<?php echo w4t_podcast_grid_display( $scrum_fields['materials_pocketera'], 'pkt_channel' ); ?>
+				if ( is_array( $scrum_fields['materials_pocketera'] ) && count( $scrum_fields['materials_pocketera'] ) ) {
+					?>
+					<h3>耳デミー（ながら時間で聴き流して、インプット）</h3>
+					<?php
+					echo w4t_podcast_grid_display( $scrum_fields['materials_pocketera'], 'pkt_channel' );
+				}
+				?>
 			</li>
 			<!-- 管理者用 -->
 			<?php if ( $can_edit ) : ?>
@@ -161,40 +176,52 @@ get_header();
 						<h3>メインPodcastに投稿する</h3>
 						<p>エピソードを「即」公開します</p>
 						<?php
-						$setting = array(
-							'post_id'            => 'new_post',
-							'post_title'         => true,
-							'post_content'       => true,
-							'new_post'           => array(
-								'post_type'   => 'scrum_episode',
-								'post_status' => 'publish',
-								'tax_input'   => array( 'scrum_channel' => $news_podcast_id ),
-							),
-							'submit_value'       => 'エピソードを「メインPodcast」に追加（公開）',
-							'return'             => admin_url( '/post.php?post=%post_id%&action=edit' ),
-							'html_submit_button' => '<input type="submit" class="uk-button uk-button-secondary" value="%s" />',
-						);
-						acf_form( $setting );
+						if ( $scrum_fields['updates_news_podcast'] ) {
+							$setting = array(
+								'post_id'            => 'new_post',
+								'post_title'         => true,
+								'post_content'       => true,
+								'new_post'           => array(
+									'post_type'   => 'scrum_episode',
+									'post_status' => 'publish',
+									'tax_input'   => array( 'scrum_channel' => $news_podcast_id ),
+								),
+								'submit_value'       => 'エピソードを「メインPodcast」に追加（公開）',
+								'return'             => admin_url( '/post.php?post=%post_id%&action=edit' ),
+								'html_submit_button' => '<input type="submit" class="uk-button uk-button-secondary" value="%s" />',
+							);
+							acf_form( $setting );
+						} else {
+							?>
+							<div class="uk-alert-warning" uk-alert><p>SCRUMポッドキャストチャンネルが設定されていません。</p></div>
+							<?php
+						}
 						?>
 					</li>
 					<li>
 						<h3>アーカイブPodcastに投稿する</h3>
 						<p>エピソードを「即」公開します</p>
 						<?php
-						$setting = array(
-							'post_id'            => 'new_post',
-							'post_title'         => true,
-							'post_content'       => true,
-							'new_post'           => array(
-								'post_type'   => 'scrum_episode',
-								'post_status' => 'publish',
-								'tax_input'   => array( 'scrum_channel' => $archive_podcast_id ),
-							),
-							'submit_value'       => 'エピソードを「アーカイブPodcast」に追加（公開）',
-							'return'             => admin_url( '/post.php?post=%post_id%&action=edit' ),
-							'html_submit_button' => '<input type="submit" class="uk-button uk-button-secondary" value="%s" />',
-						);
-						acf_form( $setting );
+						if ( $scrum_fields['updates_archive_podcast'] ) {
+							$setting = array(
+								'post_id'            => 'new_post',
+								'post_title'         => true,
+								'post_content'       => true,
+								'new_post'           => array(
+									'post_type'   => 'scrum_episode',
+									'post_status' => 'publish',
+									'tax_input'   => array( 'scrum_channel' => $archive_podcast_id ),
+								),
+								'submit_value'       => 'エピソードを「アーカイブPodcast」に追加（公開）',
+								'return'             => admin_url( '/post.php?post=%post_id%&action=edit' ),
+								'html_submit_button' => '<input type="submit" class="uk-button uk-button-secondary" value="%s" />',
+							);
+							acf_form( $setting );
+						} else {
+							?>
+							<div class="uk-alert-warning" uk-alert><p>SCRUMポッドキャストチャンネルが設定されていません。</p></div>
+							<?php
+						}
 						?>
 					</li>
 					<li>
@@ -222,6 +249,28 @@ get_header();
 		</ul>
 
 	</div><!-- .main-content -->
+	<script>
+        /*
+		* - input ( tlm_in )
+		*   - オーディオ (tlm_in)
+		*   - ワークショップ録画 (tlm_archive)
+		* - workshop ( tlm_ws )
+		*   - ワークショップ (tlm_ws)
+		*   - 資料（tlm_ws_aid)
+		*   - ヒント (tlm_ws_hint)
+		* - related (tlm_add)
+		*
+		* */
+        if( location.hash == "#getting_start" ) {
+            UIkit.tab('#main-tab').show(0);
+        } else if( location.hash == "#updates" ) {
+            UIkit.tab('#main-tab').show(1);
+        } else if( location.hash == "#materials" ) {
+            UIkit.tab('#main-tab').show(2);
+        } else if( location.hash == "#admin" ) {
+            UIkit.tab('#main-tab').show(3);
+        }
+	</script>
 <?php
 
 
