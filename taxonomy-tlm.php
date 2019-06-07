@@ -96,6 +96,12 @@ get_header();
 			<ul class="uk-switcher uk-margin uk-margin-bottom">
 				<!-- ================= インプット =================== -->
 				<li>
+					<?php if ( ! $user_logged_in ) : ?>
+					<div class="uk-alert-primary" uk-alert>
+						スクラム教材・インプットは「会員登録」することで、<b>すべて無料</b>でご覧いただけます。<br>
+						<a href="#" onclick="UIkit.modal('#modal_login_form').show();UIkit.tab('#modal_login_form_tab').show(1);">会員登録する</a>
+					</div>
+					<?php endif; ?>
 					<?php
 					if ( isset( $elements['tlm_in'] ) ) {
 

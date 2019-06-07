@@ -55,14 +55,18 @@ if ( is_front_page() ) :
 								/*
 								 * ログイン、ログアウトで切り替える
 								 */
-								if( is_user_logged_in() ):
+								if ( is_user_logged_in() ) :
 									?>
 									<li><a href="<?php echo get_permalink( wc_get_page_id( 'myaccount' )); ?>my-library/">マイアカウント</a></li>
 								<?php else: ?>
-									<?php echo get_popup_login_form(); ?>
 									<li><a href="#" uk-toggle="target: #modal_login_form">ログイン</a></li>
 								<?php endif; ?>
 							</ul>
+							<?php
+							if ( ! is_user_logged_in() ) {
+								echo get_popup_login_form();
+							}
+							?>
 							<?php
 							if ( kns_get_template() === 'sidebar' ) {
 								$uk_hidden        = 'uk-hidden@m';
