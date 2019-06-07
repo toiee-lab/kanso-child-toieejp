@@ -42,7 +42,7 @@ if ( $user_logged_in ) {
 	$pcast_url        = $tlm['url'] . 'feed/pcast/?wcrtoken=' . $wcr_content->get_user_wcrtoken();
 	$pcast_url_app    = str_replace( array( 'https://', 'http://' ), 'podcast://', $pcast_url );
 	$button_href_app  = 'href="' . $pcast_url_app . '"';
-	$button_href_feed = 'href="' . $pcast_url . '""';
+	$button_href_feed = 'href="' . $pcast_url . '"';
 } else {
 	$button_href_app  = 'href="#" uk-toggle="target: #modal_login_form"';
 	$button_href_feed = $button_href_app;
@@ -118,6 +118,8 @@ get_header();
 							}
 						);
 
+						$the_episode_player_plyr_ext = 'tlm_input';
+
 						global $post;
 						foreach ( $elements['tlm_in'] as $post ) {
 							setup_postdata( $post );
@@ -155,7 +157,7 @@ get_header();
 									}
 								);
 
-
+								$the_episode_player_plyr_ext = '';
 
 								global $post;
 								foreach ( $elements['tlm_ws'] as $post ) {
@@ -265,6 +267,9 @@ get_header();
 					}
 
 					if ( isset( $elements['tlm_archive'] ) ) {
+
+						$the_episode_player_plyr_ext = 'tlm_archive';
+
 						global $post;
 						foreach ( $elements['tlm_archive'] as $post ) {
 							setup_postdata( $post );

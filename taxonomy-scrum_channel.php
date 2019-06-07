@@ -74,7 +74,7 @@ if ( $user_logged_in ) {
 	$pcast_url        = $scrum_ch['url'] . 'feed/pcast/?wcrtoken=' . $wcr_content->get_user_wcrtoken();
 	$pcast_url_app    = str_replace( array( 'https://', 'http://' ), 'podcast://', $pcast_url );
 	$button_href_app  = 'href="' . $pcast_url_app . '"';
-	$button_href_feed = 'href="' . $pcast_url . '""';
+	$button_href_feed = 'href="' . $pcast_url . '"';
 } else {
 	$button_href_app  = 'href="#" uk-toggle="target: #modal_login_form"';
 	$button_href_feed = $button_href_app;
@@ -87,7 +87,7 @@ get_header();
 		<div class="uk-section-default">
 			<div class="uk-section <?php echo $header_color; ?> uk-background-cover" style="background-image: url(<?php echo $header_bg_img; ?>)">
 				<div class="uk-container">
-					<p>スクラム・ラーニング <?php echo $scrum->name; ?></p>
+					<p>スクラム <?php echo $scrum->name; ?></p>
 					<h1 class="uk-margin-remove-bottom uk-margin-remove-top uk-h2"><?php echo $scrum_ch_obj->name; ?></h1>
 				</div>
 			</div>
@@ -117,7 +117,7 @@ get_header();
 			</div>
 		</div>
 		<div class="uk-margin">
-			<p class="uk-text-small uk-text-muted pkt-description"><?php echo esc_html( $scrum_ch['description'] ); ?></span></p>
+			<p class="uk-text-small uk-text-muted pkt-description"><?php echo esc_html( $scrum_ch['description'] ); ?></p>
 		</div>
 			<?php
 			if ( $can_edit ) {
@@ -136,16 +136,18 @@ get_header();
 					'html_after_fields'  => '<input type="hidden" name="acf[mimidemy]" value="' . $scrum_ch['id'] . '"/>',
 				);
 				?>
-				<button class="uk-button uk-button-default uk-margin-small-right uk-align-right" type="button" uk-toggle="target: #modal-post">投稿する</button>
-				<div id="modal-post" uk-modal>
-					<div class="uk-modal-dialog uk-modal-body">
-						<h2 class="uk-modal-title">Headline</h2>
-						<?php acf_form( $setting ); ?>
-					</div>
+			<button class="uk-button uk-button-default uk-margin-small-right uk-align-right" type="button" uk-toggle="target: #modal-post">投稿する</button>
+			<div id="modal-post" uk-modal>
+				<div class="uk-modal-dialog uk-modal-body">
+					<h2 class="uk-modal-title">Headline</h2>
+					<?php acf_form( $setting ); ?>
 				</div>
+			</div>
 				<?php
 			}
-
+			?>
+			<?php
+			$the_episode_player_plyr_ext = 'scrum_episode';
 			while ( have_posts() ) :
 				the_post();
 				require locate_template( 'template-parts/player.php' );
@@ -153,7 +155,6 @@ get_header();
 
 			echo kanso_get_post_navigation();
 			?>
-
 	</div>
 
 <?php
