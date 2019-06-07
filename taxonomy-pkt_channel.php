@@ -113,6 +113,8 @@ get_header();
 						<?php
 					}
 
+					$the_episode_player_plyr_ext = 'scrum_episode';
+
 					while ( have_posts() ) :
 						the_post();
 						require locate_template( 'template-parts/player.php' );

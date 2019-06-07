@@ -50,7 +50,7 @@ get_header(); ?>
 			$media = get_field( 'media' );
 
 			if ( $has_access ) {
-				the_episode_player( $src, $media );
+				the_episode_player_plyr( $src, $media );
 			} else {
 				$restrict = get_field( 'restrict' );
 				if ( $restrict === true ) {
@@ -61,11 +61,11 @@ get_header(); ?>
 
 				switch ( $restrict ) {
 					case 'open':
-						the_episode_player( $src, $media );
+						the_episode_player_plyr( $src, $media );
 						break;
 					case 'free':
 						if ( $user_logged_in ) {
-							the_episode_player( $src, $media );
+							the_episode_player_plyr( $src, $media );
 							break;
 						}
 					default: /* restrict */
