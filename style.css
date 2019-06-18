@@ -12,6 +12,7 @@ Tags:         light, dark, two-columns, right-sidebar, responsive-layout, access
 Text Domain:  kanso general child
 */
 
+img.custom-logo,
 .custom-logo {
 	height: 35px;
 }
