@@ -51,6 +51,7 @@ if ( is_front_page() ) :
 							?>
 							<ul class="uk-navbar-nav">
 								<li><a href="<?php echo esc_url( home_url( '/' ) );?>?s="><span uk-icon="search"></span></a></li>
+								<li><a href="<?php echo esc_url( home_url( '/blog' ) );?>?s=">ブログ</a></li>
 								<?php
 								/*
 								 * ログイン、ログアウトで切り替える
@@ -132,6 +133,7 @@ else :
 						?>
 						<ul class="uk-navbar-nav">
 							<li><a href="<?php echo esc_url( home_url( '/' ) );?>?s="><span uk-icon="search"></span></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/blog' ) );?>?s=">ブログ</a></li>
 							<?php
 							/*
 							 * ログイン、ログアウトで切り替える

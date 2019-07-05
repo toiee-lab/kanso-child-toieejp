@@ -15,7 +15,7 @@
  */
 
 get_header(); ?>
-	<div class="uk-container uk-container-small uk-background-default main-content uk-margin-remove-top">
+	<div class="uk-container uk-background-default main-content-large uk-margin-remove-top">
 
 		<?php
 		while ( have_posts() ) :
