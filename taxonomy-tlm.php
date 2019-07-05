@@ -39,13 +39,33 @@ if ( true === $tlm['restrict'] ) {
  *  toiee.jp では、ログインしていない場合、ナビ部分でモーダルdivを出力しています。
  */
 if ( $user_logged_in ) {
-	$pcast_url        = $tlm['url'] . 'feed/pcast/?wcrtoken=' . $wcr_content->get_user_wcrtoken();
-	$pcast_url_app    = str_replace( array( 'https://', 'http://' ), 'podcast://', $pcast_url );
-	$button_href_app  = 'href="' . $pcast_url_app . '"';
-	$button_href_feed = 'href="' . $pcast_url . '"';
+	if ( $has_access ) {
+		$pcast_url = $tlm['url'] . 'feed/pcast/?wcrtoken=' . $wcr_content->get_user_wcrtoken();
+
+		$url        = str_replace( array( 'https://', 'http://' ), 'pcast://', $pcast_url );
+		$href_pcast = 'href="' . $url . '"';
+
+		$url           = str_replace( array( 'https://', 'http://' ), 'podcast://', $pcast_url );
+		$href_podcast  = 'href="' . $url . '"';
+
+		$href_feed     = 'href="' . $pcast_url . '"';
+
+		if ( $tlm['audiobook'] != '' ) {
+			$href_download = 'href="' . $tlm['audiobook'] . '" download="' . $tlm['title'] . '.m4b"';
+		} else {
+			$href_download = 'href="#" uk-toggle="target: #modal_not_audiobook"';
+		}
+	} else {
+		$href_podcast  = 'href="#" uk-toggle="target: #modal_buy_product"';
+		$href_pcast    = $href_podcast;
+		$href_feed     = $href_podcast;
+		$href_download = $href_podcast;
+	}
 } else {
-	$button_href_app  = 'href="#" uk-toggle="target: #modal_login_form"';
-	$button_href_feed = $button_href_app;
+	$href_podcast  = 'href="#" uk-toggle="target: #modal_login_form"';
+	$href_pcast    = $href_podcast;
+	$href_feed     = $href_podcast;
+	$href_download = $href_podcast;
 }
 
 $elements = array();
@@ -78,14 +98,11 @@ get_header();
 				<div class="uk-width-expand">
 					<h1 class="uk-h2 uk-margin-remove-bottom"><?php echo esc_html( $tlm['title'] ); ?></h1>
 					<p class="uk-text-muted uk-margin-remove-top"><?php echo esc_html( $tlm['subtitle'] ); ?></p>
-					<p>
-						<a <?php echo $button_href_app; ?> class="uk-button uk-button-default uk-box-shadow-small" style="text-transform:none;">Podcast登録</a>
-						<a <?php echo $button_href_feed; ?> class="uk-button uk-button-text" style="text-transform:none;" onclick="copyToClipboard()">フィードURL</a>
-					</p>
+					<div class="uk-margin">
+						<p class="uk-text-small uk-text-muted tlm-description"><?php echo esc_html( $tlm['description'] ); ?></span></p>
+					</div>
+
 				</div>
-			</div>
-			<div class="uk-margin">
-				<p class="uk-text-small uk-text-muted tlm-description"><?php echo esc_html( $tlm['description'] ); ?></span></p>
 			</div>
 			<ul class="uk-child-width-expand" uk-tab id="main-tab">
 				<li><a href="#" onclick="location.hash='tlm_in'">インプット</a></li>
@@ -104,7 +121,38 @@ get_header();
 					<?php endif; ?>
 					<?php
 					if ( isset( $elements['tlm_in'] ) ) {
-
+						?>
+						<div uk-alert>
+							<h3 class="uk-h4"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</h3>
+							<dl class="uk-description-list">
+								<dt>Podcast形式</dt>
+								<dd>以下のボタンをクリックし、即視聴できます。iPhone、Apple WatchのPodcastアプリ、AndroidのPodcastアプリ、MacのMusic(iTuens)、WindowsのiTunesなどで視聴可能です。<br>
+									<p uk-margin>
+										<a <?php echo $href_podcast;?> class="uk-button uk-button-default">iPhone、iPad、Apple Watch</a>
+										<a <?php echo $href_pcast;?> class="uk-button uk-button-default">iTunes、Android</a>
+										<a <?php echo $href_feed;?> class="uk-button uk-button-text">フィードURL</a>
+									</p>
+								</dd>
+								<dt>オーディオブック形式（m4b）</dt>
+								<dd>ダウンロードして視聴できます。iPhoneなどのApple Book、Book Player、Androidのオーディオブックアプリなどを利用できます。<br>
+									<p uk-margin><a <?php echo $href_download; ?> class="uk-button uk-button-default">ダウンロード</a></p>
+								</dd>
+							</dl>
+						</div>
+						<div id="modal_buy_product" class="uk-flex-top" uk-modal>
+							<div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+								<h2>ご利用いただけません</h2>
+								<p>Podcastあるいは、ダウンロードを利用するには、「スクラム」に参加するか、「スクラム教材定期購読の申し込み」が必要です。</p>
+								<p><a href="">詳しくはこちら</a></p>
+							</div>
+						</div>
+						<div id="modal_not_audiobook" class="uk-flex-top" uk-modal>
+							<div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+								<h2>オーディオブックがありません</h2>
+								<p>この教材にはオーディオブックがありません。順次追加中です。しばらくお待ちください。</p>
+							</div>
+						</div>
+						<?php
 						usort(
 							$elements['tlm_in'],
 							function ( $a, $b ) {

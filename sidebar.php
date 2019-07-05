@@ -8,7 +8,7 @@
  */
 ?>
 
-<div id="sidebar" uk-offcanvas="overlay: true;mode: push">
+<div id="sidebar" uk-offcanvas="overlay: true;mode: slide;flip:true">
 	<div class="uk-offcanvas-bar">
 
 		<button class="uk-offcanvas-close" type="button" uk-close></button>
