@@ -88,9 +88,14 @@ if ( is_front_page() ) :
 			</nav>
 		</div>
 		<div id="kns-header">
-			<div id="kns-header-text" class="uk-padding-small">
-				<h1 id="kanso_general_options_htitle"><?php echo esc_html( get_option( 'kanso_general_options_htitle' ) ); ?></h1>
-				<h2 id="kanso_general_options_hsubtitle"><?php echo esc_html( get_option( 'kanso_general_options_hsubtitle' ) ); ?></h2>
+			<div class="uk-container" style="padding-left: 15px;padding-right: 15px;" uk-grid>
+				<div id="kns-header-text" class="uk-width-1-2@m">
+					<h1 id="kanso_general_options_htitle" style="text-align: left;">学ぶ楽しさ、再発見</h1>
+					<p style="text-align: left; color:#fff;">人は本来、学ぶこと自体が喜びです。最新のラーニングの科学、チーム学習、プロジェクトラーニング、コミュニティーラーニング、反転学習を組み合わせれば、もっとワクワク、ドキドキする学びが実現できます</p>
+					<div style="text-align: left" class="uk-margin-small-top uk-margin-small-bottom">
+						<a href="https://toiee.jp/input-free/" class="uk-button uk-button-primary uk-button-large" title="">聴くワクワクから始める</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
