@@ -188,4 +188,13 @@ function kanso_get_post_label() {
 }
 
 
+add_filter( 'upload_mimes', function ( $mime_types ) {
+	unset( $mime_types[ 'mp3|m4a|m4b' ] );
+	
 
+	$mime_types[ 'mp3' ] = 'audio/mpeg';
+	$mime_types[ 'm4a' ] = 'audio/mpeg';
+    $mime_types[ 'm4b' ] = 'video/mp4';
+
+    return $mime_types;
+} );
