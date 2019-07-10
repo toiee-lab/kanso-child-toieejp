@@ -34,40 +34,6 @@ if ( true === $tlm['restrict'] ) {
 	}
 }
 
-/*
- *  ユーザー固有のリンクを取得する。大元のテーマでモーダルdivを出力していることを前提にしています。
- *  toiee.jp では、ログインしていない場合、ナビ部分でモーダルdivを出力しています。
- */
-if ( $user_logged_in ) {
-	if ( $has_access ) {
-		$pcast_url = $tlm['url'] . 'feed/pcast/?wcrtoken=' . $wcr_content->get_user_wcrtoken();
-
-		$url        = str_replace( array( 'https://', 'http://' ), 'pcast://', $pcast_url );
-		$href_pcast = 'href="' . $url . '"';
-
-		$url           = str_replace( array( 'https://', 'http://' ), 'podcast://', $pcast_url );
-		$href_podcast  = 'href="' . $url . '"';
-
-		$href_feed     = 'href="' . $pcast_url . '"';
-
-		if ( $tlm['audiobook'] != '' ) {
-			$href_download = 'href="' . $tlm['audiobook'] . '" download="' . $tlm['title'] . '.m4b"';
-		} else {
-			$href_download = 'href="#" uk-toggle="target: #modal_not_audiobook"';
-		}
-	} else {
-		$href_podcast  = 'href="#" uk-toggle="target: #modal_buy_product"';
-		$href_pcast    = $href_podcast;
-		$href_feed     = $href_podcast;
-		$href_download = $href_podcast;
-	}
-} else {
-	$href_podcast  = 'href="#" uk-toggle="target: #modal_login_form"';
-	$href_pcast    = $href_podcast;
-	$href_feed     = $href_podcast;
-	$href_download = $href_podcast;
-}
-
 $elements = array();
 while ( have_posts() ) {
 	the_post();
@@ -122,30 +88,63 @@ get_header();
 					<?php
 					if ( isset( $elements['tlm_in'] ) ) {
 						?>
-						<div uk-alert>
-							<h3 class="uk-h4"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</h3>
-							<dl class="uk-description-list">
-								<dt>Podcast形式</dt>
-								<dd>以下のボタンをクリックし、即視聴できます。iPhone、Apple WatchのPodcastアプリ、AndroidのPodcastアプリ、MacのMusic(iTuens)、WindowsのiTunesなどで視聴可能です。<br>
-									<p uk-margin>
-										<a <?php echo $href_podcast;?> class="uk-button uk-button-default">iPhone、iPad、Apple Watch</a>
-										<a <?php echo $href_pcast;?> class="uk-button uk-button-default">iTunes、Android</a>
-										<a <?php echo $href_feed;?> class="uk-button uk-button-text">フィードURL</a>
-									</p>
-								</dd>
-								<dt>オーディオブック形式（m4b）</dt>
-								<dd>ダウンロードして視聴できます。iPhoneなどのApple Book、Book Player、Androidのオーディオブックアプリなどを利用できます。<br>
-									<p uk-margin><a <?php echo $href_download; ?> class="uk-button uk-button-default">ダウンロード</a></p>
-								</dd>
-							</dl>
+					<div class="uk-alert-success" uk-alert>
+						<p><a href="#" uk-toggle="target: <?php echo $user_logged_in ? '#modal_offline' : '#modal_login_form' ?>"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</a></p>
+					</div>
+					<div id="modal_offline" class="uk-flex-top" uk-modal>
+						<div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+							<?php
+							if ( $user_logged_in ) {
+								if ( $has_access ) {
+									$pcast_url = $tlm['url'] . 'feed/pcast/?wcrtoken=' . $wcr_content->get_user_wcrtoken();
+
+									$url        = str_replace( array( 'https://', 'http://' ), 'pcast://', $pcast_url );
+									$href_pcast = 'href="' . $url . '"';
+
+									$url           = str_replace( array( 'https://', 'http://' ), 'podcast://', $pcast_url );
+									$href_podcast  = 'href="' . $url . '"';
+
+									$href_feed     = 'href="' . $pcast_url . '"';
+
+									if ( $tlm['audiobook'] != '' ) {
+										$href_download = 'href="' . $tlm['audiobook'] . '" download="' . $tlm['title'] . '.m4b"';
+									} else {
+										$href_download = 'href="#" uk-toggle="target: #modal_not_audiobook"';
+									}
+									?>
+									<h3 class="uk-h4"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</h3>
+									<dl class="uk-description-list">
+										<dt>Podcast形式</dt>
+										<dd>以下のボタンをクリックし、即視聴できます。iPhone、Apple WatchのPodcastアプリ、AndroidのPodcastアプリ、MacのMusic(iTuens)、WindowsのiTunesなどで視聴可能です。<br>
+											<p uk-margin>
+												<a <?php echo $href_podcast;?> class="uk-button uk-button-default">iPhone、iPad、Apple Watch</a>
+												<a <?php echo $href_pcast;?> class="uk-button uk-button-default">iTunes、Android</a>
+												<a <?php echo $href_feed;?> class="uk-button uk-button-text">フィードURL</a>
+											</p>
+										</dd>
+										<dt>オーディオブック形式（m4b）</dt>
+										<dd>ダウンロードして視聴できます。iPhoneなどのApple Book、Book Player、Androidのオーディオブックアプリなどを利用できます。<br>
+											<p uk-margin><a <?php echo $href_download; ?> class="uk-button uk-button-default">ダウンロード</a></p>
+										</dd>
+									</dl>
+
+									<?php
+								} else {
+									?>
+									<h2>ご利用いただけません</h2>
+									<p>Podcastあるいは、ダウンロードを利用するには、「スクラム」に参加するか、「スクラム教材定期購読の申し込み」が必要です。</p>
+									<p><a href="">詳しくはこちら</a></p>
+								<?php
+								}
+							} else {
+								?>
+								<h2>ログインしてください</h2>
+								<?php
+							}
+							?>
+
 						</div>
-						<div id="modal_buy_product" class="uk-flex-top" uk-modal>
-							<div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-								<h2>ご利用いただけません</h2>
-								<p>Podcastあるいは、ダウンロードを利用するには、「スクラム」に参加するか、「スクラム教材定期購読の申し込み」が必要です。</p>
-								<p><a href="">詳しくはこちら</a></p>
-							</div>
-						</div>
+					</div>
 						<div id="modal_not_audiobook" class="uk-flex-top" uk-modal>
 							<div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
 								<h2>オーディオブックがありません</h2>
