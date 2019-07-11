@@ -22,19 +22,19 @@
 <?php
 if ( is_front_page() ) :
 	?>
-	<div id="kns-head" class="uk-background-cover uk-background-center-center">
+	<div id="kns-head" class="uk-background-cover uk-background-center-center overlay-header" style="position: relative;">
 		<div id="kns-head-nav-front" uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky kns-navbar-sticky; cls-inactive: uk-navbar-transparent kns-navbar-top-front; show-on-up: true">
-			<nav class="uk-navbar-container">
+			<nav class="uk-navbar-container" style="background-color: #fff;position: relative;z-index: 2;">
 				<div class="uk-container uk-container-expand">
-					<div uk-navbar>
+					<div uk-navbar style="z-index: 1;">
 						<div class="uk-navbar-left uk-visible@m">
 							<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link" rel="home" itemprop="url">
-								<img src="https://toiee.jp/wp-content/uploads/2018/03/toiee-lab-logo-1.svg" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
+								<img src="https://gcs.toiee.jp/2018/03/toiee-lab-logo-1.svg" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
 							</a>
 						</div>
 						<div class="uk-navbar-left uk-hidden@m" style="margin-left:0">
 							<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link" rel="home" itemprop="url">
-								<img src="https://toiee.jp/wp-content/uploads/2019/03/toiee-logo.png" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
+								<img src="https://gcs.toiee.jp/2019/03/toiee-logo.png" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
 							</a>
 						</div>
 						<div class="uk-navbar-right">
@@ -89,8 +89,8 @@ if ( is_front_page() ) :
 			</nav>
 		</div>
 		<div id="kns-header">
-			<div class="uk-container" style="padding-left: 15px;padding-right: 15px;" uk-grid>
-				<div id="kns-header-text" class="uk-width-1-2@m">
+			<div class="uk-container" style="padding-left: 15px;padding-right: 15px;margin-left: 0px;" uk-grid>
+				<div id="kns-header-text" class="uk-width-1-2@m" style="z-index: 1;">
 					<h1 id="kanso_general_options_htitle" style="text-align: left;">学ぶ楽しさ、再発見</h1>
 					<p style="text-align: left; color:#fff;">人は本来、学ぶこと自体が喜びです。最新のラーニングの科学、チーム学習、プロジェクトラーニング、コミュニティーラーニング、反転学習を組み合わせれば、もっとワクワク、ドキドキする学びが実現できます</p>
 					<div style="text-align: left" class="uk-margin-small-top uk-margin-small-bottom">
@@ -115,7 +115,7 @@ else :
 					</div>
 					<div class="uk-navbar-left uk-hidden@m" style="margin-left:0">
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link" rel="home" itemprop="url">
-							<img src="https://toiee.jp/wp-content/uploads/2019/03/toiee-logo.png" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
+							<img src="https://gcs.toiee.jp/2019/03/toiee-logo.png" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
 						</a>
 					</div>
 					<!-- ナビの右側 -->
