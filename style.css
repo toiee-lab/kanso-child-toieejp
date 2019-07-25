@@ -5,7 +5,7 @@ Description:  KANSO Theme の toiee.jp 用に修正したもの
 Author:       toiee Lab
 Author URI:   https://toiee.jp/
 Template:     kanso-general-master
-Version:      3.1
+Version:      3.5
 License:      GNU General Public License v2 or later
 License URI:  http://www.gnu.org/licenses/gpl-2.0.html
 Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
@@ -376,6 +376,34 @@ a.nav-item-active {
 .tlm-feedbak li > p {
 	font-size: 0.8rem;
 	line-height: 1rem;
+}
+
+/* Kamedemyのための設定 */
+.kdy-header {
+	background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3), rgba(255,255,255,1)), url('images/bg_kdy.jpg');
+	background-size: cover;
+	padding-bottom: 400px;
+}
+.kdy-tagline {
+	color : black;
+	text-shadow:0px 0px 4px #ffffff;
+}
+.kdy-overlap {
+	margin-top: -400px;
+}
+@media only screen and ( min-width: 940px ) {
+	.kdy-content {
+		width: 800px;
+	}
+}
+.kdy-content {
+	min-height: 600px;
+}
+
+.kdy-description {
+	max-width:600px;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 .plyr-container-audio {
