@@ -71,120 +71,22 @@ get_header();
 				</div>
 			</div>
 			<ul class="uk-child-width-expand" uk-tab id="main-tab">
-				<li><a href="#" onclick="location.hash='tlm_in'">インプット</a></li>
 				<li><a href="#" onclick="location.hash='tlm_ws'"><span class="uk-visible@s">ワークショップ</span><span class="uk-hidden@s">WS</span></a></li>
 				<li><a href="#" onclick="location.hash='tlm_archive'"><span class="uk-visible@s">ワークショップ録画</span><span class="uk-hidden@s">WS録画</span></a></li>
 				<li><a href="#" onclick="location.hash='tlm_add'"><span class="uk-visible@s">関連ナレッジ</span><span class="uk-hidden@s">関連</span></a></li>
 			</ul>
 			<ul class="uk-switcher uk-margin uk-margin-bottom">
-				<!-- ================= インプット =================== -->
-				<li>
-					<?php if ( ! $user_logged_in ) : ?>
-					<div class="uk-alert-primary" uk-alert>
-						スクラム教材・インプットは「会員登録」することで、<b>すべて無料</b>でご覧いただけます。<br>
-						<a href="#" onclick="UIkit.modal('#modal_login_form').show();UIkit.tab('#modal_login_form_tab').show(1);">会員登録する</a>
-					</div>
-					<?php endif; ?>
-					<?php
-					if ( isset( $elements['tlm_in'] ) ) {
-						?>
-					<div class="uk-alert-success" uk-alert>
-						<p><a href="#" uk-toggle="target: <?php echo $user_logged_in ? '#modal_offline' : '#modal_login_form' ?>"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</a></p>
-					</div>
-					<div id="modal_offline" class="uk-flex-top" uk-modal>
-						<div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-							<?php
-							if ( $user_logged_in ) {
-								if ( $has_access ) {
-									$pcast_url = $tlm['url'] . 'feed/pcast/?wcrtoken=' . $wcr_content->get_user_wcrtoken();
-
-									$url        = str_replace( array( 'https://', 'http://' ), 'pcast://', $pcast_url );
-									$href_pcast = 'href="' . $url . '"';
-
-									$url           = str_replace( array( 'https://', 'http://' ), 'podcast://', $pcast_url );
-									$href_podcast  = 'href="' . $url . '"';
-
-									$href_feed     = 'href="' . $pcast_url . '"';
-
-									if ( $tlm['audiobook'] != '' ) {
-										$href_download = 'href="' . $tlm['audiobook'] . '" download="' . $tlm['title'] . '.m4b"';
-									} else {
-										$href_download = 'href="#" uk-toggle="target: #modal_not_audiobook"';
-									}
-									?>
-									<h3 class="uk-h4"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</h3>
-									<dl class="uk-description-list">
-										<dt>Podcast形式</dt>
-										<dd>以下のボタンをクリックし、即視聴できます。iPhone、Apple WatchのPodcastアプリ、AndroidのPodcastアプリ、MacのMusic(iTuens)、WindowsのiTunesなどで視聴可能です。<br>
-											<p uk-margin>
-												<a <?php echo $href_podcast;?> class="uk-button uk-button-default">iPhone、iPad、Apple Watch</a>
-												<a <?php echo $href_pcast;?> class="uk-button uk-button-default">iTunes、Android</a>
-												<a <?php echo $href_feed;?> class="uk-button uk-button-text">フィードURL</a>
-											</p>
-										</dd>
-										<dt>オーディオブック形式（m4b）</dt>
-										<dd>ダウンロードして視聴できます。iPhoneなどのApple Book、Book Player、Androidのオーディオブックアプリなどを利用できます。<br>
-											<p uk-margin><a <?php echo $href_download; ?> class="uk-button uk-button-default">ダウンロード</a></p>
-										</dd>
-									</dl>
-
-									<?php
-								} else {
-									?>
-									<h2>ご利用いただけません</h2>
-									<p>Podcastあるいは、ダウンロードを利用するには、「スクラム」に参加するか、「スクラム教材定期購読の申し込み」が必要です。</p>
-									<p><a href="">詳しくはこちら</a></p>
-								<?php
-								}
-							} else {
-								?>
-								<h2>ログインしてください</h2>
-								<?php
-							}
-							?>
-
-						</div>
-					</div>
-						<div id="modal_not_audiobook" class="uk-flex-top" uk-modal>
-							<div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-								<h2>オーディオブックがありません</h2>
-								<p>この教材にはオーディオブックがありません。順次追加中です。しばらくお待ちください。</p>
-							</div>
-						</div>
-						<?php
-						usort(
-							$elements['tlm_in'],
-							function ( $a, $b ) {
-								if ( $a->post_date === $b->post_date ) {
-									return 0;
-								} elseif ( $a->post_date < $b->post_date ) {
-									return - 1;
-								} else {
-									return 1;
-								}
-							}
-						);
-
-						$the_episode_player_plyr_ext = 'tlm_input';
-
-						global $post;
-						foreach ( $elements['tlm_in'] as $post ) {
-							setup_postdata( $post );
-							require locate_template( 'template-parts/player.php' );
-						}
-						wp_reset_postdata();
-					} else {
-						?>
-						<p>現在、インプット教材がありません。</p>
-						<?php
-					}
-					?>
-				</li>
 				<li><!-- ================= ワークショップ =================== -->
+					<?php
+					$has_input = isset( $elements['tlm_in'] );
+					?>
 					<ul uk-tab id="tlm_ws_tab">
 						<li class="uk-active"><a href="#" onclick="location.hash='tlm_ws'">ワーク</a></li>
 						<li><a href="#" onclick="location.hash='tlm_ws_aid'">受講資料</a></li>
 						<li><a href="#" onclick="location.hash='tlm_ws_lft'">LFT</a></li>
+						<?php if ( $has_input ) : ?>
+							<li><a href="#" onclick="location.hash='tlm_in'">インプット</a></li>
+						<?php endif; ?>
 					</ul>
 					<ul class="uk-switcher uk-margin uk-margin-bottom">
 						<!-- ================= ビデオ =========== -->
@@ -284,6 +186,97 @@ get_header();
 							}
 							?>
 						</li>
+						<!-- ================= インプット =================== -->
+						<?php if ( $has_input ) : ?>
+							<li>
+								<div class="uk-alert-success" uk-alert>
+									<p><a href="#" uk-toggle="target: <?php echo $user_logged_in ? '#modal_offline' : '#modal_login_form' ?>"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</a></p>
+								</div>
+								<div id="modal_offline" class="uk-flex-top" uk-modal>
+									<div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+										<?php
+										if ( $user_logged_in ) {
+											if ( $has_access ) {
+												$pcast_url = $tlm['url'] . 'feed/pcast/?wcrtoken=' . $wcr_content->get_user_wcrtoken();
+
+												$url        = str_replace( array( 'https://', 'http://' ), 'pcast://', $pcast_url );
+												$href_pcast = 'href="' . $url . '"';
+
+												$url           = str_replace( array( 'https://', 'http://' ), 'podcast://', $pcast_url );
+												$href_podcast  = 'href="' . $url . '"';
+
+												$href_feed     = 'href="' . $pcast_url . '"';
+
+												if ( $tlm['audiobook'] != '' ) {
+													$href_download = 'href="' . $tlm['audiobook'] . '" download="' . $tlm['title'] . '.m4b"';
+												} else {
+													$href_download = 'href="#" uk-toggle="target: #modal_not_audiobook"';
+												}
+												?>
+												<h3 class="uk-h4"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</h3>
+												<dl class="uk-description-list">
+													<dt>Podcast形式</dt>
+													<dd>以下のボタンをクリックし、即視聴できます。iPhone、Apple WatchのPodcastアプリ、AndroidのPodcastアプリ、MacのMusic(iTuens)、WindowsのiTunesなどで視聴可能です。<br>
+														<p uk-margin>
+															<a <?php echo $href_podcast;?> class="uk-button uk-button-default">iPhone、iPad、Apple Watch</a>
+															<a <?php echo $href_pcast;?> class="uk-button uk-button-default">iTunes、Android</a>
+															<a <?php echo $href_feed;?> class="uk-button uk-button-text">フィードURL</a>
+														</p>
+													</dd>
+													<dt>オーディオブック形式（m4b）</dt>
+													<dd>ダウンロードして視聴できます。iPhoneなどのApple Book、Book Player、Androidのオーディオブックアプリなどを利用できます。<br>
+														<p uk-margin><a <?php echo $href_download; ?> class="uk-button uk-button-default">ダウンロード</a></p>
+													</dd>
+												</dl>
+
+												<?php
+											} else {
+												?>
+												<h2>ご利用いただけません</h2>
+												<p>Podcastあるいは、ダウンロードを利用するには、「スクラム」に参加するか、「スクラム教材定期購読の申し込み」が必要です。</p>
+												<p><a href="">詳しくはこちら</a></p>
+												<?php
+											}
+										} else {
+											?>
+											<h2>ログインしてください</h2>
+											<?php
+										}
+										?>
+
+									</div>
+								</div>
+								<div id="modal_not_audiobook" class="uk-flex-top" uk-modal>
+									<div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+										<h2>オーディオブックがありません</h2>
+										<p>この教材にはオーディオブックがありません。順次追加中です。しばらくお待ちください。</p>
+									</div>
+								</div>
+								<?php
+								usort(
+									$elements['tlm_in'],
+									function ( $a, $b ) {
+										if ( $a->post_date === $b->post_date ) {
+											return 0;
+										} elseif ( $a->post_date < $b->post_date ) {
+											return - 1;
+										} else {
+											return 1;
+										}
+									}
+								);
+
+								$the_episode_player_plyr_ext = 'tlm_input';
+
+								global $post;
+								foreach ( $elements['tlm_in'] as $post ) {
+									setup_postdata( $post );
+									require locate_template( 'template-parts/player.php' );
+								}
+								wp_reset_postdata();
+								?>
+							</li>
+						<?php endif; ?>
 					</ul>
 				</li>
 				<li><!-- ================= 録画 =========== -->
@@ -377,18 +370,19 @@ get_header();
 		let index = 0;
         if( location.hash == "#tlm_in" ) {
             UIkit.tab('#main-tab').show(0);
+            UIkit.tab('#tlm_ws_tab').show(3);
         } else if( location.hash == "#tlm_ws" ) {
-            UIkit.tab('#main-tab').show(1);
+            UIkit.tab('#main-tab').show(0);
         } else if( location.hash == "#tlm_ws_aid" ) {
-            UIkit.tab('#main-tab').show(1);
+            UIkit.tab('#main-tab').show(0);
             UIkit.tab('#tlm_ws_tab').show(1);
         } else if( location.hash == "#tlm_ws_lft" ) {
-            UIkit.tab('#main-tab').show(1);
+            UIkit.tab('#main-tab').show(0);
             UIkit.tab('#tlm_ws_tab').show(2);
         } else if( location.hash == "#tlm_archive" ) {
-            UIkit.tab('#main-tab').show(2);
+            UIkit.tab('#main-tab').show(1);
         } else if( location.hash == "#tlm_add" ) {
-            UIkit.tab('#main-tab').show(3);
+            UIkit.tab('#main-tab').show(2);
         }
 	</script>
 <?php
