@@ -26,7 +26,7 @@
 					<!-- ロゴ（レスポンシブに対応） -->
 					<div class="uk-navbar-left uk-visible@m">
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link" rel="home" itemprop="url">
-							<img src="https://toiee.jp/wp-content/uploads/2018/03/toiee-lab-logo-1.svg" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
+							<img src="https://gcs.toiee.jp/2018/03/toiee-lab-logo-1.svg" class="custom-logo" alt="toiee Lab" itemprop="logo" scale="0">
 						</a>
 					</div>
 					<div class="uk-navbar-left uk-hidden@m" style="margin-left:0">
@@ -89,10 +89,10 @@ if ( is_front_page() ) :
 		<div id="kns-header">
 			<div class="uk-container" style="padding-left: 15px;padding-right: 15px;margin-left: 0px;" uk-grid>
 				<div id="kns-header-text" class="uk-width-1-2@m" style="z-index: 1;">
-					<h1 id="kanso_general_options_htitle" style="text-align: left;">学ぶ楽しさ、再発見</h1>
-					<p style="text-align: left; color:#fff;">人は本来、学ぶこと自体が喜びです。最新のラーニングの科学、チーム学習、プロジェクトラーニング、コミュニティーラーニング、反転学習を組み合わせれば、もっとワクワク、ドキドキする学びが実現できます</p>
+					<h1 id="kanso_general_options_htitle" style="text-align: left;">チームで学ぼう</h1>
+					<p style="text-align: left; color:#fff;">人は本来、学ぶこと自体に喜びを感じます。最新のラーニング科学に基づき、コミュニティ・ラーニング型で学べば、一人で学ぶよりも、楽しく、早く、深く学べます。失敗も成功も、楽しい経験に変わります。</p>
 					<div style="text-align: left" class="uk-margin-small-top uk-margin-small-bottom">
-						<a href="https://toiee.jp/input-free/" class="uk-button uk-button-primary uk-button-large" title="">聴くワクワクから始める</a>
+						<a href="https://toiee.jp/team-learning/" class="uk-button uk-button-primary uk-button-large" title="">詳しく知る</a>
 					</div>
 				</div>
 			</div>
