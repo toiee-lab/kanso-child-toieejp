@@ -65,14 +65,8 @@ get_header();
 				<div class="uk-width-expand">
 					<h1 class="uk-h2 uk-margin-remove-bottom"><?php echo esc_html( $mdy['title'] ); ?></h1>
 					<p class="uk-text-muted uk-margin-remove-top"><?php echo esc_html( $mdy['subtitle'] ); ?></p>
-					<p>
-						<a <?php echo $button_href_app; ?> class="uk-button uk-button-default uk-box-shadow-small" style="text-transform:none;">Podcast登録</a>
-						<a <?php echo $button_href_feed; ?> class="uk-button uk-button-text" style="text-transform:none;">フィードURL</a>
-					</p>
+					<p class="uk-text-small uk-text-muted pkt-description"><?php echo esc_html( $mdy['description'] ); ?></span></p>
 				</div>
-			</div>
-			<div class="uk-margin">
-				<p class="uk-text-small uk-text-muted pkt-description"><?php echo esc_html( $mdy['description'] ); ?></span></p>
 			</div>
 			<ul class="uk-child-width-expand" uk-tab>
 				<li class="uk-active"><a href="#">教材</a></li>
@@ -107,6 +101,63 @@ get_header();
 						</div>
 						<?php
 					}
+					?>
+					<div class="uk-alert-success" uk-alert>
+						<p><a href="#" uk-toggle="target: <?php echo $user_logged_in ? '#modal_offline' : '#modal_login_form' ?>"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</a></p>
+					</div>
+					<div id="modal_offline" class="uk-flex-top" uk-modal>
+						<div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+							<?php
+							if ( $user_logged_in ) {
+								if ( $has_access ) {
+									$url        = str_replace( array( 'https://', 'http://' ), 'pcast://', $pcast_url );
+									$href_pcast = 'href="' . $url . '"';
+
+									$url           = str_replace( array( 'https://', 'http://' ), 'podcast://', $pcast_url );
+									$href_podcast  = 'href="' . $url . '"';
+
+									$href_feed     = 'href="' . $pcast_url . '"';
+
+									if ( $mdy['audiobook'] != '' ) {
+										$href_download = 'href="' . $mdy['audiobook'] . '" download="' . $mdy['title'] . '.m4b"';
+									} else {
+										$href_download = 'href="#" uk-toggle="target: #modal_not_audiobook"';
+									}
+									?>
+									<h3 class="uk-h4"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</h3>
+									<dl class="uk-description-list">
+										<dt>Podcast形式</dt>
+										<dd>以下のボタンをクリックし、即視聴できます。iPhone、Apple WatchのPodcastアプリ、AndroidのPodcastアプリ、MacのMusic(iTuens)、WindowsのiTunesなどで視聴可能です。<br>
+											<p uk-margin>
+												<a <?php echo $href_podcast;?> class="uk-button uk-button-default">iPhone、iPad、Apple Watch</a>
+												<a <?php echo $href_pcast;?> class="uk-button uk-button-default">iTunes、Android</a>
+												<a <?php echo $href_feed;?> class="uk-button uk-button-text">フィードURL</a>
+											</p>
+										</dd>
+										<dt>オーディオブック形式（m4b）</dt>
+										<dd>ダウンロードして視聴できます。iPhoneなどのApple Book、Book Player、Androidのオーディオブックアプリなどを利用できます。<br>
+											<p uk-margin><a <?php echo $href_download; ?> class="uk-button uk-button-default">ダウンロード</a></p>
+										</dd>
+									</dl>
+
+									<?php
+								} else {
+									?>
+									<h2>ご利用いただけません</h2>
+									<p>Podcastあるいは、ダウンロードを利用するには、「スクラム」に参加するか、「スクラム教材定期購読の申し込み」が必要です。</p>
+									<p><a href="">詳しくはこちら</a></p>
+									<?php
+								}
+							} else {
+								?>
+								<h2>ログインしてください</h2>
+								<?php
+							}
+							?>
+
+						</div>
+					</div>
+					<?php
 
 					$the_episode_player_plyr_ext = 'scrum_episode';
 
