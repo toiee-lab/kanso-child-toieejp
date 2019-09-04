@@ -77,7 +77,6 @@ get_header();
 			<ul class="uk-child-width-expand" uk-tab>
 				<li class="uk-active"><a href="#">教材</a></li>
 				<li class=""><a href="#">補足資料</a></li>
-				<li class=""><a href="#">関連ナレッジ</a></li>
 			</ul>
 			<ul class="uk-switcher uk-margin uk-margin-bottom">
 				<!-- ================= 教材 =================== -->
@@ -167,71 +166,6 @@ get_header();
 						<?php
 					}
 
-					?>
-				</li>
-				<!-- ================= 関連ナレッジ =================== -->
-				<li>
-					<?php
-					$q = array(
-						'post_type'      => 'toiee_knowledge',
-						'posts_per_page' => 20,
-						'orderby'        => 'meta_value',
-						'meta_key'       => 'like',
-						'meta_query'     => array(
-							array(
-								'key'     => 'mimidemy',
-								'value'   => serialize( (string)$mdy['id'] ),
-								'compare' => 'LIKE'
-							),
-						),
-					);
-					$tmp_posts = get_posts( $q );
-
-					if ( count( $tmp_posts ) ) {
-						$attr = array(
-							'class' => 'uk-align-center uk-align-right@m uk-margin-remove-adjacent uk-width-medium',
-						);
-						foreach ( $tmp_posts as $p ) {
-							setup_postdata( $p );
-							?>
-							<div>
-								<?php echo get_the_post_thumbnail( $p->ID, 'medium', $attr ); ?>
-								<h3><?php echo $p->post_title; ?></h3>
-								<p><?php echo strip_tags( mb_substr( get_the_content(), 0, 200 ) );?></p>
-								<p class="uk-text-meta"><?php echo get_post_meta( $p->ID, 'like', true); ?> likes, update <?php the_modified_date(); ?>, created <?php the_date(); ?></p>
-								<p><a href="<?php echo get_permalink( $p->ID ); ?>">詳細を読む</a></p>
-							</div>
-							<hr style="clear:both">
-							<?php
-						}
-						wp_reset_postdata();
-					} else {
-						?>
-						<div uk-alert>
-							<p>関連ナレッジはありません。</p>
-						</div>
-						<?php
-					}
-
-					if ( $can_edit ) {
-						$setting = array(
-							'post_id'            => 'new_post',
-							'post_title'         => true,
-							'new_post'           => array(
-								'post_type'   => 'toiee_knowledge',
-								'post_status' => 'draft',
-							),
-							'fields'             => array( 'hoge' ),
-							'submit_value'       => '関連ナレッジを作成（下書き保存）',
-							'return'             => admin_url( '/post.php?post=%post_id%&action=edit' ),
-							'html_submit_button' => '<input type="submit" class="uk-button uk-button-secondary" value="%s" />',
-							'html_after_fields'  => '<input type="hidden" name="acf[mimidemy]" value="' . $mdy['id'] . '"/>',
-						);
-
-						echo '<div uk-alert class="uk-margin-medium-top"><h3>関連ナレッジを追加する</h3>';
-						acf_form( $setting );
-						echo '</div>';
-					}
 					?>
 				</li>
 			</ul>
