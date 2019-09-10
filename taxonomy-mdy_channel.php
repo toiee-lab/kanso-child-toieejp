@@ -118,11 +118,7 @@ get_header();
 
 									$href_feed     = 'href="' . $pcast_url . '"';
 
-									if ( $mdy['audiobook'] != '' ) {
-										$href_download = 'href="' . $mdy['audiobook'] . '" download="' . $mdy['title'] . '.m4b"';
-									} else {
-										$href_download = 'href="#" uk-toggle="target: #modal_not_audiobook"';
-									}
+
 									?>
 									<h3 class="uk-h4"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</h3>
 									<dl class="uk-description-list">
@@ -134,10 +130,19 @@ get_header();
 												<a <?php echo $href_feed;?> class="uk-button uk-button-text">フィードURL</a>
 											</p>
 										</dd>
-										<dt>オーディオブック形式（m4b）</dt>
-										<dd>ダウンロードして視聴できます。iPhoneなどのApple Book、Book Player、Androidのオーディオブックアプリなどを利用できます。<br>
-											<p uk-margin><a <?php echo $href_download; ?> class="uk-button uk-button-default">ダウンロード</a></p>
-										</dd>
+										<?php
+										if ( isset( $mdy['audiobook'] ) && $mdy['audiobook'] != '' ) {
+											$href_download = 'href="' . $mdy['audiobook'] . '" download="' . $mdy['title'] . '.m4b"';
+											?>
+											<dt>オーディオブック形式（m4b）</dt>
+											<dd>ダウンロードして視聴できます。iPhoneなどのApple Book、Book
+												Player、Androidのオーディオブックアプリなどを利用できます。<br>
+												<p uk-margin><a <?php echo $href_download; ?>
+															class="uk-button uk-button-default">ダウンロード</a></p>
+											</dd>
+										<?php
+										}
+										?>
 									</dl>
 
 									<?php
