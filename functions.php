@@ -198,3 +198,27 @@ add_filter( 'upload_mimes', function ( $mime_types ) {
 
     return $mime_types;
 } );
+
+add_filter( 'the_title', function( $title ) {
+	if( is_singular( array('post') ) && in_the_loop() ) {
+		if( true === get_field('display_none_title') ) {
+			return '';
+		} else {
+			return $title;
+		}
+	}
+	
+	return $title;
+});
+
+add_filter( 'the_subtitle', function( $title ) {
+	if( is_singular( array('post') ) && in_the_loop() ) {
+		if( true === get_field('display_none_title') ) {
+			return '';
+		} else {
+			return $title;
+		}
+	}
+	
+	return $title;
+});
