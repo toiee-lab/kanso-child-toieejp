@@ -48,12 +48,20 @@ if ( $user_logged_in ) {
 	$button_href_feed = $button_href_app;
 }
 
+$new_feed = get_field( 'new_feed', $mdy_obj );
+
 get_header();
 
 ?>
 	<header class="mdy-header">
 		<div class="uk-container">
 			<div class="uk-padding">
+				<?php if( $new_feed ): ?>
+					<div class="uk-alert uk-alert-warning" uk-alert>
+						<p>この教材は、新しい形式に移動しました。移動先は<a href="<?php echo $new_feed; ?>">こちら<br>
+								<?php echo $new_feed; ?></a></p>
+					</div>
+				<?php endif; ?>
 				<p class="uk-h3 uk-margin-remove-top uk-margin-remove-bottom mdy-tagline">耳デミー : スキマ、ながら時間で「耳から学ぶ」</p>
 			</div>
 		</div>
