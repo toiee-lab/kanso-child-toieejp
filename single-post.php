@@ -71,8 +71,9 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 			</div>
 		</div>
 
-		<?php the_content(); ?>
-
+		<?php
+		ob_start();
+		?>
 		<div class="uk-alert-success" uk-alert>
 			<p><a href="#" uk-toggle="target: <?php echo $user_logged_in ? '#modal_offline' : '#modal_login_form' ?>"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</a></p>
 		</div>
@@ -142,8 +143,6 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 		</div>
 
 		<?php
-		ob_start();
-
 		$count = 0;
 		$toc   = array();
 
@@ -189,8 +188,13 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 
 		}
 
-		$content = ob_get_contents();
+		$content = get_the_content() . ob_get_contents();
 		ob_clean();
+
+		/* JetPack など、 the_content にフィルターするものに対する処理 */
+		$content = apply_filters( 'the_content', $content );
+		$content = str_replace( ']]>', ']]&gt;', $content );
+		echo $content;
 		?>
 
 		<div class="uk-width-2-5@m">
