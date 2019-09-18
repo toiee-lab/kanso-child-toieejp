@@ -48,6 +48,8 @@ if ( $user_logged_in ) {
 	$button_href_feed = $button_href_app;
 }
 
+$new_feed = get_field( 'new_feed', $pkt_obj );
+
 /*
  *
  */
@@ -58,6 +60,12 @@ get_header();
 	<header class="pkt-header">
 		<div class="uk-section">
 			<div class="uk-container">
+				<?php if( $new_feed ): ?>
+					<div class="uk-alert uk-alert-warning" uk-alert>
+						<p>この教材は、新しい形式に移動しました。移動先は<a href="<?php echo $new_feed; ?>">こちら<br>
+							<?php echo $new_feed; ?></a></p>
+					</div>
+				<?php endif; ?>
 				<p class="uk-margin-remove-top uk-margin-remove-bottom pkt-tagline">ポケてら : 探求、発見、驚き、楽しさ</p>
 			</div>
 		</div>
