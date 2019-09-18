@@ -191,10 +191,6 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 		$content = get_the_content() . ob_get_contents();
 		ob_clean();
 
-		/* JetPack など、 the_content にフィルターするものに対する処理 */
-		$content = apply_filters( 'the_content', $content );
-		$content = str_replace( ']]>', ']]&gt;', $content );
-		echo $content;
 		?>
 
 		<div class="uk-width-2-5@m">
@@ -207,7 +203,12 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 			</ul>
 		</div>
 
-		<?php echo $content; ?>
+		<?php
+		/* JetPack など、 the_content にフィルターするものに対する処理 */
+		$content = apply_filters( 'the_content', $content );
+		$content = str_replace( ']]>', ']]&gt;', $content );
+		echo $content;
+		?>
 		<hr class="uk-divider-small uk-text-center">
 		<?php
 		the_post_navigation(
