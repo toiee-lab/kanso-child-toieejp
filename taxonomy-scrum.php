@@ -167,11 +167,17 @@ get_header();
 			<?php if ( $can_edit ) : ?>
 			<li>
 				<ul uk-tab>
+					<li><a href="#">情報</a></li>
 					<li><a href="#">メインPodcast投稿</a></li>
 					<li><a href="#">アーカイブPodcast投稿</a></li>
 					<li><a href="#">ブログ投稿</a></li>
 				</ul>
 				<ul class="uk-switcher uk-margin uk-margin-bottom">
+					<li>
+						<div class="" style="min-height: 400px;">
+							<?php echo $scrum_fields['admin-body']; ?>
+						</div>
+					</li>
 					<li>
 						<h3>メインPodcastに投稿する</h3>
 						<p>エピソードを「即」公開します</p>
