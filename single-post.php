@@ -13,11 +13,8 @@ $cats    = get_the_category();
 $anc_ids = get_ancestors( $cats[0]->term_id, 'category' );
 $fields  = get_fields();
 
-$kind = [
-	'workshop-archive', /* ワークショップ・アーカイブのカテゴリスラッグを workshop-archive と想定 */
-	'lft',              /* ワークショップ・レジュメのカテゴリスラッグを lft と想定 */
-	'mimidemy',         /* 耳デミーのカテゴリスラッグを mimidemy と想定 */
-];
+global $toiee_postcast;
+$kind = $toiee_postcast->top_categories;
 
 $top_nav = [
 	'href' => '',

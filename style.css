@@ -411,3 +411,17 @@ a.nav-item-active {
 	max-width: 600px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
+
+/*
+postcast のアーカイブページのための設定
+*/
+.tm-postcast-card {
+	height: 200px;
+}
+
+.tm-card-badge {
+	top : 15px;
+	right : 15px;
+	background-color: rgba(0,0,0,0.5);
+
+}
