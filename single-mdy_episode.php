@@ -63,7 +63,7 @@ get_header(); ?>
 					$restrict = get_field( 'restrict' );
 					if ( $restrict === true ) {
 						$restrict = 'restrict';
-					} else if ( $restrict === false ) {
+					} elseif ( $restrict === false ) {
 						$restrict = 'open';
 					}
 

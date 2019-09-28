@@ -76,7 +76,7 @@ table {
 
 tr {
 	page-break-inside: avoid;
-	page-break-after: auto;	
+	page-break-after: auto;
 	border-bottom: 0.12em solid #bbb;
 }
 
@@ -153,10 +153,10 @@ h2 {
 
 .order-addresses:after {
 	content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
 }
 
 .billing-address {
@@ -254,7 +254,7 @@ h2 {
 
 .order-items .product-name .attachment {
 	display: block;
-	float: left; 
+	float: left;
 	margin-right: 0.5em;
 	width: 36px;
 }
@@ -317,7 +317,7 @@ h2 {
 	body {
 		font-size: 8pt;
 	}
-	
+
 	.content {
 		/* Remove padding to not generate empty follow up pages */
 		padding-bottom: 0;

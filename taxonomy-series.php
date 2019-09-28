@@ -23,8 +23,8 @@ get_header(); ?>
 			$series_image    = get_option( 'ss_podcasting_data_image_' . $series_id, 'no-image' );
 			$series_material = get_field( 'series_material', $series );
 
-			if ( get_term_meta( $series_id, 'pcast_moving', true) ) {
-				$moving_to_web = get_term_meta( $series_id, 'pcast_moving_to_web', true);
+			if ( get_term_meta( $series_id, 'pcast_moving', true ) ) {
+				$moving_to_web = get_term_meta( $series_id, 'pcast_moving_to_web', true );
 
 				if ( ! is_super_admin() ) {
 					?>
@@ -36,7 +36,7 @@ get_header(); ?>
 				?>
 			<div uk-alert class="uk-alert uk-alert-warning">
 				<h3>重要なお知らせ</h3>
-				<p>このPodcastチャンネルは移動しました。 <a href="<?php echo esc_url($moving_to_web); ?>"><?php echo esc_url($moving_to_web); ?></a></p>
+				<p>このPodcastチャンネルは移動しました。 <a href="<?php echo esc_url( $moving_to_web ); ?>"><?php echo esc_url( $moving_to_web ); ?></a></p>
 			</div>
 				<?php
 			}

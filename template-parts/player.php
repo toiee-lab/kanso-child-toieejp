@@ -2,7 +2,7 @@
 
 the_title( '<h2 class="uk-h3">', '</h2>' );
 
-$src = get_field( 'enclosure' );
+$src   = get_field( 'enclosure' );
 $media = get_field( 'media' );
 
 if ( ! isset( $the_episode_player_plyr_ext ) ) {
@@ -15,7 +15,7 @@ if ( $has_access ) {
 	$restrict = get_field( 'restrict' );
 	if ( $restrict === true ) {
 		$restrict = 'restrict';
-	} else if ( $restrict === false ) {
+	} elseif ( $restrict === false ) {
 		$restrict = 'open';
 	}
 

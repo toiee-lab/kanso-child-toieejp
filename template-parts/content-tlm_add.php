@@ -11,7 +11,7 @@ if ( current_user_can( 'edit_posts' ) ) {
 		<div class="uk-alert-warning" uk-alert>関連する「toiee教材」が、存在しません。</div>
 		<?php
 	} else {
-		$link = get_term_link( $term ) . "#tlm_add";
+		$link = get_term_link( $term ) . '#tlm_add';
 		?>
 		<div class="uk-alert-success" uk-alert>
 			<h3>toiee教材・関連ナレッジ</h3>
@@ -29,11 +29,11 @@ if ( current_user_can( 'edit_posts' ) ) {
 		<div class="uk-alert-warning" uk-alert>関連する「toiee教材」が、存在しません。</div>
 		<?php
 	} else {
-		$link = get_term_link( $term ) . "#tlm_add";
+		$link = get_term_link( $term ) . '#tlm_add';
 		?>
 		<p><a href="<?php echo esc_html( $link ); ?>">こちらのページ</a>でご覧ください。</p>
 		<script>
-            location.href = '<?php echo esc_html( $link ); ?>';
+			location.href = '<?php echo esc_html( $link ); ?>';
 		</script>
 		<?php
 	}

@@ -15,7 +15,7 @@ $scrum_ch['title']       = $scrum_ch_obj->name;
 $scrum_ch['description'] = $scrum_ch_obj->description;
 
 /* 所属する scrum を検索 */
-$args = array(
+$args   = array(
 	'hide_empty' => false,
 	'taxonomy'   => 'scrum',
 	'meta_query' => array(
@@ -158,6 +158,6 @@ get_header();
 	</div>
 
 <?php
-//var_dump( $scrum_ch );
+// var_dump( $scrum_ch );
 get_sidebar();
 get_footer();

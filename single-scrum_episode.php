@@ -16,7 +16,7 @@ if ( count( $scrum_chs ) ) {
 	$scrum_ch_link   = get_term_link( $scrum_ch );
 	$scrum_ch_fields = get_fields( $scrum_ch );
 
-	$args = array(
+	$args   = array(
 		'hide_empty' => false,
 		'taxonomy'   => 'scrum',
 		'meta_query' => array(
@@ -102,7 +102,7 @@ get_header(); ?>
 				$restrict = get_field( 'restrict' );
 				if ( $restrict === true ) {
 					$restrict = 'restrict';
-				} else if ( $restrict === false ) {
+				} elseif ( $restrict === false ) {
 					$restrict = 'open';
 				}
 

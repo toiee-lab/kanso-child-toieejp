@@ -18,12 +18,12 @@ $kind = $toiee_postcast->top_categories;
 
 $top_nav = [
 	'href' => '',
-	'text' => ''
+	'text' => '',
 ];
 
-foreach( $kind as $k ) {
+foreach ( $kind as $k ) {
 	if ( toiee_in_categories( $k ) ) {
-		$term = get_term_by( 'slug', $k, 'category' );
+		$term            = get_term_by( 'slug', $k, 'category' );
 		$top_nav['href'] = get_term_link( $term );
 		$top_nav['text'] = $term->name;
 
@@ -34,7 +34,6 @@ foreach( $kind as $k ) {
 /**
  *
  * 教材状態の投稿か、通常の投稿か？で処理を分ける
- *
  */
 if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 
@@ -72,7 +71,7 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 		ob_start();
 		?>
 		<div class="uk-alert-success" uk-alert>
-			<p><a href="#" uk-toggle="target: <?php echo $user_logged_in ? '#modal_offline' : '#modal_login_form' ?>"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</a></p>
+			<p><a href="#" uk-toggle="target: <?php echo $user_logged_in ? '#modal_offline' : '#modal_login_form'; ?>"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</a></p>
 		</div>
 		<div id="modal_offline" class="uk-flex-top" uk-modal>
 			<div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
@@ -85,10 +84,10 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 						$url        = str_replace( array( 'https://', 'http://' ), 'pcast://', $pcast_url );
 						$href_pcast = 'href="' . $url . '"';
 
-						$url           = str_replace( array( 'https://', 'http://' ), 'podcast://', $pcast_url );
-						$href_podcast  = 'href="' . $url . '"';
+						$url          = str_replace( array( 'https://', 'http://' ), 'podcast://', $pcast_url );
+						$href_podcast = 'href="' . $url . '"';
 
-						$href_feed     = 'href="' . $pcast_url . '"';
+						$href_feed = 'href="' . $pcast_url . '"';
 
 						?>
 						<h3 class="uk-h4"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</h3>
@@ -96,9 +95,9 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 							<dt>Podcast形式</dt>
 							<dd>以下のボタンをクリックし、即視聴できます。iPhone、Apple WatchのPodcastアプリ、AndroidのPodcastアプリ、MacのMusic(iTuens)、WindowsのiTunesなどで視聴可能です。<br>
 								<p uk-margin>
-									<a <?php echo $href_podcast;?> class="uk-button uk-button-default">iPhone、iPad、Apple Watch</a>
-									<a <?php echo $href_pcast;?> class="uk-button uk-button-default">iTunes、Android</a>
-									<a <?php echo $href_feed;?> class="uk-button uk-button-text">フィードURL</a>
+									<a <?php echo $href_podcast; ?> class="uk-button uk-button-default">iPhone、iPad、Apple Watch</a>
+									<a <?php echo $href_pcast; ?> class="uk-button uk-button-default">iTunes、Android</a>
+									<a <?php echo $href_feed; ?> class="uk-button uk-button-text">フィードURL</a>
 								</p>
 							</dd>
 							<?php
@@ -143,11 +142,11 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 		$count = 0;
 		$toc   = array();
 
-		foreach( $fields['tlm_items'] as $item ){
+		foreach ( $fields['tlm_items'] as $item ) {
 			$count++;
 			$toc[ $count ] = $item['title'];
 			?>
-			<h2 id="item-<?php echo $count; ?>" class="uk-heading-line"><span><?php echo $item['title'] ?></span></h2>
+			<h2 id="item-<?php echo $count; ?>" class="uk-heading-line"><span><?php echo $item['title']; ?></span></h2>
 			<p class="uk-text-meta"><?php echo $item['subtitle']; ?></p>
 			<?php
 
@@ -162,7 +161,7 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 				$restrict = $item['restrict'];
 				if ( $restrict === true ) {
 					$restrict = 'restrict';
-				} else if ( $restrict === false ) {
+				} elseif ( $restrict === false ) {
 					$restrict = 'open';
 				}
 
@@ -194,8 +193,8 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 			<ul class="uk-nav uk-nav-default" uk-scrollspy-nav="closest: li; scroll: true; offset: 70">
 				<li class="uk-nav-header uk-active">目次</li>
 				<li class="uk-nav-divider"></li>
-				<?php foreach( $toc as $i => $h ) : ?>
-				<li><a href="#item-<?php echo $i; ?>"><?php echo $h;?></a></li>
+				<?php foreach ( $toc as $i => $h ) : ?>
+				<li><a href="#item-<?php echo $i; ?>"><?php echo $h; ?></a></li>
 				<?php endforeach; ?>
 			</ul>
 		</div>
@@ -226,7 +225,7 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 	}
 	?>
 	</div>
-<?php
+	<?php
 } else {
 
 	?>

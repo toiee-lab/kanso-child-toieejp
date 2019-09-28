@@ -55,7 +55,7 @@ get_header();
 	<header class="tlm-header">
 		<div class="uk-section">
 			<div class="uk-container">
-				<?php if( $new_feed ): ?>
+				<?php if ( $new_feed ) : ?>
 					<div class="uk-alert uk-alert-warning" uk-alert>
 						<p>この教材は、新しい形式に移動しました。移動先は<a href="<?php echo $new_feed; ?>">こちら<br>
 								<?php echo $new_feed; ?></a></p>
@@ -101,7 +101,7 @@ get_header();
 						<!-- ================= ビデオ =========== -->
 						<li>
 							<?php
-							if ( isset( $elements['tlm_ws']) ) {
+							if ( isset( $elements['tlm_ws'] ) ) {
 								usort(
 									$elements['tlm_ws'],
 									function ( $a, $b ) {
@@ -199,7 +199,7 @@ get_header();
 						<?php if ( $has_input ) : ?>
 							<li>
 								<div class="uk-alert-success" uk-alert>
-									<p><a href="#" uk-toggle="target: <?php echo $user_logged_in ? '#modal_offline' : '#modal_login_form' ?>"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</a></p>
+									<p><a href="#" uk-toggle="target: <?php echo $user_logged_in ? '#modal_offline' : '#modal_login_form'; ?>"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</a></p>
 								</div>
 								<div id="modal_offline" class="uk-flex-top" uk-modal>
 									<div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
@@ -211,10 +211,10 @@ get_header();
 												$url        = str_replace( array( 'https://', 'http://' ), 'pcast://', $pcast_url );
 												$href_pcast = 'href="' . $url . '"';
 
-												$url           = str_replace( array( 'https://', 'http://' ), 'podcast://', $pcast_url );
-												$href_podcast  = 'href="' . $url . '"';
+												$url          = str_replace( array( 'https://', 'http://' ), 'podcast://', $pcast_url );
+												$href_podcast = 'href="' . $url . '"';
 
-												$href_feed     = 'href="' . $pcast_url . '"';
+												$href_feed = 'href="' . $pcast_url . '"';
 
 												?>
 												<h3 class="uk-h4"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</h3>
@@ -222,23 +222,23 @@ get_header();
 													<dt>Podcast形式</dt>
 													<dd>以下のボタンをクリックし、即視聴できます。iPhone、Apple WatchのPodcastアプリ、AndroidのPodcastアプリ、MacのMusic(iTuens)、WindowsのiTunesなどで視聴可能です。<br>
 														<p uk-margin>
-															<a <?php echo $href_podcast;?> class="uk-button uk-button-default">iPhone、iPad、Apple Watch</a>
-															<a <?php echo $href_pcast;?> class="uk-button uk-button-default">iTunes、Android</a>
-															<a <?php echo $href_feed;?> class="uk-button uk-button-text">フィードURL</a>
+															<a <?php echo $href_podcast; ?> class="uk-button uk-button-default">iPhone、iPad、Apple Watch</a>
+															<a <?php echo $href_pcast; ?> class="uk-button uk-button-default">iTunes、Android</a>
+															<a <?php echo $href_feed; ?> class="uk-button uk-button-text">フィードURL</a>
 														</p>
 													</dd>
 													<?php
 													if ( $tlm['audiobook'] != '' ) {
 														$href_download = 'href="' . $tlm['audiobook'] . '" download="' . $tlm['title'] . '.m4b"';
-													?>
+														?>
 													<dt>オーディオブック形式（m4b）</dt>
 													<dd>ダウンロードして視聴できます。iPhoneなどのApple Book、Book
 														Player、Androidのオーディオブックアプリなどを利用できます。<br>
 														<p uk-margin><a <?php echo $href_download; ?>
 																	class="uk-button uk-button-default">ダウンロード</a></p>
 													</dd>
-													<?php
-														}
+														<?php
+													}
 													?>
 												</dl>
 
@@ -381,22 +381,22 @@ get_header();
 		*
 		* */
 		let index = 0;
-        if( location.hash == "#tlm_in" ) {
-            UIkit.tab('#main-tab').show(0);
-            UIkit.tab('#tlm_ws_tab').show(3);
-        } else if( location.hash == "#tlm_ws" ) {
-            UIkit.tab('#main-tab').show(0);
-        } else if( location.hash == "#tlm_ws_aid" ) {
-            UIkit.tab('#main-tab').show(0);
-            UIkit.tab('#tlm_ws_tab').show(1);
-        } else if( location.hash == "#tlm_ws_lft" ) {
-            UIkit.tab('#main-tab').show(0);
-            UIkit.tab('#tlm_ws_tab').show(2);
-        } else if( location.hash == "#tlm_archive" ) {
-            UIkit.tab('#main-tab').show(1);
-        } else if( location.hash == "#tlm_add" ) {
-            UIkit.tab('#main-tab').show(2);
-        }
+		if( location.hash == "#tlm_in" ) {
+			UIkit.tab('#main-tab').show(0);
+			UIkit.tab('#tlm_ws_tab').show(3);
+		} else if( location.hash == "#tlm_ws" ) {
+			UIkit.tab('#main-tab').show(0);
+		} else if( location.hash == "#tlm_ws_aid" ) {
+			UIkit.tab('#main-tab').show(0);
+			UIkit.tab('#tlm_ws_tab').show(1);
+		} else if( location.hash == "#tlm_ws_lft" ) {
+			UIkit.tab('#main-tab').show(0);
+			UIkit.tab('#tlm_ws_tab').show(2);
+		} else if( location.hash == "#tlm_archive" ) {
+			UIkit.tab('#main-tab').show(1);
+		} else if( location.hash == "#tlm_add" ) {
+			UIkit.tab('#main-tab').show(2);
+		}
 	</script>
 <?php
 

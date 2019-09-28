@@ -16,7 +16,7 @@ $scrum_fields = get_fields( $scrum );
 $header_color  = $scrum_fields['title_color'];
 $header_bg_img = $scrum_fields['scrum_headerbg']['url'];
 
-$tab_active = array(
+$tab_active                                    = array(
 	'getting_start' => '',
 	'updates'       => '',
 	'materials'     => '',
@@ -256,7 +256,7 @@ get_header();
 
 	</div><!-- .main-content -->
 	<script>
-        /*
+		/*
 		* - input ( tlm_in )
 		*   - オーディオ (tlm_in)
 		*   - ワークショップ録画 (tlm_archive)
@@ -267,15 +267,15 @@ get_header();
 		* - related (tlm_add)
 		*
 		* */
-        if( location.hash == "#getting_start" ) {
-            UIkit.tab('#main-tab').show(0);
-        } else if( location.hash == "#updates" ) {
-            UIkit.tab('#main-tab').show(1);
-        } else if( location.hash == "#materials" ) {
-            UIkit.tab('#main-tab').show(2);
-        } else if( location.hash == "#admin" ) {
-            UIkit.tab('#main-tab').show(3);
-        }
+		if( location.hash == "#getting_start" ) {
+			UIkit.tab('#main-tab').show(0);
+		} else if( location.hash == "#updates" ) {
+			UIkit.tab('#main-tab').show(1);
+		} else if( location.hash == "#materials" ) {
+			UIkit.tab('#main-tab').show(2);
+		} else if( location.hash == "#admin" ) {
+			UIkit.tab('#main-tab').show(3);
+		}
 	</script>
 <?php
 

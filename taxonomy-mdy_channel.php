@@ -56,7 +56,7 @@ get_header();
 	<header class="mdy-header">
 		<div class="uk-container">
 			<div class="uk-padding">
-				<?php if( $new_feed ): ?>
+				<?php if ( $new_feed ) : ?>
 					<div class="uk-alert uk-alert-warning" uk-alert>
 						<p>この教材は、新しい形式に移動しました。移動先は<a href="<?php echo $new_feed; ?>">こちら<br>
 								<?php echo $new_feed; ?></a></p>
@@ -111,7 +111,7 @@ get_header();
 					}
 					?>
 					<div class="uk-alert-success" uk-alert>
-						<p><a href="#" uk-toggle="target: <?php echo $user_logged_in ? '#modal_offline' : '#modal_login_form' ?>"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</a></p>
+						<p><a href="#" uk-toggle="target: <?php echo $user_logged_in ? '#modal_offline' : '#modal_login_form'; ?>"><span uk-icon="icon: play-circle"></span> オフライン、モバイルで視聴する</a></p>
 					</div>
 					<div id="modal_offline" class="uk-flex-top" uk-modal>
 						<div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
@@ -121,10 +121,10 @@ get_header();
 									$url        = str_replace( array( 'https://', 'http://' ), 'pcast://', $pcast_url );
 									$href_pcast = 'href="' . $url . '"';
 
-									$url           = str_replace( array( 'https://', 'http://' ), 'podcast://', $pcast_url );
-									$href_podcast  = 'href="' . $url . '"';
+									$url          = str_replace( array( 'https://', 'http://' ), 'podcast://', $pcast_url );
+									$href_podcast = 'href="' . $url . '"';
 
-									$href_feed     = 'href="' . $pcast_url . '"';
+									$href_feed = 'href="' . $pcast_url . '"';
 
 
 									?>
@@ -133,9 +133,9 @@ get_header();
 										<dt>Podcast形式</dt>
 										<dd>以下のボタンをクリックし、即視聴できます。iPhone、Apple WatchのPodcastアプリ、AndroidのPodcastアプリ、MacのMusic(iTuens)、WindowsのiTunesなどで視聴可能です。<br>
 											<p uk-margin>
-												<a <?php echo $href_podcast;?> class="uk-button uk-button-default">iPhone、iPad、Apple Watch</a>
-												<a <?php echo $href_pcast;?> class="uk-button uk-button-default">iTunes、Android</a>
-												<a <?php echo $href_feed;?> class="uk-button uk-button-text">フィードURL</a>
+												<a <?php echo $href_podcast; ?> class="uk-button uk-button-default">iPhone、iPad、Apple Watch</a>
+												<a <?php echo $href_pcast; ?> class="uk-button uk-button-default">iTunes、Android</a>
+												<a <?php echo $href_feed; ?> class="uk-button uk-button-text">フィードURL</a>
 											</p>
 										</dd>
 										<?php
@@ -148,7 +148,7 @@ get_header();
 												<p uk-margin><a <?php echo $href_download; ?>
 															class="uk-button uk-button-default">ダウンロード</a></p>
 											</dd>
-										<?php
+											<?php
 										}
 										?>
 									</dl>
@@ -205,7 +205,6 @@ get_header();
 						foreach ( $tmp_posts as $p ) {
 							echo $p->post_title; // TODO 過去のレジュメがあったら表示する
 						}
-
 					} elseif ( $can_edit ) {
 						$setting = array(
 							'post_id'            => 'new_post',
@@ -237,6 +236,6 @@ get_header();
 	</div>
 
 <?php
-//var_dump( $mdy );
+// var_dump( $mdy );
 get_sidebar();
 get_footer();

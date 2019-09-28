@@ -74,12 +74,12 @@ get_header(); ?>
 				?>
 			</section>
 		</div>
-			<?php
-			/* =========== LFTが閲覧できる ============== */
-		} elseif ( $can_edit ) {
+				<?php
+				/* =========== LFTが閲覧できる ============== */
+			} elseif ( $can_edit ) {
 
 
-		?>
+				?>
 		<div class="uk-container uk-background-default main-content-middle">
 			<h1 class="uk-h2 uk-margin-top">ポケてら <a
 						href="<?php echo get_term_link( $pkt ); ?>"><?php echo esc_html( $pkt->name ); ?></a><br>開催レポート
@@ -110,7 +110,7 @@ get_header(); ?>
 			</ul>
 			<ul class="uk-switcher uk-margin uk-margin-bottom">
 				<li>
-					<a href="<?php echo esc_url( admin_url( 'post.php?post=' . get_the_ID() . '&action=edit' ) ) ?>" class="uk-button uk-button-default uk-margin-small-right uk-align-right">編集する</a>
+					<a href="<?php echo esc_url( admin_url( 'post.php?post=' . get_the_ID() . '&action=edit' ) ); ?>" class="uk-button uk-button-default uk-margin-small-right uk-align-right">編集する</a>
 					<?php
 
 							the_content();
@@ -165,14 +165,14 @@ get_header(); ?>
 
 					break;
 					/* =========== 一般の人は閲覧させない ============== */
-				} else {
-					?>
+			} else {
+				?>
 				<section class="uk-section"><p>ご覧いただけません。</p></section>
-					<?php
-				}
+				<?php
+			}
 			endwhile; // End of the loop.
 
-			?>
+		?>
 		</div><!-- .main-content -->
 	</div>
 <?php

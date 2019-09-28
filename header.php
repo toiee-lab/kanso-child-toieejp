@@ -48,16 +48,16 @@
 						);
 						?>
 						<ul class="uk-navbar-nav">
-							<li><a href="<?php echo esc_url( home_url( '/' ) );?>?s="><span uk-icon="search"></span></a></li>
-							<li><a href="<?php echo esc_url( home_url( '/blog' ) );?>"><span class="uk-visible@m">ブログ</span><span  uk-icon="icon: rss" class="uk-hidden@m"></span></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>?s="><span uk-icon="search"></span></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/blog' ) ); ?>"><span class="uk-visible@m">ブログ</span><span  uk-icon="icon: rss" class="uk-hidden@m"></span></a></li>
 							<?php
 							/*
 							 * ログイン、ログアウトで切り替える
 							 */
-							if( is_user_logged_in() ):
+							if ( is_user_logged_in() ) :
 								?>
-								<li><a href="<?php echo get_permalink( wc_get_page_id( 'myaccount' )); ?>my-library/"><span class="uk-visible@m">マイアカウント</span><span  uk-icon="icon: user" class="uk-hidden@m"></span></a></li>
-							<?php else: ?>
+								<li><a href="<?php echo get_permalink( wc_get_page_id( 'myaccount' ) ); ?>my-library/"><span class="uk-visible@m">マイアカウント</span><span  uk-icon="icon: user" class="uk-hidden@m"></span></a></li>
+							<?php else : ?>
 								<?php echo get_popup_login_form(); ?>
 								<li><a href="#" uk-toggle="target: #modal_login_form"><span class="uk-visible@m">ログイン</span><span  uk-icon="icon: sign-in" class="uk-hidden@m"></span></a></li>
 							<?php endif; ?>

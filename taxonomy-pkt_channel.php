@@ -50,9 +50,7 @@ if ( $user_logged_in ) {
 
 $new_feed = get_field( 'new_feed', $pkt_obj );
 
-/*
- *
- */
+
 
 get_header();
 
@@ -60,7 +58,7 @@ get_header();
 	<header class="pkt-header">
 		<div class="uk-section">
 			<div class="uk-container">
-				<?php if( $new_feed ): ?>
+				<?php if ( $new_feed ) : ?>
 					<div class="uk-alert uk-alert-warning" uk-alert>
 						<p>この教材は、新しい形式に移動しました。移動先は<a href="<?php echo $new_feed; ?>">こちら<br>
 							<?php echo $new_feed; ?></a></p>
@@ -151,15 +149,14 @@ get_header();
 
 						if ( $can_edit ) :
 							?>
-							<a href="<?php echo esc_url( admin_url( 'post.php?post=' . $p->ID . '&action=edit' ) ) ?>" class="uk-button uk-button-default uk-margin-small-right uk-align-right">編集する</a>
-						<?php
+							<a href="<?php echo esc_url( admin_url( 'post.php?post=' . $p->ID . '&action=edit' ) ); ?>" class="uk-button uk-button-default uk-margin-small-right uk-align-right">編集する</a>
+							<?php
 						endif;
 						echo apply_filters( 'the_content', $p->post_content ); // the_content filter を通す
 
 						foreach ( $tmp_posts as $p ) {
 							echo $p->post_title; // TODO 過去のレジュメがあったら表示する
 						}
-
 					} else {
 						$setting = array(
 							'post_id'            => 'new_post',
@@ -191,7 +188,7 @@ get_header();
 							'meta_query'     => array(
 								array(
 									'key'     => 'pocketera',
-									'value'   => serialize( (string)$pkt['id'] ),
+									'value'   => serialize( (string) $pkt['id'] ),
 									'compare' => 'LIKE',
 								),
 							),
@@ -208,8 +205,8 @@ get_header();
 							<div>
 								<?php echo get_the_post_thumbnail( $p->ID, 'medium', $attr ); ?>
 								<h3><?php echo $p->post_title; ?></h3>
-								<p><?php echo strip_tags( mb_substr( get_the_content(), 0, 200 ) );?></p>
-								<p class="uk-text-meta"><?php echo get_post_meta( $p->ID, 'like', true); ?> likes, update <?php the_modified_date(); ?>, created <?php the_date(); ?></p>
+								<p><?php echo strip_tags( mb_substr( get_the_content(), 0, 200 ) ); ?></p>
+								<p class="uk-text-meta"><?php echo get_post_meta( $p->ID, 'like', true ); ?> likes, update <?php the_modified_date(); ?>, created <?php the_date(); ?></p>
 								<p><a href="<?php echo get_permalink( $p->ID ); ?>">詳細を読む</a></p>
 							</div>
 							<hr style="clear:both">
