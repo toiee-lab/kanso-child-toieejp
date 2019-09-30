@@ -21,11 +21,15 @@ $top_nav = [
 	'text' => '',
 ];
 
+/* 特別なカテゴリに属しているかを判定 */
+$in_special_category = false;
 foreach ( $kind as $k ) {
 	if ( toiee_in_categories( $k ) ) {
 		$term            = get_term_by( 'slug', $k, 'category' );
 		$top_nav['href'] = get_term_link( $term );
 		$top_nav['text'] = $term->name;
+
+		$in_special_category = true;
 
 		break;
 	}
@@ -225,6 +229,52 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 	}
 	?>
 	</div>
+	<?php
+} elseif ( $in_special_category ) {
+	while ( have_posts() ) :
+		the_post();
+		?>
+		<div class="uk-container uk-margin-top" style="max-width:900px">
+			<p><a href="" uk-icon="icon: grid"></a><a href="<?php echo $top_nav['href']; ?>" class="uk-link-text"><?php echo $top_nav['text']; ?></a></p>
+			<?php
+			if ( true !== get_field( 'kns_hide_title' ) ) {
+				the_title( '<h1 class="entry-title">', '</h1>' );
+				the_subtitle( '<h2 class="main-subtitle">', '</h2>' );
+			}
+
+			if ( true !== get_field( 'kns_hide_thumbnail' ) ) {
+				kanso_general_post_thumbnail();
+			}
+			?>
+			<?php the_content(); ?>
+			<div class="uk-link-muted uk-text-muted uk-text-small uk-text-right">
+				<?php kanso_general_posted_date(); ?>
+				<span class="uk-margin-small-left uk-margin-small-right">--</span>
+				<?php the_category( ',' ); ?>
+			</div>
+			<hr class="uk-divider-small uk-text-center">
+			<?php
+			the_post_navigation(
+				array(
+					'prev_text'          => '&lt; PREVIOUS',
+					'next_text'          => 'NEXT &gt;',
+					'screen_reader_text' => 'Navigation',
+				)
+			);
+
+			// If comments are open or we have at least one comment, load up the comment template.
+			if ( comments_open() || get_comments_number() ) :
+				?>
+				<hr class="uk-margin-large">
+				<?php
+				comments_template();
+			endif;
+			?>
+		</div>
+
+		<?php
+		endwhile; // End of the loop.
+	?>
 	<?php
 } else {
 
