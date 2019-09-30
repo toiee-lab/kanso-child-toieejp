@@ -234,7 +234,7 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 	while ( have_posts() ) :
 		the_post();
 		?>
-		<div class="uk-container uk-margin-top" style="max-width:900px">
+		<div class="uk-container uk-container-small uk-background-default main-content">
 			<p><a href="" uk-icon="icon: grid"></a><a href="<?php echo $top_nav['href']; ?>" class="uk-link-text"><?php echo $top_nav['text']; ?></a></p>
 			<?php
 			if ( true !== get_field( 'kns_hide_title' ) ) {
