@@ -230,3 +230,23 @@ add_filter(
 		return $title;
 	}
 );
+
+/*
+ *  woocommerce のカートに追加ボタンを「ログイン強制」にする
+ * https://businessbloomer.com/woocommerce-hide-price-add-cart-logged-users/
+ * からのコピペ（関数名すらそのまま・・・）
+ */
+add_action( 'init', 'bbloomer_hide_price_add_cart_not_logged_in' );
+
+function bbloomer_hide_price_add_cart_not_logged_in() {
+	if ( ! is_user_logged_in() ) {
+		remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+		add_action( 'woocommerce_single_product_summary', 'bbloomer_print_login_to_see', 31 );
+		//add_action( 'woocommerce_after_shop_loop_item', 'bbloomer_print_login_to_see', 11 );
+	}
+}
+
+function bbloomer_print_login_to_see() {
+	echo '<div uk-alert><p>お申し込みは、<a href="#" uk-toggle="target: #modal_login_form" >ログイン（新規登録もこちら）</a>してください。</p></div>';
+}
