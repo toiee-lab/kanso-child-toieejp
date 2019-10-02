@@ -23,7 +23,7 @@ $fields    = get_fields( $term_obj );
 						<div class="uk-form-controls">
 							<div class="uk-inline">
 								<span class="uk-form-icon" uk-icon="icon: search" style="color: rgba(2, 2, 2, 0.7);"></span>
-								<input class="uk-input uk-form-width-large uk-form-large" name="s" type="text" style="background-color: rgba(255, 255, 255, 0.8);color: rgba(2, 2, 2, 0.7);">
+								<input id="search_text" class="uk-input uk-form-width-large uk-form-large" name="s" type="text" style="background-color: rgba(255, 255, 255, 0.8);color: rgba(2, 2, 2, 0.7);">
 								<input type="hidden" name="cat" value="<?php echo $term_obj->term_id; ?>" />
 							</div>
 						</div>
@@ -121,7 +121,33 @@ $fields    = get_fields( $term_obj );
 			?>
 		</div>
 	</div><!-- .main-content -->
+<script>
+	jQuery( function($){
+		let keyupStack = [];
+		$('#search_text').on('keyup', function () {
+			keyupStack.push(1);
 
+			setTimeout(function () {
+				keyupStack.pop();
+				if (keyupStack.length === 0) {
+					// 部分一致を可能にする(例: .*a.*b.*c.*)
+					let search__text = $(this).val();
+					let reg = new RegExp( search__text, 'i' );
+
+					// 最後にkeyupされてから次の入力がなかった場合
+					$('.js-filter li').each(function(){
+						let val = this.innerText;
+						if ( val.match( reg ) ) {
+							$(this).show();
+						} else {
+							$(this).hide();
+						}
+					});
+				}
+			}.bind(this), 300);
+		});
+	});
+</script>
 <?php
 get_sidebar();
 get_footer();
