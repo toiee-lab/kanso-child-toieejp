@@ -248,5 +248,8 @@ function bbloomer_hide_price_add_cart_not_logged_in() {
 }
 
 function bbloomer_print_login_to_see() {
-	echo '<div uk-alert><p>お申し込みは、<a href="#" uk-toggle="target: #modal_login_form" >ログイン（新規登録もこちら）</a>してください。</p></div>';
+	echo '<div uk-alert>
+<p>お申し込みは、<a href="#" uk-toggle="target: #modal_login_form" >ログイン（新規登録もこちら）</a>してください。</p>
+<p class="uk-link-text uk-text-small"><a href="https://www.notion.so/toieelab/e92e4f6d3d6f4ca28826894f751e0675" target="_blank">詳細はこちら</a></p>
+</div>';
 }
