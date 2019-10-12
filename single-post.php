@@ -50,7 +50,8 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 	global $wcr_content;
 	$has_access = true;
 	if ( true === $channel['restrict'] ) {
-		$has_access = $wcr_content->check_access( $channel['restrict_product'] );
+		$has_access          = $wcr_content->check_access( $channel['restrict_product'] );
+		$has_access_material = $wcr_content->check_access( $channel['restrict_product'], get_current_user_id(), false );
 		if ( is_super_admin() ) {
 			$has_access = true;
 		}
@@ -105,7 +106,7 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 								</p>
 							</dd>
 							<?php
-							if ( $channel['audiobook'] != '' ) {
+							if ( $has_access_material && '' !== $channel['audiobook'] ) {
 								$href_download = 'href="' . $channel['audiobook'] . '" download="' . get_the_title() . '.m4b"';
 								?>
 								<dt>オーディオブック形式（m4b）</dt>
@@ -122,7 +123,7 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 					} else {
 						?>
 						<h2>ご利用いただけません</h2>
-						<p>Podcastあるいは、ダウンロードを利用するには、「スクラム」に参加するか、「スクラム教材定期購読の申し込み」が必要です。</p>
+						<p>Podcastあるいは、ダウンロードを利用するには、「教材の申し込み」が必要です。</p>
 						<p><a href="">詳しくはこちら</a></p>
 						<?php
 					}
