@@ -178,9 +178,18 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 						if ( $user_logged_in ) {
 							the_episode_player_plyr( $src, $media, $the_episode_player_plyr_ext );
 							break;
+						} else {
+							the_episode_player_dummy( $media );
 						}
+						break;
 					default: /* restrict */
-						the_episode_player_dummy( $media );
+						if ( $user_logged_in ) {
+							$message = '視聴には、<a href="' . $url . '">お申し込み（ここをクリック）</a>が必要です。';
+						} else {
+							$message = '';
+						}
+						$url = get_permalink( $channel['offer_product'] );
+						the_episode_player_dummy( $media, $message );
 						break;
 				}
 			}
