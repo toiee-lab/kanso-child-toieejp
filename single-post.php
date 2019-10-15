@@ -179,17 +179,20 @@ if ( isset( $fields['tlm_enable'] ) && true === $fields['tlm_enable'] ) {
 							the_episode_player_plyr( $src, $media, $the_episode_player_plyr_ext );
 							break;
 						} else {
-							the_episode_player_dummy( $media );
+							the_episode_player_dummy( $media, '無料でご覧いただけます（<a href="#" uk-toggle="target: #modal_login_form">ログインあるいは会員登録は、ここをクリック</a>）' );
 						}
 						break;
 					default: /* restrict */
+
 						if ( $user_logged_in ) {
+							$url     = get_permalink( $channel['offer_product'] );
 							$message = '視聴には、<a href="' . $url . '">お申し込み（ここをクリック）</a>が必要です。';
+							the_episode_player_dummy( $media, $message );
+
 						} else {
-							$message = '';
+							the_episode_player_dummy( $media );
+
 						}
-						$url = get_permalink( $channel['offer_product'] );
-						the_episode_player_dummy( $media, $message );
 						break;
 				}
 			}
